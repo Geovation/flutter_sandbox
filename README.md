@@ -7,7 +7,8 @@ A new Flutter sandbox application to experiment in flutter
 This project is a starting point for a Flutter application.
 
 ### Choose your preferred development tools to write, build and run flutter apps.
-For all install Flutter SDK [https://flutter.dev/docs/get-started/install]
+For all tools, install Flutter SDK from <https://flutter.dev/docs/get-started/install>.
+For in-depth instructions please visit <https://flutter.dev/docs/get-started/test-drive?tab=terminal>.
 #### Android Studio
 - Install Flutter and Dart plugins.
 - Select your device from the target selector.
