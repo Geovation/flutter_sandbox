@@ -21,7 +21,6 @@ class _MapboxMapState extends State<MapboxMapPage> {
   }
 
   void onStyleLoadedCallback() {}
-
   Future<void> readJson() async {
     final String response =
         await rootBundle.loadString('lib/mapbox/mapbox_asset/coordinates.json');
