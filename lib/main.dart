@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
+
+import 'mapbox/mapbox_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: MyHomePage(title: 'Flutter Sandbox Home Page'),
+      home: MapboxMapPage(),
     );
   }
 }
