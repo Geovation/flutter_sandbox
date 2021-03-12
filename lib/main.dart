@@ -7,6 +7,8 @@ import 'mapbox/mapbox_page.dart';
 
 import 'mapbox/mapbox_page.dart';
 
+import 'mapbox/mapbox_page.dart';
+
 void main() {
   runApp(MyApp());
 }
