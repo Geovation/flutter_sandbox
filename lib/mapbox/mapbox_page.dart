@@ -54,39 +54,6 @@ class _MapboxMapState extends State<MapboxMapPage> {
     );
   }
 
-  Future<void> readJson() async {
-    final String response =
-        await rootBundle.loadString('lib/mapbox/mapbox_asset/coordinates.json');
-    final data = await json.decode(response);
-
-    setState(() {
-      _coordinatesData = List.from(data['geometry']['coordinates']);
-    });
-  }
-
-  Future<List<LatLng>> geometryList() async {
-    await readJson();
-    List<LatLng> geometryVal = [];
-
-    for (var i = 0; i < _coordinatesData.length; i++) {
-      geometryVal.add(LatLng(_coordinatesData[i][0], _coordinatesData[i][1]));
-    }
-    return geometryVal;
-  }
-
-  void _add() async {
-    List geometryListData = await geometryList();
-    mapController.addLine(
-      LineOptions(
-          geometry: geometryListData,
-          lineColor: "#ff0000",
-          lineWidth: 14.0,
-          lineOpacity: 1,
-          lineJoin: "round",
-          draggable: false),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
