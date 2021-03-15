@@ -12,42 +12,35 @@ class MapboxMapPage extends StatefulWidget {
 }
 
 class _MapboxMapState extends State<MapboxMapPage> {
-  List _coordinatesData = [];
   MapboxMapController mapController;
 
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
+  }
+
+  void onStyleLoadedCallback() {
     _addRoute();
   }
 
-  void onStyleLoadedCallback() {}
-
-  Future<void> readJson() async {
+  Future<List<LatLng>> getRouteList() async {
     final String response =
         await rootBundle.loadString('lib/mapbox/mapbox_asset/coordinates.json');
     final data = await json.decode(response);
-
-    setState(() {
-      _coordinatesData = List.from(data['geometry']['coordinates']);
-    });
-  }
-
-  Future<List<LatLng>> geometryList() async {
-    await readJson();
-    List<LatLng> geometryVal = [];
+    final List _coordinatesData = List.from(data['geometry']['coordinates']);
+    List<LatLng> routeList = [];
 
     for (var i = 0; i < _coordinatesData.length; i++) {
-      geometryVal.add(LatLng(_coordinatesData[i][0], _coordinatesData[i][1]));
+      routeList.add(LatLng(_coordinatesData[i][0], _coordinatesData[i][1]));
     }
-    return geometryVal;
+    return routeList;
   }
 
   void _addRoute() async {
-    List geometryListData = await geometryList();
-    int midPointOfGeometryListData = (geometryListData.length) ~/ 2;
+    List routeList = await getRouteList();
+    int midPoint = (routeList.length) ~/ 2;
     mapController.addLine(
       LineOptions(
-          geometry: geometryListData,
+          geometry: routeList,
           lineColor: "#ff0000",
           lineWidth: 8.0,
           lineOpacity: 1,
@@ -57,7 +50,7 @@ class _MapboxMapState extends State<MapboxMapPage> {
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-            target: geometryListData[midPointOfGeometryListData], zoom: 20.0),
+            target: routeList[midPoint - 1], zoom: 13.0),
       ),
     );
   }
@@ -69,9 +62,8 @@ class _MapboxMapState extends State<MapboxMapPage> {
         accessToken: ACCESS_TOKEN,
         onMapCreated: _onMapCreated,
         initialCameraPosition:
-            CameraPosition(target: LatLng(0.0, 0.0), zoom: 1.0),
+            CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
         onStyleLoadedCallback: onStyleLoadedCallback,
-        zoomGesturesEnabled: true,
         trackCameraPosition: true,
       ),
     );
