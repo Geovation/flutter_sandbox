@@ -44,14 +44,21 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   void _addRoute() async {
     List geometryListData = await geometryList();
+    int midPointOfGeometryListData = (geometryListData.length) ~/ 2;
     mapController.addLine(
       LineOptions(
           geometry: geometryListData,
           lineColor: "#ff0000",
-          lineWidth: 14.0,
+          lineWidth: 8.0,
           lineOpacity: 1,
           lineJoin: "round",
           draggable: false),
+    );
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: geometryListData[midPointOfGeometryListData], zoom: 20.0),
+      ),
     );
   }
 
@@ -61,8 +68,11 @@ class _MapboxMapState extends State<MapboxMapPage> {
       body: MapboxMap(
         accessToken: ACCESS_TOKEN,
         onMapCreated: _onMapCreated,
-        initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
+        initialCameraPosition:
+            CameraPosition(target: LatLng(0.0, 0.0), zoom: 1.0),
         onStyleLoadedCallback: onStyleLoadedCallback,
+        zoomGesturesEnabled: true,
+        trackCameraPosition: true,
       ),
     );
   }
