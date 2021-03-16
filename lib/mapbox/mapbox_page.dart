@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +23,45 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   void onStyleLoadedCallback() {
     _addRoute();
+    _addImageFromAsset("assetImage", "assets/symbols/location_icon.png");
+    _addStartEndSymbols("assets/symbols/location_icon.png");
+  }
+
+  Future<void> _addImageFromAsset(String name, String assetName) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return mapController.addImage(name, list);
+  }
+
+  Future<void> _addStartEndSymbols(String iconImage) async {
+    List routeList = await getRouteList();
+    List<int> symbolsToAddNumbers = Iterable<int>.generate(2).toList();
+    mapController.symbols.forEach(
+        (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
+
+    if (symbolsToAddNumbers.isNotEmpty) {
+      final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
+          .map((i) => _getSymbolOptions(iconImage, i, routeList))
+          .toList();
+      mapController.addSymbols(symbolOptionsList,
+          symbolsToAddNumbers.map((i) => {'count': i}).toList());
+    }
+  }
+
+  SymbolOptions _getSymbolOptions(
+      String iconImage, int symbolCount, List routeList) {
+    LatLng geometry;
+    if (symbolCount == 0) {
+      geometry = routeList[0];
+    } else {
+      geometry = routeList[routeList.length - 1];
+    }
+
+    return SymbolOptions(
+      geometry: geometry,
+      iconImage: iconImage,
+      iconAnchor: "bottom",
+    );
   }
 
   Future<List<LatLng>> getRouteList() async {
@@ -49,8 +91,7 @@ class _MapboxMapState extends State<MapboxMapPage> {
     );
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: routeList[midPoint - 1], zoom: 13.0),
+        CameraPosition(target: routeList[midPoint - 1], zoom: 13.0),
       ),
     );
   }
