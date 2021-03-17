@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import 'Models/Placemarks.dart';
 import 'constants_mapbox.dart';
 
 class MapboxMapPage extends StatefulWidget {
@@ -24,7 +25,12 @@ class _MapboxMapState extends State<MapboxMapPage> {
   void onStyleLoadedCallback() {
     _addRoute();
     _addImageFromAsset("assetImage", "assets/symbols/location_icon.png");
+    _addImageFromAsset("assetImage", "assets/symbols/bank.png");
+    _addImageFromAsset("assetImage", "assets/symbols/station.png");
+    _addImageFromAsset("assetImage", "assets/symbols/lse.jpg");
+    _addImageFromAsset("assetImage", "assets/symbols/church.jpg");
     _addStartEndSymbols("assets/symbols/location_icon.png");
+    _addPlaceSymbols();
   }
 
   Future<void> _addImageFromAsset(String name, String assetName) async {
@@ -33,9 +39,62 @@ class _MapboxMapState extends State<MapboxMapPage> {
     return mapController.addImage(name, list);
   }
 
+  Future<void> _addPlaceSymbols() async {
+    List<Placemarks> placemarksList = await getPlacemarkList();
+    List<LatLng> placemarksCoordinatesList =
+        getPlacemarkCoordinates(placemarksList);
+
+    int listSize = placemarksCoordinatesList.length;
+    List<int> symbolsToAddNumbers = Iterable<int>.generate(listSize).toList();
+    mapController.symbols.forEach(
+        (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
+
+    if (symbolsToAddNumbers.isNotEmpty) {
+      final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
+          .map((i) => _getSymbolPlaceOptions(
+              placemarksList, i, placemarksCoordinatesList))
+          .toList();
+      mapController.addSymbols(symbolOptionsList,
+          symbolsToAddNumbers.map((i) => {'count': i}).toList());
+    }
+  }
+
+  List<LatLng> getPlacemarkCoordinates(List<Placemarks> placemarks) {
+    List<LatLng> pointsList = [];
+
+    for (var i = 0; i < placemarks.length; i++) {
+      pointsList.add(
+          LatLng(placemarks[i].coordinates[0], placemarks[i].coordinates[1]));
+    }
+    return pointsList;
+  }
+
+  SymbolOptions _getSymbolPlaceOptions(
+      List<Placemarks> placemarks, int symbolCount, List<LatLng> pointList) {
+    String iconImageSource =
+        "assets/symbols/" + placemarks[symbolCount].iconName.toString();
+    print(iconImageSource);
+
+    return SymbolOptions(
+      geometry: pointList[symbolCount],
+      iconImage: iconImageSource,
+      iconAnchor: "center",
+    );
+  }
+
+  Future<List<Placemarks>> getPlacemarkList() async {
+    final String response = await rootBundle.loadString(
+        'lib/mapbox/mapbox_asset/multiple_markers_coordinates.json');
+    final data = await json.decode(response);
+    return (data['placemarks'] as List)
+        .map((p) => Placemarks.fromJson(p))
+        .toList();
+  }
+
   Future<void> _addStartEndSymbols(String iconImage) async {
     List routeList = await getRouteList();
-    List<int> symbolsToAddNumbers = Iterable<int>.generate(2).toList();
+    int listSize = 2;
+    List<int> symbolsToAddNumbers = Iterable<int>.generate(listSize).toList();
     mapController.symbols.forEach(
         (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
 
