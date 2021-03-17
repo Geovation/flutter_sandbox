@@ -1,0 +1,20 @@
+{
+  "placemarks": [
+    {"name": "Bank of England",
+      "iconName": "bank.png",
+      "coordinates": [51.5140305,-0.0883737]
+    },
+    {"name": "London Stock Exchange",
+      "iconName": "lse.jpg",
+      "coordinates": [51.5150921,-0.0990597]
+    },
+    {"name": "St Paul's Cathedral",
+      "iconName": "church.jpg",
+      "coordinates": [51.5138502,-0.0983086]
+    },
+    {"name": "Mansion House Station",
+      "iconName": "station.png",
+      "coordinates": [51.5123745,-0.0937893]
+    }
+  ]
+}
