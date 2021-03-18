@@ -1,3 +1,39 @@
 {
-  "_comment": "Enter the google-services.json file from your firebase app setup."
+  "project_info": {
+    "project_number": "803321733289",
+    "project_id": "geovation-sandbox",
+    "storage_bucket": "geovation-sandbox.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803321733289:android:bc8ecf959de409ea8149b8",
+        "android_client_info": {
+          "package_name": "uk.geovation.flutter_sandbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803321733289-bu10ggqde558meoanm8djc2njfv9kkt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbOGOC9O1lXpkgctocBG2fJz0ylDQA85g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803321733289-bu10ggqde558meoanm8djc2njfv9kkt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }

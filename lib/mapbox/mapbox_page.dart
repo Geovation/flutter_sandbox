@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -112,15 +113,31 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MapboxMap(
-        accessToken: ACCESS_TOKEN_MAPBOX,
-        onMapCreated: _onMapCreated,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
-        onStyleLoadedCallback: onStyleLoadedCallback,
-        trackCameraPosition: true,
-      ),
-    );
+    Widget bodyWidget;
+    if (kIsWeb) {
+      bodyWidget = Scaffold(
+        appBar: AppBar(
+          title: Text("Mapbox"),
+        ),
+        body: Center(
+          child: Text('Currently Mapbox is not fully supported yet.'),
+        ),
+      );
+    } else {
+      bodyWidget = Scaffold(
+        appBar: AppBar(
+          title: Text("Mapbox"),
+        ),
+        body: MapboxMap(
+          accessToken: ACCESS_TOKEN_MAPBOX,
+          onMapCreated: _onMapCreated,
+          initialCameraPosition:
+              CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
+          onStyleLoadedCallback: onStyleLoadedCallback,
+          trackCameraPosition: true,
+        ),
+      );
+    }
+    return bodyWidget;
   }
 }

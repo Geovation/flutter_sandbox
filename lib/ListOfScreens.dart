@@ -14,6 +14,7 @@ const Map<String, String> screenRoutes = {
 
 class ListOfScreen extends StatelessWidget {
   static const id = 'list_of_screens';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
