@@ -23,4 +23,11 @@ For in-depth instructions please visit <https://flutter.dev/docs/get-started/tes
 - Check that Android devices are running using `flutter devices`.
 - Run the app with using the command `flutter run` to see your app.
 
+## Additional files that needs to be modified to include private data.
+### Firebase
+- Add your google-services.json in android>app folder.
+- Add your Firebase config variable for web support in web>index.html.
 
+## Compile-time variables
+To provide compile-time variables use `--dart-define` during `flutter run` or `flutter build`. To pass multiple key-value pairs just use `--dart-define` multiple times.
+`flutter run --dart-define=ACCESS_TOKEN_MAPBOX --dart-define=VARIABLE=VARIABLE_VALUE`
