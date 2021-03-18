@@ -1,8 +1,17 @@
+import 'dart:async';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/ListOfScreens.dart';
+import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
+import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
+import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
+import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
+import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
-import 'mapbox/mapbox_page.dart';
-
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -15,7 +24,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: MapboxMapPage(),
+      initialRoute: ListOfScreen.id,
+      routes: {
+        ListOfScreen.id: (context) => ListOfScreen(),
+        MapboxMapPage.id: (context) => MapboxMapPage(),
+        FirebaseAuthPage.id: (context) => FirebaseAuthPage(),
+        FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
+        FirebaseAuthRegistrationPage.id: (context) =>
+            FirebaseAuthRegistrationPage(),
+        FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
+      },
     );
   }
 }

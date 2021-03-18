@@ -1,1 +1,1 @@
-const ACCESS_TOKEN = ''; // Add access token from mapbox
+const ACCESS_TOKEN_MAPBOX = ''; // Add access token from mapbox

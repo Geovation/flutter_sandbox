@@ -11,6 +11,7 @@ import 'Models/Placemarks.dart';
 import 'constants_mapbox.dart';
 
 class MapboxMapPage extends StatefulWidget {
+  static const id = 'mapbox_page';
   @override
   _MapboxMapState createState() => _MapboxMapState();
 }
@@ -113,7 +114,7 @@ class _MapboxMapState extends State<MapboxMapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MapboxMap(
-        accessToken: ACCESS_TOKEN,
+        accessToken: ACCESS_TOKEN_MAPBOX,
         onMapCreated: _onMapCreated,
         initialCameraPosition:
             CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
