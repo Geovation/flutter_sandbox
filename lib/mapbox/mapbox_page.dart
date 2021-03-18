@@ -24,11 +24,11 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   void onStyleLoadedCallback() {
     _addRoute();
-    _addImageFromAsset("assetImage", "assets/symbols/location_icon.png");
-    _addImageFromAsset("assetImage", "assets/symbols/bank.png");
-    _addImageFromAsset("assetImage", "assets/symbols/station.png");
-    _addImageFromAsset("assetImage", "assets/symbols/lse.jpg");
-    _addImageFromAsset("assetImage", "assets/symbols/church.jpg");
+    _addImageFromAsset("locationIcon", "assets/symbols/location_icon.png");
+    _addImageFromAsset("bankIcon", "assets/symbols/bank.png");
+    _addImageFromAsset("stationIcon", "assets/symbols/station.png");
+    _addImageFromAsset("lseIcon", "assets/symbols/lse.jpg");
+    _addImageFromAsset("churchIcon", "assets/symbols/church.jpg");
     _addStartEndSymbols("assets/symbols/location_icon.png");
     _addPlaceSymbols();
   }
@@ -40,46 +40,16 @@ class _MapboxMapState extends State<MapboxMapPage> {
   }
 
   Future<void> _addPlaceSymbols() async {
-    List<Placemarks> placemarksList = await getPlacemarkList();
-    List<LatLng> placemarksCoordinatesList =
-        getPlacemarkCoordinates(placemarksList);
-
-    int listSize = placemarksCoordinatesList.length;
-    List<int> symbolsToAddNumbers = Iterable<int>.generate(listSize).toList();
-    mapController.symbols.forEach(
-        (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
-
-    if (symbolsToAddNumbers.isNotEmpty) {
-      final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
-          .map((i) => _getSymbolPlaceOptions(
-              placemarksList, i, placemarksCoordinatesList))
-          .toList();
-      mapController.addSymbols(symbolOptionsList,
-          symbolsToAddNumbers.map((i) => {'count': i}).toList());
-    }
-  }
-
-  List<LatLng> getPlacemarkCoordinates(List<Placemarks> placemarks) {
-    List<LatLng> pointsList = [];
+    List<Placemarks> placemarks = await getPlacemarkList();
 
     for (var i = 0; i < placemarks.length; i++) {
-      pointsList.add(
-          LatLng(placemarks[i].coordinates[0], placemarks[i].coordinates[1]));
+      mapController.addSymbol(SymbolOptions(
+        geometry:
+            LatLng(placemarks[i].coordinates[0], placemarks[i].coordinates[1]),
+        iconImage: "assets/symbols/" + placemarks[i].iconName,
+        iconAnchor: "center",
+      ));
     }
-    return pointsList;
-  }
-
-  SymbolOptions _getSymbolPlaceOptions(
-      List<Placemarks> placemarks, int symbolCount, List<LatLng> pointList) {
-    String iconImageSource =
-        "assets/symbols/" + placemarks[symbolCount].iconName.toString();
-    print(iconImageSource);
-
-    return SymbolOptions(
-      geometry: pointList[symbolCount],
-      iconImage: iconImageSource,
-      iconAnchor: "center",
-    );
   }
 
   Future<List<Placemarks>> getPlacemarkList() async {
@@ -93,34 +63,18 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   Future<void> _addStartEndSymbols(String iconImage) async {
     List routeList = await getRouteList();
-    int listSize = 2;
-    List<int> symbolsToAddNumbers = Iterable<int>.generate(listSize).toList();
-    mapController.symbols.forEach(
-        (s) => symbolsToAddNumbers.removeWhere((i) => i == s.data['count']));
-
-    if (symbolsToAddNumbers.isNotEmpty) {
-      final List<SymbolOptions> symbolOptionsList = symbolsToAddNumbers
-          .map((i) => _getSymbolOptions(iconImage, i, routeList))
-          .toList();
-      mapController.addSymbols(symbolOptionsList,
-          symbolsToAddNumbers.map((i) => {'count': i}).toList());
-    }
-  }
-
-  SymbolOptions _getSymbolOptions(
-      String iconImage, int symbolCount, List routeList) {
-    LatLng geometry;
-    if (symbolCount == 0) {
-      geometry = routeList[0];
-    } else {
-      geometry = routeList[routeList.length - 1];
-    }
-
-    return SymbolOptions(
-      geometry: geometry,
-      iconImage: iconImage,
-      iconAnchor: "bottom",
-    );
+    mapController.addSymbols([
+      SymbolOptions(
+        geometry: routeList[0],
+        iconImage: iconImage,
+        iconAnchor: "bottom",
+      ),
+      SymbolOptions(
+        geometry: routeList[routeList.length - 1],
+        iconImage: iconImage,
+        iconAnchor: "bottom",
+      )
+    ]);
   }
 
   Future<List<LatLng>> getRouteList() async {

@@ -10,9 +10,9 @@ class Placemarks {
 
   factory Placemarks.fromJson(Map<String, dynamic> json) {
     return new Placemarks(
-      name: json['name'].toString(),
-      iconName: json['iconName'].toString(),
-      coordinates: json['coordinates'].toList(),
+      name: json['name'] as String,
+      iconName: json['iconName'] as String,
+      coordinates: json['coordinates'] as List,
     );
   }
 }
