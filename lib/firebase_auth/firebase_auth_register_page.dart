@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/ListOfScreens.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
+import 'package:flutter_sandbox/screen_arguments.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class FirebaseAuthRegistrationPage extends StatefulWidget {
   static const id = 'firebase_auth_registration_page';
+
   @override
   _FirebaseAuthRegistrationPageState createState() =>
       _FirebaseAuthRegistrationPageState();
@@ -47,6 +50,7 @@ class _FirebaseAuthRegistrationPageState
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuthPageArgs args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("Firebase Register"),
@@ -92,7 +96,14 @@ class _FirebaseAuthRegistrationPageState
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newUser != null) {
-                      Navigator.pushNamed(context, FirebaseAuthSignedInPage.id);
+                      if (args != null) {
+                        if (args.fromPage == ListOfScreen.id) {
+                          Navigator.pushNamed(context, ListOfScreen.id);
+                        }
+                      } else {
+                        Navigator.pushNamed(
+                            context, FirebaseAuthSignedInPage.id);
+                      }
                     }
 
                     setState(() {

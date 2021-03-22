@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/ListOfScreens.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
+import 'package:flutter_sandbox/screen_arguments.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class FirebaseAuthLoginPage extends StatefulWidget {
@@ -45,6 +47,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuthPageArgs args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("Firebase Auth"),
@@ -90,7 +93,14 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     if (user != null) {
-                      Navigator.pushNamed(context, FirebaseAuthSignedInPage.id);
+                      if (args != null) {
+                        if (args.fromPage == ListOfScreen.id) {
+                          Navigator.pushNamed(context, ListOfScreen.id);
+                        }
+                      } else {
+                        Navigator.pushNamed(
+                            context, FirebaseAuthSignedInPage.id);
+                      }
                     }
 
                     setState(() {
