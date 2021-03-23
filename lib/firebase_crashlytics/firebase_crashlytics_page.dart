@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,14 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
         'Press the button to simulate a crash. Restart the app for crashlytics to log the crash';
 
     Function onPressCrash = () async {
+      FirebaseAuth _auth = FirebaseAuth.instance;
       await fci.setCrashlyticsCollectionEnabled(true);
       if (fci.isCrashlyticsCollectionEnabled) {
+        if (_auth.currentUser != null) {
+          FirebaseCrashlytics.instance.setUserIdentifier(_auth.currentUser.uid);
+        } else {
+          FirebaseCrashlytics.instance.setUserIdentifier("logged_out_user");
+        }
         FirebaseCrashlytics.instance.crash();
       }
     };
