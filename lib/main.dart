@@ -7,6 +7,7 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
+import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
 Future<void> main() async {
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         FirebaseAuthRegistrationPage.id: (context) =>
             FirebaseAuthRegistrationPage(),
         FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
+        FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
       },
     );
   }

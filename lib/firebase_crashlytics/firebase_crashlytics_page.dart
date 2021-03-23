@@ -1,0 +1,49 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
+
+class FirebaseCrashlyticsPage extends StatelessWidget {
+  static const id = 'firebase_crashlytics_page';
+
+  @override
+  Widget build(BuildContext context) {
+    FirebaseCrashlytics fci = FirebaseCrashlytics.instance;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Firebase Crashlytics"),
+      ),
+      body: Card(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                color: Colors.red.shade100,
+                height: 200,
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Press the button to simulate a crash. Restart the app for crashlytics to log the crash',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  await fci.setCrashlyticsCollectionEnabled(true);
+                  if (fci.isCrashlyticsCollectionEnabled) {
+                    FirebaseCrashlytics.instance.crash();
+                  }
+                },
+                icon: Icon(Icons.error_rounded),
+                label: Text('Press to crash'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
+import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:provider/provider.dart';
 
@@ -10,11 +11,13 @@ import 'screen_arguments.dart';
 const List<String> screenNames = [
   "Mapbox Map",
   "Firebase Auth",
+  "Firebase Crashlytics",
 ];
 
 const Map<String, String> screenRoutes = {
   "Mapbox Map": MapboxMapPage.id,
   "Firebase Auth": FirebaseAuthPage.id,
+  "Firebase Crashlytics": FirebaseCrashlyticsPage.id,
 };
 
 class ListOfScreen extends StatelessWidget {
