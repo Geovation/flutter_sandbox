@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseCrashlyticsPage extends StatelessWidget {
@@ -7,6 +8,20 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseCrashlytics fci = FirebaseCrashlytics.instance;
+    String message =
+        'Press the button to simulate a crash. Restart the app for crashlytics to log the crash';
+
+    Function onPressCrash = () async {
+      await fci.setCrashlyticsCollectionEnabled(true);
+      if (fci.isCrashlyticsCollectionEnabled) {
+        FirebaseCrashlytics.instance.crash();
+      }
+    };
+
+    if (kIsWeb) {
+      message = 'Firebase Crashlytics does not support web apps.';
+      onPressCrash = null;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +38,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Press the button to simulate a crash. Restart the app for crashlytics to log the crash',
+                    message,
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -31,12 +46,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () async {
-                  await fci.setCrashlyticsCollectionEnabled(true);
-                  if (fci.isCrashlyticsCollectionEnabled) {
-                    FirebaseCrashlytics.instance.crash();
-                  }
-                },
+                onPressed: onPressCrash,
                 icon: Icon(Icons.error_rounded),
                 label: Text('Press to crash'),
               ),
