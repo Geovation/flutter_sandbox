@@ -19,7 +19,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
         if (_auth.currentUser != null) {
           FirebaseCrashlytics.instance.setUserIdentifier(_auth.currentUser.uid);
         } else {
-          FirebaseCrashlytics.instance.setUserIdentifier("logged_out_user");
+          FirebaseCrashlytics.instance.setUserIdentifier("");
         }
         FirebaseCrashlytics.instance.crash();
       }
