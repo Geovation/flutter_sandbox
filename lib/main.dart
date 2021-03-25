@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/ListOfScreens.dart';
+import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -10,9 +13,15 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart'
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
+List<CameraDescription> cameraList;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  if (!kIsWeb) {
+    cameraList = await availableCameras();
+  }
+
   runApp(MyApp());
 }
 
@@ -21,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Sandbox',
       theme: ThemeData(
         primarySwatch: Colors.orange,
@@ -35,6 +45,7 @@ class MyApp extends StatelessWidget {
             FirebaseAuthRegistrationPage(),
         FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
         FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
+        CameraPage.id: (context) => CameraPage(cameras: cameraList),
       },
     );
   }
