@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sandbox/camera/display_video.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'display_picture_screen.dart';
+import 'display_video_screen.dart';
 
 class CameraPage extends StatefulWidget {
   static const id = 'camera_page';
@@ -126,12 +126,19 @@ class _CameraPageState extends State<CameraPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If the Future is complete, display the preview.
-                  return CameraPreview(_controller);
+                  return Container(
+                    height: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width,
+                    child: CameraPreview(_controller),
+                  );
                 } else {
                   // Otherwise, display a loading indicator.
                   return Center(child: CircularProgressIndicator());
                 }
               },
+            ),
+            SizedBox(
+              height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,7 +197,7 @@ class _CameraPageState extends State<CameraPage> {
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 120,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

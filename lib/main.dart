@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       routes: {
         ListOfScreen.id: (context) => ListOfScreen(),
         MapboxMapPage.id: (context) => MapboxMapPage(),
-        FirebaseAuthPage.id: (context) => FirebaseAuthPage(),
+        FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
         FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
         FirebaseAuthRegistrationPage.id: (context) =>
             FirebaseAuthRegistrationPage(),

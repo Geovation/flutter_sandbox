@@ -18,7 +18,7 @@ const List<String> screenNames = [
 
 const Map<String, String> screenRoutes = {
   "Mapbox Map": MapboxMapPage.id,
-  "Firebase Auth": FirebaseAuthPage.id,
+  "Firebase Auth": FirebaseAuthLandingPage.id,
   "Firebase Crashlytics": FirebaseCrashlyticsPage.id,
   "Camera": CameraPage.id,
 };
@@ -103,7 +103,7 @@ class ListInLoggedOutState extends StatelessWidget {
           icon: const Icon(Icons.login),
           tooltip: 'Log in',
           onPressed: () {
-            Navigator.pushNamed(context, FirebaseAuthPage.id,
+            Navigator.pushNamed(context, FirebaseAuthLandingPage.id,
                 arguments: FirebaseAuthPageArgs(fromPage: ListOfScreen.id));
           },
         ),
