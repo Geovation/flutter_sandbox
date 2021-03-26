@@ -29,6 +29,11 @@ class _CameraPageState extends State<CameraPage> {
   Function cameraModeFunction;
   bool isTakePicture = true;
   bool isRecording = false;
+  int _pointers = 0;
+  double _minAvailableZoom = 1.0;
+  double _maxAvailableZoom = 1.0;
+  double _currentScale = 1.0;
+  double _baseScale = 1.0;
 
   @override
   void initState() {
@@ -118,121 +123,123 @@ class _CameraPageState extends State<CameraPage> {
     Widget bodyWidget;
 
     if (!kIsWeb) {
-      bodyWidget = SingleChildScrollView(
-        child: Column(
-          children: [
-            FutureBuilder<void>(
-              future: _initializeControllerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If the Future is complete, display the preview.
-                  return Container(
-                    height: MediaQuery.of(context).size.width,
-                    width: MediaQuery.of(context).size.width,
-                    child: CameraPreview(_controller),
-                  );
-                } else {
-                  // Otherwise, display a loading indicator.
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      cameraNumber = 1;
-                      _controller = CameraController(
-                        widget.cameras[cameraNumber],
-                        ResolutionPreset.ultraHigh,
-                      );
-                      _initializeControllerFuture = _controller.initialize();
-                    });
-                  },
-                  icon: Icon(Icons.camera_alt_outlined),
-                  label: Text('Front Camera'),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      cameraNumber = 0;
-                      _controller = CameraController(
-                        widget.cameras[cameraNumber],
-                        ResolutionPreset.medium,
-                      );
-                      _initializeControllerFuture = _controller.initialize();
-                    });
-                  },
-                  icon: Icon(Icons.camera_alt_outlined),
-                  label: Text('Back Camera'),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      isTakePicture = true;
-                    });
-                  },
-                  icon: Icon(Icons.camera_alt_outlined),
-                  label: Text('Take Picture'),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      isTakePicture = false;
-                    });
-                  },
-                  icon: Icon(Icons.camera_alt_outlined),
-                  label: Text('Record Video'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 120,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MaterialButton(
-                  onPressed: isTakePicture ? takePicture : recordVideo,
-                  color: Colors.blue,
-                  child: isTakePicture
-                      ? Icon(
-                          Icons.camera,
-                          size: 40,
-                        )
-                      : Icon(
-                          Icons.videocam,
-                          size: 40,
-                        ),
-                  padding: EdgeInsets.all(10),
-                  shape: CircleBorder(),
-                ),
-                MaterialButton(
-                  onPressed: isRecording ? stopRecording : null,
-                  color: isRecording ? Colors.blue : Colors.transparent,
-                  child: isRecording
-                      ? Icon(
-                          Icons.stop,
-                          size: 30,
-                        )
-                      : null,
-                  padding: EdgeInsets.all(10),
-                  shape: CircleBorder(),
-                ),
-              ],
-            )
-          ],
-        ),
+      bodyWidget = Column(
+        children: [
+          FutureBuilder<void>(
+            future: _initializeControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                // If the Future is complete, display the preview.
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    child: Center(
+                      child: _cameraPreviewWidget(),
+                    ),
+                  ),
+                );
+              } else {
+                // Otherwise, display a loading indicator.
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    cameraNumber = 1;
+                    _controller = CameraController(
+                      widget.cameras[cameraNumber],
+                      ResolutionPreset.ultraHigh,
+                    );
+                    _initializeControllerFuture = _controller.initialize();
+                  });
+                },
+                icon: Icon(Icons.camera_alt_outlined),
+                label: Text('Front Camera'),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    cameraNumber = 0;
+                    _controller = CameraController(
+                      widget.cameras[cameraNumber],
+                      ResolutionPreset.medium,
+                    );
+                    _initializeControllerFuture = _controller.initialize();
+                  });
+                },
+                icon: Icon(Icons.camera_alt_outlined),
+                label: Text('Back Camera'),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    isTakePicture = true;
+                  });
+                },
+                icon: Icon(Icons.camera_alt_outlined),
+                label: Text('Take Picture'),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    isTakePicture = false;
+                  });
+                },
+                icon: Icon(Icons.camera_alt_outlined),
+                label: Text('Record Video'),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MaterialButton(
+                onPressed: isTakePicture ? takePicture : recordVideo,
+                color: Colors.blue,
+                child: isTakePicture
+                    ? Icon(
+                        Icons.camera,
+                        size: 40,
+                      )
+                    : Icon(
+                        Icons.videocam,
+                        size: 40,
+                      ),
+                padding: EdgeInsets.all(10),
+                shape: CircleBorder(),
+              ),
+              MaterialButton(
+                onPressed: isRecording ? stopRecording : null,
+                color: isRecording ? Colors.blue : Colors.transparent,
+                child: isRecording
+                    ? Icon(
+                        Icons.stop,
+                        size: 30,
+                      )
+                    : null,
+                padding: EdgeInsets.all(10),
+                shape: CircleBorder(),
+              ),
+            ],
+          )
+        ],
       );
     } else {
       bodyWidget = Container(
@@ -247,5 +254,68 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: bodyWidget,
     );
+  }
+
+  Widget _cameraPreviewWidget() {
+    final CameraController cameraController = _controller;
+
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      return const Text(
+        'Tap a camera',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
+        ),
+      );
+    } else {
+      return Listener(
+        onPointerDown: (_) => _pointers++,
+        onPointerUp: (_) => _pointers--,
+        child: CameraPreview(
+          _controller,
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onScaleStart: _handleScaleStart,
+              onScaleUpdate: _handleScaleUpdate,
+              onTapDown: (details) => onViewFinderTap(details, constraints),
+            );
+          }),
+        ),
+      );
+    }
+  }
+
+  void _handleScaleStart(ScaleStartDetails details) {
+    _baseScale = _currentScale;
+  }
+
+  Future<void> _handleScaleUpdate(ScaleUpdateDetails details) async {
+    // When there are not exactly two fingers on screen don't scale
+    if (_controller == null || _pointers != 2) {
+      return;
+    }
+
+    _currentScale = (_baseScale * details.scale)
+        .clamp(_minAvailableZoom, _maxAvailableZoom);
+
+    await _controller.setZoomLevel(_currentScale);
+  }
+
+  void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
+    if (_controller == null) {
+      return;
+    }
+
+    final CameraController cameraController = _controller;
+
+    final offset = Offset(
+      details.localPosition.dx / constraints.maxWidth,
+      details.localPosition.dy / constraints.maxHeight,
+    );
+    cameraController.setExposurePoint(offset);
+    cameraController.setFocusPoint(offset);
   }
 }
