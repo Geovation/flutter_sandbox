@@ -29,11 +29,6 @@ class _CameraPageState extends State<CameraPage> {
   Function cameraModeFunction;
   bool isTakePicture = true;
   bool isRecording = false;
-  int _pointers = 0;
-  double _minAvailableZoom = 1.0;
-  double _maxAvailableZoom = 1.0;
-  double _currentScale = 1.0;
-  double _baseScale = 1.0;
 
   @override
   void initState() {
@@ -135,7 +130,7 @@ class _CameraPageState extends State<CameraPage> {
                   child: Container(
                     height: MediaQuery.of(context).size.height / 1.5,
                     child: Center(
-                      child: _cameraPreviewWidget(),
+                      child: CameraPreview(_controller),
                     ),
                   ),
                 );
@@ -254,68 +249,5 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: bodyWidget,
     );
-  }
-
-  Widget _cameraPreviewWidget() {
-    final CameraController cameraController = _controller;
-
-    if (cameraController == null || !cameraController.value.isInitialized) {
-      return const Text(
-        'Tap a camera',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-          fontWeight: FontWeight.w900,
-        ),
-      );
-    } else {
-      return Listener(
-        onPointerDown: (_) => _pointers++,
-        onPointerUp: (_) => _pointers--,
-        child: CameraPreview(
-          _controller,
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onScaleStart: _handleScaleStart,
-              onScaleUpdate: _handleScaleUpdate,
-              onTapDown: (details) => onViewFinderTap(details, constraints),
-            );
-          }),
-        ),
-      );
-    }
-  }
-
-  void _handleScaleStart(ScaleStartDetails details) {
-    _baseScale = _currentScale;
-  }
-
-  Future<void> _handleScaleUpdate(ScaleUpdateDetails details) async {
-    // When there are not exactly two fingers on screen don't scale
-    if (_controller == null || _pointers != 2) {
-      return;
-    }
-
-    _currentScale = (_baseScale * details.scale)
-        .clamp(_minAvailableZoom, _maxAvailableZoom);
-
-    await _controller.setZoomLevel(_currentScale);
-  }
-
-  void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
-    if (_controller == null) {
-      return;
-    }
-
-    final CameraController cameraController = _controller;
-
-    final offset = Offset(
-      details.localPosition.dx / constraints.maxWidth,
-      details.localPosition.dy / constraints.maxHeight,
-    );
-    cameraController.setExposurePoint(offset);
-    cameraController.setFocusPoint(offset);
   }
 }
