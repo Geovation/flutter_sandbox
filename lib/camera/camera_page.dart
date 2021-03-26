@@ -125,12 +125,14 @@ class _CameraPageState extends State<CameraPage> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 // If the Future is complete, display the preview.
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 1.5,
-                    child: Center(
-                      child: CameraPreview(_controller),
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      child: Center(
+                        child: CameraPreview(_controller),
+                      ),
                     ),
                   ),
                 );
@@ -141,7 +143,7 @@ class _CameraPageState extends State<CameraPage> {
             },
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -199,40 +201,40 @@ class _CameraPageState extends State<CameraPage> {
               ),
             ],
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MaterialButton(
-                onPressed: isTakePicture ? takePicture : recordVideo,
-                color: Colors.blue,
-                child: isTakePicture
-                    ? Icon(
-                        Icons.camera,
-                        size: 40,
-                      )
-                    : Icon(
-                        Icons.videocam,
-                        size: 40,
-                      ),
-                padding: EdgeInsets.all(10),
-                shape: CircleBorder(),
-              ),
-              MaterialButton(
-                onPressed: isRecording ? stopRecording : null,
-                color: isRecording ? Colors.blue : Colors.transparent,
-                child: isRecording
-                    ? Icon(
-                        Icons.stop,
-                        size: 30,
-                      )
-                    : null,
-                padding: EdgeInsets.all(10),
-                shape: CircleBorder(),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(
+                  onPressed: isTakePicture ? takePicture : recordVideo,
+                  color: Colors.blue,
+                  child: isTakePicture
+                      ? Icon(
+                          Icons.camera,
+                          size: 40,
+                        )
+                      : Icon(
+                          Icons.videocam,
+                          size: 40,
+                        ),
+                  padding: EdgeInsets.all(10),
+                  shape: CircleBorder(),
+                ),
+                MaterialButton(
+                  onPressed: isRecording ? stopRecording : null,
+                  color: isRecording ? Colors.blue : Colors.transparent,
+                  child: isRecording
+                      ? Icon(
+                          Icons.stop,
+                          size: 30,
+                        )
+                      : null,
+                  padding: EdgeInsets.all(10),
+                  shape: CircleBorder(),
+                ),
+              ],
+            ),
           )
         ],
       );
