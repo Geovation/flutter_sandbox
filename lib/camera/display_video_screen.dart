@@ -44,10 +44,10 @@ class _DisplayVideoViewState extends State<DisplayVideoView> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 5.0),
             ),
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
                 child: Stack(

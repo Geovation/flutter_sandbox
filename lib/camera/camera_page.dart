@@ -29,6 +29,9 @@ class _CameraPageState extends State<CameraPage> {
   Function cameraModeFunction;
   bool isTakePicture = true;
   bool isRecording = false;
+  bool isBackCamera = true;
+  List<bool> isSelectedLensDirection = [true, false];
+  List<bool> isSelectedCameraMode = [true, false];
 
   @override
   void initState() {
@@ -143,63 +146,68 @@ class _CameraPageState extends State<CameraPage> {
             },
           ),
           SizedBox(
-            height: 5,
+            height: 2,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ElevatedButton.icon(
-                onPressed: () {
+              ToggleButtons(
+                children: <Widget>[
+                  Icon(Icons.camera_rear_rounded),
+                  Icon(Icons.camera_front_rounded),
+                ],
+                onPressed: (int index) {
                   setState(() {
-                    cameraNumber = 1;
-                    _controller = CameraController(
-                      widget.cameras[cameraNumber],
-                      ResolutionPreset.ultraHigh,
-                    );
-                    _initializeControllerFuture = _controller.initialize();
+                    for (int buttonIndex = 0;
+                        buttonIndex < isSelectedLensDirection.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isSelectedLensDirection[buttonIndex] = true;
+                        setState(() {
+                          _controller = CameraController(
+                            widget.cameras[index],
+                            ResolutionPreset.veryHigh,
+                          );
+                          _initializeControllerFuture =
+                              _controller.initialize();
+                        });
+                      } else {
+                        isSelectedLensDirection[buttonIndex] = false;
+                      }
+                    }
                   });
                 },
-                icon: Icon(Icons.camera_alt_outlined),
-                label: Text('Front Camera'),
+                isSelected: isSelectedLensDirection,
               ),
-              ElevatedButton.icon(
-                onPressed: () {
+              ToggleButtons(
+                children: <Widget>[
+                  Icon(Icons.camera_alt),
+                  Icon(Icons.videocam),
+                ],
+                onPressed: (int index) {
                   setState(() {
-                    cameraNumber = 0;
-                    _controller = CameraController(
-                      widget.cameras[cameraNumber],
-                      ResolutionPreset.medium,
-                    );
-                    _initializeControllerFuture = _controller.initialize();
+                    for (int buttonIndex = 0;
+                        buttonIndex < isSelectedCameraMode.length;
+                        buttonIndex++) {
+                      if (buttonIndex == index) {
+                        isSelectedCameraMode[buttonIndex] = true;
+                      } else {
+                        isSelectedCameraMode[buttonIndex] = false;
+                      }
+                    }
+                    if (index == 0) {
+                      isTakePicture = true;
+                    } else {
+                      isTakePicture = false;
+                    }
                   });
                 },
-                icon: Icon(Icons.camera_alt_outlined),
-                label: Text('Back Camera'),
+                isSelected: isSelectedCameraMode,
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    isTakePicture = true;
-                  });
-                },
-                icon: Icon(Icons.camera_alt_outlined),
-                label: Text('Take Picture'),
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    isTakePicture = false;
-                  });
-                },
-                icon: Icon(Icons.camera_alt_outlined),
-                label: Text('Record Video'),
-              ),
-            ],
+          SizedBox(
+            height: 3,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -208,29 +216,32 @@ class _CameraPageState extends State<CameraPage> {
               children: [
                 MaterialButton(
                   onPressed: isTakePicture ? takePicture : recordVideo,
-                  color: Colors.blue,
+                  color: Colors.white,
                   child: isTakePicture
                       ? Icon(
-                          Icons.camera,
-                          size: 40,
+                          Icons.circle,
+                          size: 50,
+                          color: Colors.orange,
                         )
                       : Icon(
-                          Icons.videocam,
-                          size: 40,
+                          Icons.circle,
+                          size: 50,
+                          color: Colors.redAccent,
                         ),
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(1),
                   shape: CircleBorder(),
                 ),
                 MaterialButton(
                   onPressed: isRecording ? stopRecording : null,
-                  color: isRecording ? Colors.blue : Colors.transparent,
+                  color: isRecording ? Colors.white : Colors.transparent,
                   child: isRecording
                       ? Icon(
                           Icons.stop,
-                          size: 30,
+                          size: 40,
+                          color: Colors.red,
                         )
                       : null,
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(1),
                   shape: CircleBorder(),
                 ),
               ],
