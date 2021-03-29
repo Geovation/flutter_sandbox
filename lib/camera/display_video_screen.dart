@@ -41,26 +41,22 @@ class _DisplayVideoViewState extends State<DisplayVideoView> {
     return Scaffold(
       appBar: AppBar(title: Text('Display the Video')),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(top: 5.0),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    VideoPlayer(_controller),
-                    _ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller, allowScrubbing: true),
-                  ],
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  VideoPlayer(_controller),
+                  _ControlsOverlay(controller: _controller),
+                  VideoProgressIndicator(_controller, allowScrubbing: true),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

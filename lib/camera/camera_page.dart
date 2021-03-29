@@ -145,108 +145,104 @@ class _CameraPageState extends State<CameraPage> {
               }
             },
           ),
-          SizedBox(
-            height: 2,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ToggleButtons(
-                children: <Widget>[
-                  Icon(Icons.camera_rear_rounded),
-                  Icon(Icons.camera_front_rounded),
-                ],
-                onPressed: (int index) {
-                  setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < isSelectedLensDirection.length;
-                        buttonIndex++) {
-                      if (buttonIndex == index) {
-                        isSelectedLensDirection[buttonIndex] = true;
+          Card(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.purple.shade50,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ToggleButtons(
+                      children: <Widget>[
+                        Icon(Icons.camera_rear_rounded),
+                        Icon(Icons.camera_front_rounded),
+                      ],
+                      onPressed: (int index) {
                         setState(() {
-                          _controller = CameraController(
-                            widget.cameras[index],
-                            ResolutionPreset.veryHigh,
-                          );
-                          _initializeControllerFuture =
-                              _controller.initialize();
+                          for (int buttonIndex = 0;
+                              buttonIndex < isSelectedLensDirection.length;
+                              buttonIndex++) {
+                            if (buttonIndex == index) {
+                              isSelectedLensDirection[buttonIndex] = true;
+                              setState(() {
+                                _controller = CameraController(
+                                  widget.cameras[index],
+                                  ResolutionPreset.veryHigh,
+                                );
+                                _initializeControllerFuture =
+                                    _controller.initialize();
+                              });
+                            } else {
+                              isSelectedLensDirection[buttonIndex] = false;
+                            }
+                          }
                         });
-                      } else {
-                        isSelectedLensDirection[buttonIndex] = false;
-                      }
-                    }
-                  });
-                },
-                isSelected: isSelectedLensDirection,
-              ),
-              ToggleButtons(
-                children: <Widget>[
-                  Icon(Icons.camera_alt),
-                  Icon(Icons.videocam),
-                ],
-                onPressed: (int index) {
-                  setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < isSelectedCameraMode.length;
-                        buttonIndex++) {
-                      if (buttonIndex == index) {
-                        isSelectedCameraMode[buttonIndex] = true;
-                      } else {
-                        isSelectedCameraMode[buttonIndex] = false;
-                      }
-                    }
-                    if (index == 0) {
-                      isTakePicture = true;
-                    } else {
-                      isTakePicture = false;
-                    }
-                  });
-                },
-                isSelected: isSelectedCameraMode,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MaterialButton(
-                  onPressed: isTakePicture ? takePicture : recordVideo,
-                  color: Colors.white,
-                  child: isTakePicture
-                      ? Icon(
-                          Icons.circle,
-                          size: 50,
-                          color: Colors.orange,
-                        )
-                      : Icon(
-                          Icons.circle,
-                          size: 50,
-                          color: Colors.redAccent,
-                        ),
-                  padding: EdgeInsets.all(1),
-                  shape: CircleBorder(),
+                      },
+                      isSelected: isSelectedLensDirection,
+                    ),
+                    ToggleButtons(
+                      children: <Widget>[
+                        Icon(Icons.camera_alt),
+                        Icon(Icons.videocam),
+                      ],
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int buttonIndex = 0;
+                              buttonIndex < isSelectedCameraMode.length;
+                              buttonIndex++) {
+                            if (buttonIndex == index) {
+                              isSelectedCameraMode[buttonIndex] = true;
+                            } else {
+                              isSelectedCameraMode[buttonIndex] = false;
+                            }
+                          }
+                          if (index == 0) {
+                            isTakePicture = true;
+                          } else {
+                            isTakePicture = false;
+                          }
+                        });
+                      },
+                      isSelected: isSelectedCameraMode,
+                    ),
+                    MaterialButton(
+                      onPressed: isTakePicture ? takePicture : recordVideo,
+                      color: Colors.black45,
+                      child: isTakePicture
+                          ? Icon(
+                              Icons.circle,
+                              size: 60,
+                              color: Colors.orange,
+                            )
+                          : Icon(
+                              Icons.circle,
+                              size: 60,
+                              color: Colors.redAccent,
+                            ),
+                      padding: EdgeInsets.all(1),
+                      shape: CircleBorder(),
+                    ),
+                    MaterialButton(
+                      onPressed: isRecording ? stopRecording : null,
+                      color: isRecording ? Colors.white : Colors.transparent,
+                      child: isRecording
+                          ? Icon(
+                              Icons.stop,
+                              size: 40,
+                              color: Colors.red,
+                            )
+                          : null,
+                      padding: EdgeInsets.all(1),
+                      shape: CircleBorder(),
+                    ),
+                  ],
                 ),
-                MaterialButton(
-                  onPressed: isRecording ? stopRecording : null,
-                  color: isRecording ? Colors.white : Colors.transparent,
-                  child: isRecording
-                      ? Icon(
-                          Icons.stop,
-                          size: 40,
-                          color: Colors.red,
-                        )
-                      : null,
-                  padding: EdgeInsets.all(1),
-                  shape: CircleBorder(),
-                ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       );
     } else {
