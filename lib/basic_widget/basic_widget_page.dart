@@ -2,13 +2,13 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AppSkeletonPage extends StatefulWidget {
-  static const id = 'app_skeleton_page';
+class BasicWidgetsPage extends StatefulWidget {
+  static const id = 'basic_widget_page';
   @override
-  _AppSkeletonPageState createState() => _AppSkeletonPageState();
+  _BasicWidgetsPageState createState() => _BasicWidgetsPageState();
 }
 
-class _AppSkeletonPageState extends State<AppSkeletonPage> {
+class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
   int _selectedIndex = 0;
   double currentSliderValueContinuous = 0;
   double currentSliderValueDiscrete = 0;
@@ -300,42 +300,7 @@ class _AppSkeletonPageState extends State<AppSkeletonPage> {
     dateTime = DateFormat.yMd().format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
-        title: Text('App Skeleton'),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(fontSize: 30),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.orangeAccent,
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Update the state of the app
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            Divider(
-              thickness: 2,
-            ),
-          ],
-        ),
+        title: Text('Basic Widgets'),
       ),
       body: Center(
         child: onSelectedWindow(_selectedIndex),

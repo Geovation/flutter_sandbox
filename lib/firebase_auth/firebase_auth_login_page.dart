@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sandbox/ListOfScreens.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
+import 'package:flutter_sandbox/flutter_sandbox_page.dart';
 import 'package:flutter_sandbox/screen_arguments.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -94,8 +94,9 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         email: email, password: password);
                     if (user != null) {
                       if (args != null) {
-                        if (args.fromPage == ListOfScreen.id) {
-                          Navigator.pushNamed(context, ListOfScreen.id);
+                        if (args.fromPage == FlutterSandboxLandingPage.id) {
+                          Navigator.pushNamed(
+                              context, FlutterSandboxLandingPage.id);
                         }
                       } else {
                         Navigator.pushNamed(
