@@ -48,12 +48,11 @@ class LandingPage extends StatelessWidget {
         });
   }
 }
-
 class FlutterSandboxPage extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    Widget drawerView() {
+     Widget drawerView() {
       return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -108,21 +107,21 @@ class FlutterSandboxPage extends StatelessWidget {
       appBar: AppBar(title: Text('Flutter Sandbox'), actions: <Widget>[
         isLoggedIn
             ? IconButton(
-                icon: const Icon(Icons.logout),
-                tooltip: 'Log out',
-                onPressed: () {
-                  _auth.signOut();
-                },
-              )
+          icon: const Icon(Icons.logout),
+          tooltip: 'Log out',
+          onPressed: () {
+            _auth.signOut();
+          },
+        )
             : IconButton(
-                icon: const Icon(Icons.login),
-                tooltip: 'Log in',
-                onPressed: () {
-                  Navigator.pushNamed(context, FirebaseAuthLandingPage.id,
-                      arguments: FirebaseAuthPageArgs(
-                          fromPage: FlutterSandboxLandingPage.id));
-                },
-              )
+          icon: const Icon(Icons.login),
+          tooltip: 'Log in',
+          onPressed: () {
+            Navigator.pushNamed(context, FirebaseAuthLandingPage.id,
+                arguments: FirebaseAuthPageArgs(
+                    fromPage: FlutterSandboxLandingPage.id));
+          },
+        )
       ]),
       drawer: drawerView(),
       body: Center(
@@ -131,3 +130,4 @@ class FlutterSandboxPage extends StatelessWidget {
     );
   }
 }
+

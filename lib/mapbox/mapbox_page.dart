@@ -6,6 +6,8 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
+import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import 'Models/Placemarks.dart';
@@ -13,12 +15,14 @@ import 'constants_mapbox.dart';
 
 class MapboxMapPage extends StatefulWidget {
   static const id = 'mapbox_page';
+
   @override
   _MapboxMapState createState() => _MapboxMapState();
 }
 
 class _MapboxMapState extends State<MapboxMapPage> {
   MapboxMapController mapController;
+  int _selectedIndex = 1;
 
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
@@ -119,6 +123,9 @@ class _MapboxMapState extends State<MapboxMapPage> {
         appBar: AppBar(
           title: Text("Mapbox"),
         ),
+        drawer: DrawerView(selectedIndex: _selectedIndex),
+        bottomNavigationBar:
+            BottomNavigationBarView(selectedIndex: _selectedIndex),
         body: Center(
           child: Text('Currently Mapbox is not fully supported yet.'),
         ),
@@ -128,6 +135,9 @@ class _MapboxMapState extends State<MapboxMapPage> {
         appBar: AppBar(
           title: Text("Mapbox"),
         ),
+        drawer: DrawerView(selectedIndex: _selectedIndex),
+        bottomNavigationBar:
+            BottomNavigationBarView(selectedIndex: _selectedIndex),
         body: MapboxMap(
           accessToken: ACCESS_TOKEN_MAPBOX,
           onMapCreated: _onMapCreated,

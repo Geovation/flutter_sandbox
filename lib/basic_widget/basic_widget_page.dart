@@ -1,5 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
+import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:intl/intl.dart';
 
 class BasicWidgetsPage extends StatefulWidget {
@@ -9,7 +11,8 @@ class BasicWidgetsPage extends StatefulWidget {
 }
 
 class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
+  int _selectedTabIndex = 0;
   double currentSliderValueContinuous = 0;
   double currentSliderValueDiscrete = 0;
   double _height;
@@ -65,7 +68,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedTabIndex = index;
     });
   }
 
@@ -298,40 +301,50 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());
+    final List<Tab> basicWidgetTabs = <Tab>[
+      Tab(text: 'Slider'),
+      Tab(text: 'Date picker'),
+      Tab(text: 'Checkbox'),
+      Tab(text: 'Expansion List'),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Basic Widgets'),
       ),
-      body: Center(
-        child: onSelectedWindow(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.remove),
-            label: 'Slider',
-            backgroundColor: Colors.blueGrey,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.date_range_outlined),
-            label: 'Date/Time Picker',
-            backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check_box_outlined),
-            label: 'Checkbox',
-            backgroundColor: Colors.purple,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.expand),
-            label: 'Expansion Panel',
-            backgroundColor: Colors.pink,
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
+      drawer: DrawerView(selectedIndex: _selectedIndex),
+      bottomNavigationBar:
+          BottomNavigationBarView(selectedIndex: _selectedIndex),
+      // body: Center(
+      //   child: onSelectedWindow(_selectedTabIndex),
+      // ),
+      body: DefaultTabController(
+          initialIndex: 1,
+          length: basicWidgetTabs.length,
+          child: Column(
+            children: [
+              Container(
+                width: _width,
+                height: 30,
+                color: Colors.amber,
+                alignment: Alignment.center,
+                child: TabBar(
+                  indicatorColor: Colors.grey.shade50,
+                  isScrollable: true,
+                  tabs: basicWidgetTabs,
+                ),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    onSelectedWindow(0),
+                    onSelectedWindow(1),
+                    onSelectedWindow(2),
+                    onSelectedWindow(3),
+                  ],
+                ),
+              ),
+            ],
+          )),
       floatingActionButton: Visibility(
         visible: isFABVisible,
         child: FloatingActionButton(

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      initialRoute: FlutterSandboxLandingPage.id,
+      initialRoute: FirebaseCrashlyticsPage.id,
       routes: {
         FlutterSandboxLandingPage.id: (context) => FlutterSandboxLandingPage(),
         MapboxMapPage.id: (context) => MapboxMapPage(),
