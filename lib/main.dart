@@ -10,7 +10,6 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
-import 'package:flutter_sandbox/flutter_sandbox_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
 import 'basic_widget/basic_widget_page.dart';
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: FirebaseCrashlyticsPage.id,
       routes: {
-        FlutterSandboxLandingPage.id: (context) => FlutterSandboxLandingPage(),
         MapboxMapPage.id: (context) => MapboxMapPage(),
         FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
         FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
