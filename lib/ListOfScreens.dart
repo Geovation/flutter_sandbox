@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/app_skeleton/app_skeleton_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
@@ -14,6 +15,7 @@ const List<String> screenNames = [
   "Firebase Auth",
   "Firebase Crashlytics",
   "Camera",
+  "App Skeleton",
 ];
 
 const Map<String, String> screenRoutes = {
@@ -21,6 +23,7 @@ const Map<String, String> screenRoutes = {
   "Firebase Auth": FirebaseAuthLandingPage.id,
   "Firebase Crashlytics": FirebaseCrashlyticsPage.id,
   "Camera": CameraPage.id,
+  "App Skeleton": AppSkeletonPage.id,
 };
 
 class ListOfScreen extends StatelessWidget {

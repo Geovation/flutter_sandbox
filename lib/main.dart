@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/ListOfScreens.dart';
+import 'package:flutter_sandbox/app_skeleton/app_skeleton_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
         FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
         CameraPage.id: (context) => CameraPage(cameras: cameraList),
+        AppSkeletonPage.id: (context) => AppSkeletonPage(),
       },
     );
   }
