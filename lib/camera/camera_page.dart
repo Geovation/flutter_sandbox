@@ -124,42 +124,41 @@ class _CameraPageState extends State<CameraPage> {
     Widget bodyWidget;
 
     if (!kIsWeb) {
-      bodyWidget = Container(
-        padding: EdgeInsets.zero,
-        color: Colors.black,
-        child: Column(
-          children: [
-            FutureBuilder<void>(
-              future: _initializeControllerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  // If the Future is complete, display the preview.
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 1.5,
-                        child: Center(
-                          child: CameraPreview(_controller),
+      bodyWidget = SafeArea(
+        child: Container(
+          padding: EdgeInsets.zero,
+          color: Colors.black,
+          child: Column(
+            children: [
+              FutureBuilder<void>(
+                future: _initializeControllerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If the Future is complete, display the preview.
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height / 1.5,
+                          child: Center(
+                            child: CameraPreview(_controller),
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                } else {
-                  // Otherwise, display a loading indicator.
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
-            Card(
-              color: Colors.black,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                    );
+                  } else {
+                    // Otherwise, display a loading indicator.
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+              Card(
+                color: Colors.black,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade900,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -257,8 +256,8 @@ class _CameraPageState extends State<CameraPage> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     } else {
