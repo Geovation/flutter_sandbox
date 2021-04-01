@@ -79,15 +79,30 @@ class DrawerWindow extends StatelessWidget {
     final _auth = FirebaseAuth.instance;
 
     List<Widget> listViewItems = [
-      DrawerHeader(
-        child: Text(
-          'Flutter Sandbox',
-          style: TextStyle(fontSize: 30),
-        ),
-        decoration: BoxDecoration(
-          color: Colors.orangeAccent,
-        ),
-      ),
+      // DrawerHeader(
+      //   child: Column(
+      //     children: [
+      //       CircleAvatar(
+      //         child: Icon(
+      //           Icons.person,
+      //           size: 60,
+      //         ),
+      //         radius: 40,
+      //       ),
+      //       SizedBox(
+      //         height: 10,
+      //       ),
+      //       Text(_auth.currentUser.email),
+      //     ],
+      //   ),
+      // Text(
+      //   'Flutter Sandbox',
+      //   style: TextStyle(fontSize: 30),
+      // ),
+      // decoration: BoxDecoration(
+      //   color: Colors.orangeAccent,
+      // ),
+      // ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text('Demos'),
@@ -142,6 +157,30 @@ class DrawerWindow extends StatelessWidget {
     ];
 
     if (isLoggedIn) {
+      listViewItems.insert(
+        0,
+        DrawerHeader(
+          decoration: BoxDecoration(color: Colors.orangeAccent),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                child: Icon(
+                  Icons.person,
+                  size: 60,
+                ),
+                radius: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(_auth.currentUser.email),
+              ),
+            ],
+          ),
+        ),
+      );
+
       listViewItems.add(
         ListTile(
           title: Text('Log out'),
@@ -152,6 +191,28 @@ class DrawerWindow extends StatelessWidget {
         ),
       );
     } else {
+      listViewItems.insert(
+        0,
+        DrawerHeader(
+          decoration: BoxDecoration(color: Colors.grey),
+          child: Column(
+            children: [
+              CircleAvatar(
+                child: Icon(
+                  Icons.person,
+                  size: 60,
+                ),
+                radius: 40,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('Flutter Sandbox'),
+            ],
+          ),
+        ),
+      );
+
       listViewItems.add(
         ListTile(
           title: Text('Log in'),
