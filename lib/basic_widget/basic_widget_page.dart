@@ -10,9 +10,9 @@ class BasicWidgetsPage extends StatefulWidget {
   _BasicWidgetsPageState createState() => _BasicWidgetsPageState();
 }
 
-class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
+class _BasicWidgetsPageState extends State<BasicWidgetsPage>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 3;
-  int _selectedTabIndex = 0;
   double currentSliderValueContinuous = 0;
   double currentSliderValueDiscrete = 0;
   double _height;
@@ -20,6 +20,13 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
   List checkBoxValues = [false, false, false];
   final List<Item> _data = generateItems(8);
   bool isFABVisible = true;
+  TabController _tabController;
+  final List<Tab> basicWidgetTabs = <Tab>[
+    Tab(text: 'Slider'),
+    Tab(text: 'Date picker'),
+    Tab(text: 'Checkbox'),
+    Tab(text: 'Expansion List'),
+  ];
 
   String _setTime, _setDate;
 
@@ -66,12 +73,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
       });
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedTabIndex = index;
-    });
-  }
-
   @override
   void initState() {
     _dateController.text = DateFormat.yMd().format(DateTime.now());
@@ -79,7 +80,34 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
     _timeController.text = formatDate(
         DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
         [hh, ':', nn, " ", am]).toString();
+    _tabController = TabController(vsync: this, length: basicWidgetTabs.length);
+    _tabController.addListener(_setActiveTabIndex);
     super.initState();
+  }
+
+  void _setActiveTabIndex() {
+    setState(() {
+      switch (_tabController.index) {
+        case 0:
+          isFABVisible = true;
+          break;
+        case 1:
+          isFABVisible = true;
+          break;
+        case 2:
+          isFABVisible = true;
+          break;
+        case 3:
+          isFABVisible = false;
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   Widget onSelectedWindow(int index) {
@@ -116,9 +144,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
             Text(currentSliderValueDiscrete.round().toString()),
           ],
         );
-        setState(() {
-          isFABVisible = true;
-        });
         break;
       case 1:
         indexedWidget = Container(
@@ -207,9 +232,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
             ],
           ),
         );
-        setState(() {
-          isFABVisible = true;
-        });
         break;
 
       case 2:
@@ -249,9 +271,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
             ],
           ),
         );
-        setState(() {
-          isFABVisible = true;
-        });
         break;
       case 3:
         indexedWidget = SingleChildScrollView(
@@ -284,9 +303,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
             }).toList(),
           ),
         );
-        setState(() {
-          isFABVisible = false;
-        });
         break;
 
       default:
@@ -301,50 +317,29 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage> {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());
-    final List<Tab> basicWidgetTabs = <Tab>[
-      Tab(text: 'Slider'),
-      Tab(text: 'Date picker'),
-      Tab(text: 'Checkbox'),
-      Tab(text: 'Expansion List'),
-    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Basic Widgets'),
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Colors.grey.shade50,
+          isScrollable: true,
+          tabs: basicWidgetTabs,
+        ),
       ),
       drawer: DrawerView(selectedIndex: _selectedIndex),
       bottomNavigationBar:
           BottomNavigationBarView(selectedIndex: _selectedIndex),
-      // body: Center(
-      //   child: onSelectedWindow(_selectedTabIndex),
-      // ),
-      body: DefaultTabController(
-          initialIndex: 1,
-          length: basicWidgetTabs.length,
-          child: Column(
-            children: [
-              Container(
-                width: _width,
-                height: 30,
-                color: Colors.amber,
-                alignment: Alignment.center,
-                child: TabBar(
-                  indicatorColor: Colors.grey.shade50,
-                  isScrollable: true,
-                  tabs: basicWidgetTabs,
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    onSelectedWindow(0),
-                    onSelectedWindow(1),
-                    onSelectedWindow(2),
-                    onSelectedWindow(3),
-                  ],
-                ),
-              ),
-            ],
-          )),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          onSelectedWindow(0),
+          onSelectedWindow(1),
+          onSelectedWindow(2),
+          onSelectedWindow(3),
+        ],
+      ),
       floatingActionButton: Visibility(
         visible: isFABVisible,
         child: FloatingActionButton(

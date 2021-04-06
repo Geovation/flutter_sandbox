@@ -79,30 +79,6 @@ class DrawerWindow extends StatelessWidget {
     final _auth = FirebaseAuth.instance;
 
     List<Widget> listViewItems = [
-      // DrawerHeader(
-      //   child: Column(
-      //     children: [
-      //       CircleAvatar(
-      //         child: Icon(
-      //           Icons.person,
-      //           size: 60,
-      //         ),
-      //         radius: 40,
-      //       ),
-      //       SizedBox(
-      //         height: 10,
-      //       ),
-      //       Text(_auth.currentUser.email),
-      //     ],
-      //   ),
-      // Text(
-      //   'Flutter Sandbox',
-      //   style: TextStyle(fontSize: 30),
-      // ),
-      // decoration: BoxDecoration(
-      //   color: Colors.orangeAccent,
-      // ),
-      // ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text('Demos'),
