@@ -40,11 +40,13 @@ class _CameraPageState extends State<CameraPage> {
   void initState() {
     super.initState();
     if (!kIsWeb) {
-      _controller = CameraController(
-        widget.cameras[cameraNumber],
-        ResolutionPreset.medium,
-      );
-      _initializeControllerFuture = _controller.initialize();
+      if (widget.cameras != null) {
+        _controller = CameraController(
+          widget.cameras[cameraNumber],
+          ResolutionPreset.medium,
+        );
+        _initializeControllerFuture = _controller.initialize();
+      }
     }
   }
 
@@ -52,7 +54,9 @@ class _CameraPageState extends State<CameraPage> {
   void dispose() {
     // Dispose of the controller when the widget is disposed.
     if (!kIsWeb) {
-      _controller.dispose();
+      if (widget.cameras != null) {
+        _controller.dispose();
+      }
     }
 
     super.dispose();
@@ -123,7 +127,7 @@ class _CameraPageState extends State<CameraPage> {
     };
     Widget bodyWidget;
 
-    if (!kIsWeb) {
+    if (!kIsWeb && (widget.cameras != null)) {
       bodyWidget = SafeArea(
         child: Container(
           padding: EdgeInsets.zero,
