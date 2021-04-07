@@ -54,12 +54,6 @@ class _GPSPageState extends State<GPSPage> {
   TextStyle gpsTextStyle = TextStyle(fontSize: 30);
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
