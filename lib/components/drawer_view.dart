@@ -6,6 +6,7 @@ import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
+import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/screen_arguments.dart';
 import 'package:provider/provider.dart';
@@ -120,6 +121,16 @@ class DrawerWindow extends StatelessWidget {
           Navigator.pop(context);
           if (_selectedIndex != 3) {
             Navigator.pushNamed(context, BasicWidgetsPage.id);
+          }
+        },
+      ),
+      ListTile(
+        selected: _selectedIndex == 4,
+        title: Text('GPS'),
+        onTap: () {
+          Navigator.pop(context);
+          if (_selectedIndex != 4) {
+            Navigator.pushNamed(context, GPSPage.id);
           }
         },
       ),

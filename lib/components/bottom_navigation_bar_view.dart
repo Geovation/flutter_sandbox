@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/basic_widget/basic_widget_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
+import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
 class BottomNavigationBarView extends StatelessWidget {
@@ -37,6 +38,12 @@ class BottomNavigationBarView extends StatelessWidget {
             Navigator.pushNamed(context, BasicWidgetsPage.id);
           }
           break;
+        case 4:
+          if (_selectedIndex != index) {
+            Navigator.pushNamed(context, GPSPage.id);
+          }
+          break;
+
         default:
           print('default pressed');
           break;
@@ -48,21 +55,26 @@ class BottomNavigationBarView extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.error),
           label: 'Crashlytics',
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
           label: 'Mapbox',
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.camera_alt),
           label: 'Camera',
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.widgets_rounded),
           label: 'Basic Widget',
+          backgroundColor: Colors.pink,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.gps_fixed),
+          label: 'GPS',
           backgroundColor: Colors.pink,
         ),
       ],
