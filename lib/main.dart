@@ -11,9 +11,11 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
+import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 
 import 'basic_widget/basic_widget_page.dart';
+import 'home_page.dart';
 
 List<CameraDescription> cameraList;
 
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      initialRoute: FirebaseCrashlyticsPage.id,
+      initialRoute: HomePage.id,
       routes: {
         MapboxMapPage.id: (context) => MapboxMapPage(),
         FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
@@ -49,40 +51,8 @@ class MyApp extends StatelessWidget {
         CameraPage.id: (context) => CameraPage(cameras: cameraList),
         BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
         GPSPage.id: (context) => GPSPage(),
+        HomePage.id: (context) => HomePage(cameraList: cameraList),
       },
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Hello world',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

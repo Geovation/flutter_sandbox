@@ -6,8 +6,6 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
-import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import 'Models/Placemarks.dart';
@@ -22,7 +20,6 @@ class MapboxMapPage extends StatefulWidget {
 
 class _MapboxMapState extends State<MapboxMapPage> {
   MapboxMapController mapController;
-  int _selectedIndex = 1;
 
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
@@ -119,33 +116,17 @@ class _MapboxMapState extends State<MapboxMapPage> {
   Widget build(BuildContext context) {
     Widget bodyWidget;
     if (kIsWeb) {
-      bodyWidget = Scaffold(
-        appBar: AppBar(
-          title: Text("Mapbox"),
-        ),
-        drawer: DrawerView(selectedIndex: _selectedIndex),
-        bottomNavigationBar:
-            BottomNavigationBarView(selectedIndex: _selectedIndex),
-        body: Center(
-          child: Text('Currently Mapbox is not fully supported yet.'),
-        ),
+      bodyWidget = Center(
+        child: Text('Currently Mapbox is not fully supported yet.'),
       );
     } else {
-      bodyWidget = Scaffold(
-        appBar: AppBar(
-          title: Text("Mapbox"),
-        ),
-        drawer: DrawerView(selectedIndex: _selectedIndex),
-        bottomNavigationBar:
-            BottomNavigationBarView(selectedIndex: _selectedIndex),
-        body: MapboxMap(
-          accessToken: ACCESS_TOKEN_MAPBOX,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition:
-              CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
-          onStyleLoadedCallback: onStyleLoadedCallback,
-          trackCameraPosition: true,
-        ),
+      bodyWidget = MapboxMap(
+        accessToken: ACCESS_TOKEN_MAPBOX,
+        onMapCreated: _onMapCreated,
+        initialCameraPosition:
+            CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
+        onStyleLoadedCallback: onStyleLoadedCallback,
+        trackCameraPosition: true,
       );
     }
     return bodyWidget;

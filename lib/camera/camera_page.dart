@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
-import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -34,7 +32,6 @@ class _CameraPageState extends State<CameraPage> {
   bool isBackCamera = true;
   List<bool> isSelectedLensDirection = [true, false];
   List<bool> isSelectedCameraMode = [true, false];
-  int _selectedIndex = 2;
 
   @override
   void initState() {
@@ -271,14 +268,6 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
     }
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Camera'),
-      ),
-      drawer: DrawerView(selectedIndex: _selectedIndex),
-      bottomNavigationBar:
-          BottomNavigationBarView(selectedIndex: _selectedIndex),
-      body: bodyWidget,
-    );
+    return bodyWidget;
   }
 }

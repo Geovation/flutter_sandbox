@@ -1,7 +1,5 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
-import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:intl/intl.dart';
 
 class BasicWidgetsPage extends StatefulWidget {
@@ -12,7 +10,6 @@ class BasicWidgetsPage extends StatefulWidget {
 
 class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 3;
   double currentSliderValueContinuous = 0;
   double currentSliderValueDiscrete = 0;
   double _height;
@@ -320,7 +317,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Basic Widgets'),
+        toolbarHeight: 55,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.grey.shade50,
@@ -328,9 +325,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           tabs: basicWidgetTabs,
         ),
       ),
-      drawer: DrawerView(selectedIndex: _selectedIndex),
-      bottomNavigationBar:
-          BottomNavigationBarView(selectedIndex: _selectedIndex),
       body: TabBarView(
         controller: _tabController,
         children: [

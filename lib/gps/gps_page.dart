@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sandbox/components/bottom_navigation_bar_view.dart';
-import 'package:flutter_sandbox/components/drawer_view.dart';
 import 'package:geolocator/geolocator.dart';
 
 class GPSPage extends StatefulWidget {
@@ -10,7 +8,6 @@ class GPSPage extends StatefulWidget {
 }
 
 class _GPSPageState extends State<GPSPage> {
-  int _selectedIndex = 4;
   LocationAccuracy _selectedLocationAccuracy = LocationAccuracy.high;
   bool serviceEnabled;
   LocationPermission permission;
@@ -55,100 +52,92 @@ class _GPSPageState extends State<GPSPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('GPS'),
-      ),
-      drawer: DrawerView(selectedIndex: _selectedIndex),
-      bottomNavigationBar:
-          BottomNavigationBarView(selectedIndex: _selectedIndex),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          DropdownButton<LocationAccuracy>(
-            value: _selectedLocationAccuracy,
-            style: const TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        DropdownButton<LocationAccuracy>(
+          value: _selectedLocationAccuracy,
+          style: const TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (LocationAccuracy newValue) {
+            setState(() {
+              _selectedLocationAccuracy = newValue;
+            });
+          },
+          items: <LocationAccuracy>[
+            LocationAccuracy.lowest,
+            LocationAccuracy.low,
+            LocationAccuracy.medium,
+            LocationAccuracy.high,
+            LocationAccuracy.best,
+            LocationAccuracy.bestForNavigation,
+          ].map<DropdownMenuItem<LocationAccuracy>>((LocationAccuracy value) {
+            return DropdownMenuItem<LocationAccuracy>(
+              value: value,
+              child: Text(value.toString()),
+            );
+          }).toList(),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Latitude : ',
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
-            onChanged: (LocationAccuracy newValue) {
-              setState(() {
-                _selectedLocationAccuracy = newValue;
-              });
-            },
-            items: <LocationAccuracy>[
-              LocationAccuracy.lowest,
-              LocationAccuracy.low,
-              LocationAccuracy.medium,
-              LocationAccuracy.high,
-              LocationAccuracy.best,
-              LocationAccuracy.bestForNavigation,
-            ].map<DropdownMenuItem<LocationAccuracy>>((LocationAccuracy value) {
-              return DropdownMenuItem<LocationAccuracy>(
-                value: value,
-                child: Text(value.toString()),
-              );
-            }).toList(),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Latitude : ',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+            (_currentPos != null)
+                ? Text(
+                    _currentPos.latitude.toString(),
+                    style: gpsTextStyle,
+                  )
+                : Text(
+                    '0.0',
+                    style: gpsTextStyle,
+                  ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Longitude : ',
+              style: TextStyle(
+                fontSize: 20,
               ),
-              (_currentPos != null)
-                  ? Text(
-                      _currentPos.latitude.toString(),
-                      style: gpsTextStyle,
-                    )
-                  : Text(
-                      '0.0',
-                      style: gpsTextStyle,
-                    ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Longitude : ',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              (_currentPos != null)
-                  ? Text(
-                      _currentPos.longitude.toString(),
-                      style: gpsTextStyle,
-                    )
-                  : Text(
-                      '0.0',
-                      style: gpsTextStyle,
-                    ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              Position positionValue = await _determinePosition();
-              setState(() {
-                _currentPos = positionValue;
-              });
-            },
-            child: Text('Locate me'),
-          ),
-        ],
-      ),
+            ),
+            (_currentPos != null)
+                ? Text(
+                    _currentPos.longitude.toString(),
+                    style: gpsTextStyle,
+                  )
+                : Text(
+                    '0.0',
+                    style: gpsTextStyle,
+                  ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            Position positionValue = await _determinePosition();
+            setState(() {
+              _currentPos = positionValue;
+            });
+          },
+          child: Text('Locate me'),
+        ),
+      ],
     );
   }
 }
