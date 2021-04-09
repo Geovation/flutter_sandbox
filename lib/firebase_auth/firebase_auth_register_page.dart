@@ -103,7 +103,9 @@ class _FirebaseAuthRegistrationPageState
                       final newUser =
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
-                      // if (newUser != null) {}
+                      if (newUser != null) {
+                        Navigator.pushNamed(context, HomePage.id);
+                      }
 
                       setState(() {
                         showSpinner = false;

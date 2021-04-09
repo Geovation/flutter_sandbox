@@ -99,7 +99,9 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                     try {
                       final user = await _auth.signInWithEmailAndPassword(
                           email: email, password: password);
-                      // if (user != null) {}
+                      if (user != null) {
+                        Navigator.pushNamed(context, HomePage.id);
+                      }
 
                       setState(() {
                         showSpinner = false;

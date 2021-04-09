@@ -29,7 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final _pageController = PageController(initialPage: 0);
-  String _title = 'Crashlytics';
+  String _title = 'Firebase Crashlytics';
 
   void _onPageChanged(int pageIndex) {
     setState(() {
@@ -193,14 +193,8 @@ class DrawerUpdate extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             User user = snapshot.data;
-            if (user == null) {
-              isLoggedIn = false;
-              return DrawerWindow(
-                  pageControllerRef: _refPageController,
-                  selectedIndex: _selectedIndex,
-                  screensLength: _screensLength);
-            }
-            isLoggedIn = true;
+
+            isLoggedIn = (user == null) ? false : true;
             return DrawerWindow(
                 pageControllerRef: _refPageController,
                 selectedIndex: _selectedIndex,
@@ -244,50 +238,50 @@ class DrawerWindow extends StatelessWidget {
         selected: _selectedIndex == 0,
         title: Text('Firebase Crashlytics'),
         onTap: () {
-          Navigator.pop(context);
           if (_selectedIndex != 0) {
             _refPageController.jumpToPage(0);
           }
+          Navigator.pop(context);
         },
       ),
       ListTile(
         selected: _selectedIndex == 1,
         title: Text('Mapbox Map'),
         onTap: () {
-          Navigator.pop(context);
           if (_selectedIndex != 1) {
             _refPageController.jumpToPage(1);
           }
+          Navigator.pop(context);
         },
       ),
       ListTile(
         selected: _selectedIndex == 2,
         title: Text('Camera'),
         onTap: () {
-          Navigator.pop(context);
           if (_selectedIndex != 2) {
             _refPageController.jumpToPage(2);
           }
+          Navigator.pop(context);
         },
       ),
       ListTile(
         selected: _selectedIndex == 3,
         title: Text('Basic Widgets'),
         onTap: () {
-          Navigator.pop(context);
           if (_selectedIndex != 3) {
             _refPageController.jumpToPage(3);
           }
+          Navigator.pop(context);
         },
       ),
       ListTile(
         selected: _selectedIndex == 4,
         title: Text('GPS'),
         onTap: () {
-          Navigator.pop(context);
           if (_selectedIndex != 4) {
             _refPageController.jumpToPage(4);
           }
+          Navigator.pop(context);
         },
       ),
       Divider(
@@ -328,8 +322,8 @@ class DrawerWindow extends StatelessWidget {
         ListTile(
           title: Text('Log out'),
           onTap: () {
-            Navigator.pop(context);
             _auth.signOut();
+            Navigator.pop(context);
           },
         ),
       );
@@ -360,8 +354,8 @@ class DrawerWindow extends StatelessWidget {
         ListTile(
           title: Text('Log in'),
           onTap: () {
-            Navigator.pop(context);
             _refPageController.jumpToPage(_screensLength - 2);
+            Navigator.pop(context);
           },
         ),
       );
@@ -369,8 +363,8 @@ class DrawerWindow extends StatelessWidget {
         ListTile(
           title: Text('Register'),
           onTap: () {
-            Navigator.pop(context);
             _refPageController.jumpToPage(_screensLength - 1);
+            Navigator.pop(context);
           },
         ),
       );
