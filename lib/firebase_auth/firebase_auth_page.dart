@@ -24,7 +24,6 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(_auth.currentUser);
     if (_auth.currentUser == null) {
       return FirebaseAuthLoggedOutState();
     } else {

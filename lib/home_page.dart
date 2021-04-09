@@ -6,6 +6,7 @@ import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
+import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:provider/provider.dart';
@@ -51,9 +52,12 @@ class _HomePageState extends State<HomePage> {
           _title = 'GPS';
           break;
         case 5:
-          _title = 'Login';
+          _title = 'Firestore';
           break;
         case 6:
+          _title = 'Login';
+          break;
+        case 7:
           _title = 'Register';
           break;
         default:
@@ -78,6 +82,7 @@ class _HomePageState extends State<HomePage> {
       CameraPage(cameras: widget.cameraList),
       BasicWidgetsPage(),
       GPSPage(),
+      FirestorePage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -108,6 +113,11 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.gps_fixed),
           label: 'GPS',
+          backgroundColor: Colors.pink,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.note_add),
+          label: 'Firestore',
           backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
@@ -280,6 +290,16 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_selectedIndex != 4) {
             _refPageController.jumpToPage(4);
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _selectedIndex == 5,
+        title: Text('Firestore'),
+        onTap: () {
+          if (_selectedIndex != 5) {
+            _refPageController.jumpToPage(5);
           }
           Navigator.pop(context);
         },
