@@ -1,6 +1,8 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BasicWidgetsPage extends StatefulWidget {
   static const id = 'basic_widget_page';
@@ -311,6 +313,12 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    _pageNavigator.setCurrentPageIndex =
+        _pageNavigator.getPageIndex("BasicWidgets");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());

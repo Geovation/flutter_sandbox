@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 class GPSPage extends StatefulWidget {
   static const id = 'gps_page';
@@ -52,6 +54,11 @@ class _GPSPageState extends State<GPSPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("GPS");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

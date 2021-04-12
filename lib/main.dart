@@ -14,6 +14,8 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:provider/provider.dart';
 
 import 'basic_widget/basic_widget_page.dart';
 import 'home_page.dart';
@@ -34,27 +36,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Sandbox',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
+    final _pageController = PageController(initialPage: 0);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => PageNavigatorCustom(0, 0, _pageController))
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Sandbox',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+        ),
+        initialRoute: HomePage.id,
+        routes: {
+          MapboxMapPage.id: (context) => MapboxMapPage(),
+          FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
+          FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
+          FirebaseAuthRegistrationPage.id: (context) =>
+              FirebaseAuthRegistrationPage(),
+          FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
+          FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
+          CameraPage.id: (context) => CameraPage(cameras: cameraList),
+          BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
+          GPSPage.id: (context) => GPSPage(),
+          HomePage.id: (context) => HomePage(cameraList: cameraList),
+          FirestorePage.id: (context) => FirestorePage(),
+        },
       ),
-      initialRoute: HomePage.id,
-      routes: {
-        MapboxMapPage.id: (context) => MapboxMapPage(),
-        FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
-        FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
-        FirebaseAuthRegistrationPage.id: (context) =>
-            FirebaseAuthRegistrationPage(),
-        FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
-        FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
-        CameraPage.id: (context) => CameraPage(cameras: cameraList),
-        BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
-        GPSPage.id: (context) => GPSPage(),
-        HomePage.id: (context) => HomePage(cameraList: cameraList),
-        FirestorePage.id: (context) => FirestorePage(),
-      },
     );
   }
 }

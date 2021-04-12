@@ -6,7 +6,9 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:provider/provider.dart';
 
 import 'Models/Placemarks.dart';
 import 'constants_mapbox.dart';
@@ -114,6 +116,11 @@ class _MapboxMapState extends State<MapboxMapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("Mapbox");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
     Widget bodyWidget;
     if (kIsWeb) {
       bodyWidget = Center(

@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
-import 'package:flutter_sandbox/home_page.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 
 class FirebaseAuthRegistrationPage extends StatefulWidget {
   static const id = 'firebase_auth_registration_page';
@@ -48,6 +49,11 @@ class _FirebaseAuthRegistrationPageState
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    final PageController _pageController = _pageNavigator.getPageController;
+    _pageNavigator.setCurrentPageIndex =
+        _pageNavigator.getPageIndex("FirebaseAuthRegister");
     Widget bodyWidget;
     if (_auth != null) {
       if (_auth.currentUser != null) {
@@ -57,7 +63,7 @@ class _FirebaseAuthRegistrationPageState
             colour: Colors.lightBlueAccent,
             onPressed: () {
               _auth.signOut();
-              Navigator.pushNamed(context, HomePage.id);
+              _pageController.jumpToPage(_pageNavigator.getFromIndex);
             },
           ),
         );
@@ -104,7 +110,7 @@ class _FirebaseAuthRegistrationPageState
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
                       if (newUser != null) {
-                        Navigator.pushNamed(context, HomePage.id);
+                        _pageController.jumpToPage(_pageNavigator.getFromIndex);
                       }
 
                       setState(() {

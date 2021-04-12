@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:provider/provider.dart';
 
 class FirestorePage extends StatefulWidget {
   static const id = 'firestore_page';
@@ -38,6 +40,12 @@ class _FirestorePageState extends State<FirestorePage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    final PageController _pageController = _pageNavigator.getPageController;
+    _pageNavigator.setCurrentPageIndex =
+        _pageNavigator.getPageIndex("Firestore");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     if (_auth != null) {
       if (_auth.currentUser != null) {
         isUserLoggedIn = true;
@@ -50,8 +58,12 @@ class _FirestorePageState extends State<FirestorePage> {
         DocumentSnapshot doc = await usersNote.get();
         Map<String, dynamic> userData = doc.data();
         setState(() {
-          _editingController.value = TextEditingValue(text: userData['note']);
-          isInEditingMode = userData['editMode'];
+          if (userData != null) {
+            _editingController.value = TextEditingValue(text: userData['note']);
+            isInEditingMode = userData['editMode'];
+          } else {
+            print('userData not found');
+          }
         });
       }
     };
@@ -65,56 +77,42 @@ class _FirestorePageState extends State<FirestorePage> {
             })
             .then((value) => print("Note Added"))
             .catchError((error) => print("Failed to add note: $error"));
+      } else {
+        _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+        _pageController
+            .jumpToPage(_pageNavigator.getPageIndex("FirebaseAuthLogin"));
       }
     }
 
     Widget lastRow() {
       Widget rowWidget;
-      rowWidget = (_auth.currentUser != null)
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Editing Mode',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Switch.adaptive(
-                      value: isInEditingMode,
-                      onChanged: (bool newValue) {
-                        setState(() {
-                          isInEditingMode = newValue;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    saveNote();
-                  },
-                  child: Text('Save'),
-                ),
-              ],
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Editing Mode',
-                  style: TextStyle(fontSize: 20),
-                ),
-                Switch.adaptive(
-                  value: isInEditingMode,
-                  onChanged: (bool newValue) {
-                    setState(() {
-                      isInEditingMode = newValue;
-                    });
-                  },
-                ),
-              ],
-            );
+      rowWidget = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            children: [
+              Text(
+                'Editing Mode',
+                style: TextStyle(fontSize: 20),
+              ),
+              Switch.adaptive(
+                value: isInEditingMode,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    isInEditingMode = newValue;
+                  });
+                },
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              saveNote();
+            },
+            child: Text('Save'),
+          ),
+        ],
+      );
       return rowWidget;
     }
 

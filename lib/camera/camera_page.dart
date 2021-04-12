@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'display_picture_screen.dart';
 import 'display_video_screen.dart';
@@ -61,6 +63,11 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("Camera");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
     Function takePicture = () async {
       try {
         // Ensure that the camera is initialized.

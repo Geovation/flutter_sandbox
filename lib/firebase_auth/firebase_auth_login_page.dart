@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
-import 'package:flutter_sandbox/home_page.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
 
 class FirebaseAuthLoginPage extends StatefulWidget {
   static const id = 'firebase_auth_login_page';
@@ -45,6 +46,11 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    final PageController _pageController = _pageNavigator.getPageController;
+    _pageNavigator.setCurrentPageIndex =
+        _pageNavigator.getPageIndex("FirebaseAuthLogin");
     Widget bodyWidget;
     if (_auth != null) {
       if (_auth.currentUser != null) {
@@ -54,7 +60,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
             colour: Colors.lightBlueAccent,
             onPressed: () {
               _auth.signOut();
-              Navigator.pushNamed(context, HomePage.id);
+              _pageController.jumpToPage(_pageNavigator.getFromIndex);
             },
           ),
         );
@@ -100,7 +106,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                       final user = await _auth.signInWithEmailAndPassword(
                           email: email, password: password);
                       if (user != null) {
-                        Navigator.pushNamed(context, HomePage.id);
+                        _pageController.jumpToPage(_pageNavigator.getFromIndex);
                       }
 
                       setState(() {
