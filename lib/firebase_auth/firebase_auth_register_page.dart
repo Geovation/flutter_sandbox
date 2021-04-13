@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -54,6 +55,7 @@ class _FirebaseAuthRegistrationPageState
     final PageController _pageController = _pageNavigator.getPageController;
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex("FirebaseAuthRegister");
+    Auth authProvider = Provider.of<Auth>(context);
     Widget bodyWidget;
     if (_auth != null) {
       if (_auth.currentUser != null) {
@@ -63,6 +65,7 @@ class _FirebaseAuthRegistrationPageState
             colour: Colors.lightBlueAccent,
             onPressed: () {
               _auth.signOut();
+              authProvider.setUserLoginStatus = false;
               _pageController.jumpToPage(_pageNavigator.getFromIndex);
             },
           ),

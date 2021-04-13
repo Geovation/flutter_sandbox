@@ -152,22 +152,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-bool isLoggedIn = false;
-
 class DrawerView extends StatelessWidget {
   const DrawerView({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => Auth(), child: DrawerUpdate());
-  }
-}
-
-class DrawerUpdate extends StatelessWidget {
-  const DrawerUpdate({
     Key key,
   }) : super(key: key);
 
@@ -178,9 +164,6 @@ class DrawerUpdate extends StatelessWidget {
         stream: auth.onAuthStateChanges,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
-            User user = snapshot.data;
-
-            isLoggedIn = (user == null) ? false : true;
             return DrawerWindow();
           } else {
             return Scaffold(
@@ -203,6 +186,7 @@ class DrawerWindow extends StatelessWidget {
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.getPageController;
+    Auth authProvider = Provider.of<Auth>(context);
     final _auth = FirebaseAuth.instance;
 
     List<Widget> listViewItems = [
@@ -282,7 +266,7 @@ class DrawerWindow extends StatelessWidget {
       ),
     ];
 
-    if (isLoggedIn) {
+    if (authProvider.getUserLoginStatus) {
       listViewItems.insert(
         0,
         DrawerHeader(
@@ -312,6 +296,7 @@ class DrawerWindow extends StatelessWidget {
           title: Text('Log out'),
           onTap: () {
             _auth.signOut();
+            authProvider.setUserLoginStatus = false;
             Navigator.pop(context);
           },
         ),

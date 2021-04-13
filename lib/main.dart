@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) => PageNavigatorCustom(0, 0, _pageController))
+            create: (_) => PageNavigatorCustom(0, 0, _pageController)),
+        ChangeNotifierProvider(create: (_) => Auth()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

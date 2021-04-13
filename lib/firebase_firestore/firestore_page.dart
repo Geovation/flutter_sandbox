@@ -1,29 +1,57 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
-class FirestorePage extends StatefulWidget {
+class FirestorePage extends StatelessWidget {
   static const id = 'firestore_page';
+
   @override
-  _FirestorePageState createState() => _FirestorePageState();
+  Widget build(BuildContext context) {
+    bool isLoggedIn = false;
+    Auth auth = Provider.of<Auth>(context);
+    return StreamBuilder(
+        stream: auth.onAuthStateChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            User user = snapshot.data;
+
+            isLoggedIn = (user == null) ? false : true;
+            return FirestorePageView(isLoggedIn, auth.getAuthCurrentUserUID);
+          } else {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
+  }
 }
 
-class _FirestorePageState extends State<FirestorePage> {
+class FirestorePageView extends StatefulWidget {
+  FirestorePageView(this.isUserLoggedIn, this.uid);
+  bool isUserLoggedIn;
+  String uid;
+  @override
+  _FirestorePageViewState createState() => _FirestorePageViewState();
+}
+
+class _FirestorePageViewState extends State<FirestorePageView> {
   bool isInEditingMode = true;
   TextEditingController _editingController;
   String note;
-  FirebaseFirestore firestore;
-  FirebaseAuth _auth;
   DocumentReference usersNote;
   Function getUserDoc;
-  bool isUserLoggedIn = false;
+  FirebaseFirestore firestore;
+  bool isUserLoggedIn;
+  String uid;
 
   @override
   void initState() {
     firestore = FirebaseFirestore.instance;
-    _auth = FirebaseAuth.instance;
     _editingController = TextEditingController();
 
     super.initState();
@@ -40,17 +68,17 @@ class _FirestorePageState extends State<FirestorePage> {
 
   @override
   Widget build(BuildContext context) {
+    isUserLoggedIn = widget.isUserLoggedIn;
+    uid = widget.uid;
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.getPageController;
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex("Firestore");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
-    if (_auth != null) {
-      if (_auth.currentUser != null) {
-        isUserLoggedIn = true;
-        usersNote = firestore.collection('users').doc(_auth.currentUser.uid);
-      }
+
+    if (uid.isNotEmpty) {
+      usersNote = firestore.collection('users').doc(uid);
     }
 
     getUserDoc = () async {
@@ -78,7 +106,6 @@ class _FirestorePageState extends State<FirestorePage> {
             .then((value) => print("Note Added"))
             .catchError((error) => print("Failed to add note: $error"));
       } else {
-        _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
         _pageController
             .jumpToPage(_pageNavigator.getPageIndex("FirebaseAuthLogin"));
       }

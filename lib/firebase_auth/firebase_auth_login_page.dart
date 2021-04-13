@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -14,7 +15,7 @@ class FirebaseAuthLoginPage extends StatefulWidget {
 class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
   bool showSpinner = false;
   final _auth = FirebaseAuth.instance;
-  String email;
+  String email = "";
   String password;
 
   Future<String> showErrorAlertDialog({
@@ -51,6 +52,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
     final PageController _pageController = _pageNavigator.getPageController;
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex("FirebaseAuthLogin");
+    Auth authProvider = Provider.of<Auth>(context);
     Widget bodyWidget;
     if (_auth != null) {
       if (_auth.currentUser != null) {
@@ -60,6 +62,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
             colour: Colors.lightBlueAccent,
             onPressed: () {
               _auth.signOut();
+              authProvider.setUserLoginStatus = false;
               _pageController.jumpToPage(_pageNavigator.getFromIndex);
             },
           ),
@@ -99,28 +102,38 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                   title: 'Log In',
                   colour: Colors.lightBlueAccent,
                   onPressed: () async {
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    try {
-                      final user = await _auth.signInWithEmailAndPassword(
-                          email: email, password: password);
-                      if (user != null) {
-                        _pageController.jumpToPage(_pageNavigator.getFromIndex);
+                    if (email.isNotEmpty && password.isNotEmpty) {
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      try {
+                        final user = await _auth.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        if (user != null) {
+                          _pageController
+                              .jumpToPage(_pageNavigator.getFromIndex);
+                        }
+
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      } on FirebaseAuthException catch (e) {
+                        setState(() {
+                          showSpinner = false;
+                        });
+
+                        await showErrorAlertDialog(
+                          context: context,
+                          titleText: 'Uh Oh!',
+                          messageText: e.code,
+                        );
                       }
-
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    } on FirebaseAuthException catch (e) {
-                      setState(() {
-                        showSpinner = false;
-                      });
-
+                    } else {
+                      print('entered');
                       await showErrorAlertDialog(
                         context: context,
                         titleText: 'Uh Oh!',
-                        messageText: e.code,
+                        messageText: 'Email & Password field cannot be empty.',
                       );
                     }
                   },
