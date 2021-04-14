@@ -58,8 +58,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
       setState(() {
         cloudFunctionData = "-----LOADING-----";
       });
-      HttpsCallable callable =
-          FirebaseFunctions.instance.httpsCallable('getGeoJSON');
+      HttpsCallable callable = functions.httpsCallable('getGeoJSON');
       try {
         final results = await callable();
         setState(() {
