@@ -129,7 +129,6 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         );
                       }
                     } else {
-                      print('entered');
                       await showErrorAlertDialog(
                         context: context,
                         titleText: 'Uh Oh!',

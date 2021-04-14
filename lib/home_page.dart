@@ -7,6 +7,7 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
+import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -67,9 +68,12 @@ class _HomePageState extends State<HomePage> {
             _title = 'Firestore';
             break;
           case 6:
-            _title = 'Login';
+            _title = 'Cloud Functions';
             break;
           case 7:
+            _title = 'Login';
+            break;
+          case 8:
             _title = 'Register';
             break;
           default:
@@ -86,6 +90,7 @@ class _HomePageState extends State<HomePage> {
       BasicWidgetsPage(),
       GPSPage(),
       FirestorePage(),
+      FirebaseFunctionsPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -121,6 +126,11 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.note_add),
           label: 'Firestore',
+          backgroundColor: Colors.pink,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.extension_rounded),
+          label: 'Extra',
           backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
@@ -253,6 +263,17 @@ class DrawerWindow extends StatelessWidget {
           if (_pageNavigator.getCurrentPageIndex != 5) {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('Firestore'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 6,
+        title: Text('Cloud Functions'),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 6) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Cloud Functions'));
           }
           Navigator.pop(context);
         },
