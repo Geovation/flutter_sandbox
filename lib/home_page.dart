@@ -119,29 +119,14 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.pink,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.gps_fixed),
-          label: 'GPS',
-          backgroundColor: Colors.pink,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.note_add),
-          label: 'Firestore',
-          backgroundColor: Colors.pink,
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.extension_rounded),
           label: 'Extra',
           backgroundColor: Colors.pink,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.security_rounded),
-          label: 'Auth',
-          backgroundColor: Colors.pink,
-        ),
       ],
-      currentIndex: (_pageNavigator.getCurrentPageIndex < _screens.length - 1)
+      currentIndex: (_pageNavigator.getCurrentPageIndex < 4)
           ? _pageNavigator.getCurrentPageIndex
-          : _screens.length - 2,
+          : 4,
       selectedItemColor: Colors.black,
       onTap: _onBottomNavItemTapped,
     );
