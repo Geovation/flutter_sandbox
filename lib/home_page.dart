@@ -31,21 +31,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _title = 'Firebase Crashlytics';
+  int currentPageIndex;
 
   @override
   Widget build(BuildContext context) {
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.pageController;
-    void _onBottomNavItemTapped(int index) {
-      setState(() {
-        _pageNavigator.setCurrentPageIndex = index;
-        _pageController.jumpToPage(_pageNavigator.getCurrentPageIndex);
-      });
-    }
+
+    currentPageIndex = _pageNavigator.getCurrentPageIndex;
 
     void _onPageChanged(int pageIndex) {
       setState(() {
+        currentPageIndex = pageIndex;
         _pageNavigator.setCurrentPageIndex = pageIndex;
 
         switch (pageIndex) {
@@ -96,7 +94,40 @@ class _HomePageState extends State<HomePage> {
       FirebaseAuthRegistrationPage(),
     ];
 
-    BottomNavigationBar _bottomNavBar = BottomNavigationBar(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_title),
+      ),
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: _screens,
+        onPageChanged: _onPageChanged,
+      ),
+      drawer: DrawerView(),
+      bottomNavigationBar: BottonNavBarView(currentPageIndex),
+    );
+  }
+}
+
+class BottonNavBarView extends StatelessWidget {
+  BottonNavBarView(this.currentPageIndex);
+  int currentPageIndex;
+  @override
+  Widget build(BuildContext context) {
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    final PageController _pageController = _pageNavigator.getPageController;
+
+    void _onBottomNavItemTapped(int index) {
+      _pageNavigator.setCurrentPageIndex = index;
+      _pageController.jumpToPage(_pageNavigator.getCurrentPageIndex);
+      if (index == 4) {
+        Scaffold.of(context).openDrawer();
+      }
+    }
+
+    return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.error),
@@ -124,25 +155,9 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.pink,
         ),
       ],
-      currentIndex: (_pageNavigator.getCurrentPageIndex < 4)
-          ? _pageNavigator.getCurrentPageIndex
-          : 4,
+      currentIndex: (currentPageIndex < 4) ? currentPageIndex : 4,
       selectedItemColor: Colors.black,
       onTap: _onBottomNavItemTapped,
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title),
-      ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: _screens,
-        onPageChanged: _onPageChanged,
-      ),
-      drawer: DrawerView(),
-      bottomNavigationBar: _bottomNavBar,
     );
   }
 }
