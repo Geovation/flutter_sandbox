@@ -8,6 +8,7 @@ import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
+import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -69,9 +70,12 @@ class _HomePageState extends State<HomePage> {
             _title = 'Cloud Functions';
             break;
           case 7:
-            _title = 'Login';
+            _title = 'Google Maps';
             break;
           case 8:
+            _title = 'Login';
+            break;
+          case 9:
             _title = 'Register';
             break;
           default:
@@ -89,6 +93,7 @@ class _HomePageState extends State<HomePage> {
       GPSPage(),
       FirestorePage(),
       FirebaseFunctionsPage(),
+      GoogleMapsPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -274,6 +279,17 @@ class DrawerWindow extends StatelessWidget {
           if (_pageNavigator.getCurrentPageIndex != 6) {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('Cloud Functions'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 7,
+        title: Text('Google Maps'),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 7) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Google Maps'));
           }
           Navigator.pop(context);
         },
