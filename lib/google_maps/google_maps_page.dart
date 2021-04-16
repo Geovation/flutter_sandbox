@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class GoogleMapsPage extends StatefulWidget {
   static const id = "google_maps_page";
@@ -28,31 +29,26 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget bodyWidget;
-    if (kIsWeb) {
-      bodyWidget = Container(
-        child: Center(
-          child:
-              Text('Google Maps plugin is not supported yet on this platform.'),
-        ),
-      );
-    } else {
-      bodyWidget = Scaffold(
-        body: GoogleMap(
-          mapType: MapType.hybrid,
-          initialCameraPosition: _kQueenElizabethOlympicPark,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: _goToThePool,
-          label: Text('To the Pool'),
-          icon: Icon(Icons.pool),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      );
-    }
-    return bodyWidget;
+    final PageNavigatorCustom _pageNavigator =
+        Provider.of<PageNavigatorCustom>(context);
+    _pageNavigator.setCurrentPageIndex =
+        _pageNavigator.getPageIndex("Google Maps");
+    _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kQueenElizabethOlympicPark,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToThePool,
+        label: Text('To the Pool'),
+        icon: Icon(Icons.pool),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+    );
   }
 }
