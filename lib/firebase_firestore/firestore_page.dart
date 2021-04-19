@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/auth.dart';
+import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -123,7 +124,7 @@ class _FirestorePageViewState extends State<FirestorePageView> {
                 style: TextStyle(fontSize: 20),
               ),
               Switch.adaptive(
-                activeColor: Colors.orange,
+                activeColor: kPrimary,
                 value: isInEditingMode,
                 onChanged: (bool newValue) {
                   setState(() {

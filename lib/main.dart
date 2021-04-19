@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
+import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -50,9 +51,9 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Sandbox',
         theme: ThemeData.light().copyWith(
           colorScheme: ColorScheme(
-              primary: Colors.orange,
+              primary: kPrimary,
               primaryVariant: Colors.orange.shade300,
-              secondary: Colors.deepOrangeAccent,
+              secondary: kSecondary,
               secondaryVariant: Colors.deepOrangeAccent.shade400,
               surface: Colors.white,
               background: Colors.white,

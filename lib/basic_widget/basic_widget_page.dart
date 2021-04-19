@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -118,7 +119,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           children: [
             Slider.adaptive(
               activeColor: Theme.of(context).accentColor,
-              inactiveColor: Colors.red.shade100,
+              inactiveColor: kSliderInActiveColor,
               value: currentSliderValueContinuous,
               onChanged: (double value) {
                 setState(() {
@@ -132,7 +133,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
             ),
             Slider.adaptive(
               activeColor: Theme.of(context).accentColor,
-              inactiveColor: Colors.red.shade100,
+              inactiveColor: kSliderInActiveColor,
               value: currentSliderValueDiscrete,
               min: 0,
               max: 100,
@@ -242,7 +243,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           child: ListView(
             children: [
               CheckboxListTile(
-                activeColor: Colors.orange,
+                activeColor: kPrimary,
                 title: Text('Wake up'),
                 value: checkBoxValues[0],
                 onChanged: (bool value) {
@@ -253,7 +254,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 secondary: Icon(Icons.alarm),
               ),
               CheckboxListTile(
-                activeColor: Colors.orange,
+                activeColor: kPrimary,
                 title: Text('Put on the suit'),
                 value: checkBoxValues[1],
                 onChanged: (bool value) {
@@ -264,7 +265,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 secondary: Icon(Icons.work),
               ),
               CheckboxListTile(
-                activeColor: Colors.orange,
+                activeColor: kPrimary,
                 title: Text('Be the Hero'),
                 value: checkBoxValues[2],
                 onChanged: (bool value) {
