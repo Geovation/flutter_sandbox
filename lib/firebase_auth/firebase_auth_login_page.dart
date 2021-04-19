@@ -59,7 +59,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
         bodyWidget = Center(
           child: RoundedButton(
             title: 'Sign out',
-            colour: Colors.lightBlueAccent,
+            colour: Colors.deepOrangeAccent,
             onPressed: () {
               _auth.signOut();
               authProvider.setUserLoginStatus = false;
@@ -100,7 +100,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                 ),
                 RoundedButton(
                   title: 'Log In',
-                  colour: Colors.lightBlueAccent,
+                  colour: Colors.deepOrangeAccent,
                   onPressed: () async {
                     if (email.isNotEmpty && password.isNotEmpty) {
                       setState(() {

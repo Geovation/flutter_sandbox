@@ -117,6 +117,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Slider.adaptive(
+              activeColor: Theme.of(context).accentColor,
+              inactiveColor: Colors.red.shade100,
               value: currentSliderValueContinuous,
               onChanged: (double value) {
                 setState(() {
@@ -129,6 +131,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               height: 3,
             ),
             Slider.adaptive(
+              activeColor: Theme.of(context).accentColor,
+              inactiveColor: Colors.red.shade100,
               value: currentSliderValueDiscrete,
               min: 0,
               max: 100,
@@ -238,6 +242,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           child: ListView(
             children: [
               CheckboxListTile(
+                activeColor: Colors.orange,
                 title: Text('Wake up'),
                 value: checkBoxValues[0],
                 onChanged: (bool value) {
@@ -248,6 +253,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 secondary: Icon(Icons.alarm),
               ),
               CheckboxListTile(
+                activeColor: Colors.orange,
                 title: Text('Put on the suit'),
                 value: checkBoxValues[1],
                 onChanged: (bool value) {
@@ -258,6 +264,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 secondary: Icon(Icons.work),
               ),
               CheckboxListTile(
+                activeColor: Colors.orange,
                 title: Text('Be the Hero'),
                 value: checkBoxValues[2],
                 onChanged: (bool value) {

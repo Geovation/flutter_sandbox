@@ -46,7 +46,7 @@ class FirebaseAuthLoggedOutState extends StatelessWidget {
           children: <Widget>[
             RoundedButton(
               title: 'Log In',
-              colour: Colors.lightBlueAccent,
+              colour: Colors.deepOrangeAccent,
               onPressed: () {
                 if (args != null) {
                   Navigator.pushNamed(context, FirebaseAuthLoginPage.id,
@@ -58,7 +58,7 @@ class FirebaseAuthLoggedOutState extends StatelessWidget {
             ),
             RoundedButton(
               title: 'Register',
-              colour: Colors.lightBlueAccent,
+              colour: Colors.deepOrangeAccent,
               onPressed: () {
                 if (args != null) {
                   Navigator.pushNamed(context, FirebaseAuthRegistrationPage.id,

@@ -48,8 +48,28 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Sandbox',
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
+        theme: ThemeData.light().copyWith(
+          colorScheme: ColorScheme(
+              primary: Colors.orange,
+              primaryVariant: Colors.orange.shade300,
+              secondary: Colors.deepOrangeAccent,
+              secondaryVariant: Colors.deepOrangeAccent.shade400,
+              surface: Colors.white,
+              background: Colors.white,
+              error: Colors.redAccent,
+              onPrimary: Colors.black,
+              onSecondary: Colors.white,
+              onSurface: Colors.grey,
+              onBackground: Colors.grey,
+              onError: Colors.white,
+              brightness: Brightness.light),
+          primaryColorDark: Color(0xFFF57C00),
+          primaryColorLight: Color(0xFFFFE0B2),
+          primaryColor: Color(0xFFFF9800),
+          accentColor: Color(0xFFFF5252),
+          dividerColor: Color(0xFFBDBDBD),
+          bottomAppBarColor: Color(0xFFFF5252),
+          buttonColor: Color(0xFFFF5252),
         ),
         initialRoute: HomePage.id,
         routes: {

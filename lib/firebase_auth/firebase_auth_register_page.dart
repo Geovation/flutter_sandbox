@@ -62,7 +62,7 @@ class _FirebaseAuthRegistrationPageState
         bodyWidget = Center(
           child: RoundedButton(
             title: 'Sign out',
-            colour: Colors.lightBlueAccent,
+            colour: Colors.deepOrangeAccent,
             onPressed: () {
               _auth.signOut();
               authProvider.setUserLoginStatus = false;
@@ -103,7 +103,7 @@ class _FirebaseAuthRegistrationPageState
                 ),
                 RoundedButton(
                   title: 'Register',
-                  colour: Colors.lightBlueAccent,
+                  colour: Colors.deepOrangeAccent,
                   onPressed: () async {
                     setState(() {
                       showSpinner = true;

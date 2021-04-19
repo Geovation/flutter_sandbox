@@ -123,6 +123,7 @@ class _FirestorePageViewState extends State<FirestorePageView> {
                 style: TextStyle(fontSize: 20),
               ),
               Switch.adaptive(
+                activeColor: Colors.orange,
                 value: isInEditingMode,
                 onChanged: (bool newValue) {
                   setState(() {

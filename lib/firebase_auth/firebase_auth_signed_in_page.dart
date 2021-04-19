@@ -26,7 +26,7 @@ class FirebaseAuthSignedInPage extends StatelessWidget {
             ),
             RoundedButton(
               title: 'Sign out',
-              colour: Colors.lightBlueAccent,
+              colour: Colors.deepOrangeAccent,
               onPressed: () {
                 _auth.signOut();
                 Navigator.pop(context);

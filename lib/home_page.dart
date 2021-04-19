@@ -133,31 +133,30 @@ class BottonNavBarView extends StatelessWidget {
     }
 
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.error),
           label: 'Crashlytics',
-          backgroundColor: Colors.pink,
+          backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
           label: 'Mapbox',
-          backgroundColor: Colors.pink,
+          backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.camera_alt),
-          label: 'Camera',
-          backgroundColor: Colors.pink,
-        ),
+            icon: Icon(Icons.camera_alt),
+            label: 'Camera',
+            backgroundColor: Theme.of(context).accentColor,),
         BottomNavigationBarItem(
           icon: Icon(Icons.widgets_rounded),
           label: 'Basic Widgets',
-          backgroundColor: Colors.pink,
+          backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.extension_rounded),
           label: 'Extra',
-          backgroundColor: Colors.pink,
+          backgroundColor: Theme.of(context).accentColor,
         ),
       ],
       currentIndex: (currentPageIndex < 4) ? currentPageIndex : 4,
