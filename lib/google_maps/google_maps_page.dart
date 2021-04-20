@@ -32,14 +32,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
     controller.animateCamera(CameraUpdate.newCameraPosition(_kPool));
   }
 
-  void _addMarkers(LatLng markerPosition) {
-    final int markerCount = markers.length;
-
-    // prevent excessive markers
-    if (markerCount == 12) {
-      return;
-    }
-
+  void _addMarker(LatLng markerPosition) {
     final String markerIdVal = 'marker_id_$_markerIdCounter';
     _markerIdCounter++;
     final MarkerId markerId = MarkerId(markerIdVal);
@@ -72,9 +65,8 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
         markers: Set<Marker>.of(markers.values),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
-          // two different ways to pass variables to _addMarkers
-          _addMarkers(LatLng(51.54265, -0.00956));
-          _addMarkers(kPoolLocation);
+          _addMarker(LatLng(51.54265, -0.00956));
+          _addMarker(kPoolLocation);
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
