@@ -19,12 +19,40 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
     zoom: 14.4746,
   );
 
+  final LatLng kPoolLocation = const LatLng(51.53956, -0.03278);
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+  MarkerId selectedMarker;
+  int _markerIdCounter = 1;
+
   static final CameraPosition _kPool = CameraPosition(
       bearing: 110, target: LatLng(51.53956, -0.03278), tilt: 20, zoom: 19.5);
 
   Future<void> _goToThePool() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kPool));
+  }
+
+  void _addMarkers(LatLng markerPosition) {
+    final int markerCount = markers.length;
+
+    // prevent excessive markers
+    if (markerCount == 12) {
+      return;
+    }
+
+    final String markerIdVal = 'marker_id_$_markerIdCounter';
+    _markerIdCounter++;
+    final MarkerId markerId = MarkerId(markerIdVal);
+
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: markerPosition,
+      infoWindow: InfoWindow(title: markerIdVal, snippet: '*'),
+    );
+
+    setState(() {
+      markers[markerId] = marker;
+    });
   }
 
   @override
@@ -38,9 +66,15 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.hybrid,
+        myLocationButtonEnabled: false,
+        myLocationEnabled: false,
         initialCameraPosition: _kQueenElizabethOlympicPark,
+        markers: Set<Marker>.of(markers.values),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          // two different ways to pass variables to _addMarkers
+          _addMarkers(LatLng(51.54265, -0.00956));
+          _addMarkers(kPoolLocation);
         },
       ),
       floatingActionButton: FloatingActionButton.extended(

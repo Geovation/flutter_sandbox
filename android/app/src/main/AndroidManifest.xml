@@ -10,7 +10,7 @@
        android:name="androidx.multidex.MultiDexApplication" >android:name="androidx.multidex.MultiDexApplication" >
 
        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="YOUR KEY HERE"/>
+           android:value="AIzaSyAbOGOC9O1lXpkgctocBG2fJz0ylDQA85g"/>
 
         <activity
             android:name=".MainActivity"
