@@ -21,7 +21,6 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
 
   final LatLng kPoolLocation = const LatLng(51.53956, -0.03278);
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
-  MarkerId selectedMarker;
   int _markerIdCounter = 1;
 
   static final CameraPosition _kPool = CameraPosition(
