@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -16,6 +17,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   Completer<GoogleMapController> _controller = Completer();
   PermissionStatus locationPermissionStatus;
   bool isLocationEnabled = false;
+  bool isCurrentScreenCheckedOnce = false;
 
   void requestForLocation() async {
     await Permission.location.request();
@@ -68,17 +70,20 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (!kIsWeb) {
+      checkLocationStatus();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex("Google Maps");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
-
-    // check whether the current screen is visible
-    if (ModalRoute.of(context).isCurrent) {
-      checkLocationStatus();
-    }
 
     return Scaffold(
       body: GoogleMap(
