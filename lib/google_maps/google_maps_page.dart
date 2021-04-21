@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class GoogleMapsPage extends StatefulWidget {
@@ -13,6 +14,25 @@ class GoogleMapsPage extends StatefulWidget {
 
 class _GoogleMapsPageState extends State<GoogleMapsPage> {
   Completer<GoogleMapController> _controller = Completer();
+  PermissionStatus locationPermissionStatus;
+  bool isLocationEnabled = false;
+
+  void requestForLocation() async {
+    await Permission.location.request();
+    checkLocationStatus();
+  }
+
+  void checkLocationStatus() async {
+    locationPermissionStatus = await Permission.location.status;
+
+    if (locationPermissionStatus.isDenied) {
+      requestForLocation();
+    } else if (locationPermissionStatus.isGranted) {
+      setState(() {
+        isLocationEnabled = true;
+      });
+    }
+  }
 
   static final CameraPosition _kQueenElizabethOlympicPark = CameraPosition(
     target: LatLng(51.54265, -0.00956),
@@ -55,11 +75,16 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
         _pageNavigator.getPageIndex("Google Maps");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
+    // check whether the current screen is visible
+    if (ModalRoute.of(context).isCurrent) {
+      checkLocationStatus();
+    }
+
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.hybrid,
-        myLocationButtonEnabled: false,
-        myLocationEnabled: false,
+        myLocationButtonEnabled: isLocationEnabled,
+        myLocationEnabled: isLocationEnabled,
         initialCameraPosition: _kQueenElizabethOlympicPark,
         markers: Set<Marker>.of(markers.values),
         onMapCreated: (GoogleMapController controller) {
