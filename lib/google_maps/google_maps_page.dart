@@ -17,8 +17,6 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   Completer<GoogleMapController> _controller = Completer();
   PermissionStatus locationPermissionStatus;
   bool isLocationEnabled = false;
-  bool isCurrentScreenCheckedOnce = false;
-
   void requestForLocation() async {
     await Permission.location.request();
     checkLocationStatus();
