@@ -4,7 +4,7 @@ import 'package:parallax_image/parallax_image.dart';
 import 'package:provider/provider.dart';
 
 class BasicEffectsPage extends StatefulWidget {
-  static const id = "basic_effects_page";
+  static const id = 'basic_effects_page';
   @override
   _BasicEffectsPageState createState() => _BasicEffectsPageState();
 }
@@ -12,7 +12,6 @@ class BasicEffectsPage extends StatefulWidget {
 class _BasicEffectsPageState extends State<BasicEffectsPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  final _scrollControllerForParallax = ScrollController();
 
   final List<Tab> basicEffectTabs = <Tab>[
     Tab(text: 'Parallax'),
@@ -42,10 +41,13 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
                 itemCount: locations.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return BuildHorizontalCard(
-                      imageUrl: locations[index].imageUrl,
-                      name: locations[index].name,
-                      place: locations[index].place);
+                  return BuildCard(
+                    imageUrl: locations[index].imageUrl,
+                    title: locations[index].name,
+                    subtitle: locations[index].place,
+                    aspectRatio: 3 / 4,
+                    titleFontSize: 12.0,
+                  );
                 },
               ),
             ),
@@ -53,10 +55,11 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
               child: ListView.builder(
                 itemCount: locations.length,
                 itemBuilder: (context, index) {
-                  return BuildVerticalCard(
-                      imageUrl: locations[index].imageUrl,
-                      name: locations[index].name,
-                      place: locations[index].place);
+                  return BuildCard(
+                    imageUrl: locations[index].imageUrl,
+                    title: locations[index].name,
+                    subtitle: locations[index].place,
+                  );
                 },
               ),
             ),
@@ -73,7 +76,7 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("Basic Effects");
+        _pageNavigator.getPageIndex('Basic Effects');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     return Scaffold(
@@ -96,79 +99,27 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
   }
 }
 
-class BuildVerticalCard extends StatelessWidget {
-  const BuildVerticalCard(
-      {Key key,
-      @required this.imageUrl,
-      @required this.name,
-      @required this.place})
-      : super(key: key);
-
-  final String imageUrl;
-  final String name;
-  final String place;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-      child: Card(
-        elevation: 5,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Container(
-          height: 150,
-          child: ParallaxImage(
-            image: NetworkImage(imageUrl),
-            extent: 100,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.6, 0.95],
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                      Text(
-                        place,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BuildHorizontalCard extends StatelessWidget {
-  const BuildHorizontalCard({
+class BuildCard extends StatelessWidget {
+  const BuildCard({
     Key key,
     @required this.imageUrl,
-    @required this.name,
-    @required this.place,
+    @required this.title,
+    @required this.subtitle,
+    this.aspectRatio = 16 / 9,
+    this.titleFontSize = 16.0,
+    this.subtitleFontSize = 14.0,
+    this.titleColor = Colors.white,
+    this.subtitleColor = Colors.white,
   }) : super(key: key);
 
   final String imageUrl;
-  final String name;
-  final String place;
+  final String title;
+  final String subtitle;
+  final double aspectRatio;
+  final double titleFontSize;
+  final double subtitleFontSize;
+  final Color titleColor;
+  final Color subtitleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -177,8 +128,8 @@ class BuildHorizontalCard extends StatelessWidget {
       child: Card(
         elevation: 5,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Container(
-          width: 100,
+        child: AspectRatio(
+          aspectRatio: aspectRatio,
           child: ParallaxImage(
             image: NetworkImage(imageUrl),
             extent: 100,
@@ -201,12 +152,18 @@ class BuildHorizontalCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        name,
-                        style: TextStyle(fontSize: 12, color: Colors.white),
+                        title,
+                        style: TextStyle(
+                          fontSize: titleFontSize,
+                          color: titleColor,
+                        ),
                       ),
                       Text(
-                        place,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: subtitleFontSize,
+                          color: subtitleColor,
+                        ),
                       ),
                     ],
                   ),
@@ -241,8 +198,8 @@ const locations = [
     imageUrl: '$urlPrefix/01-mount-rushmore.jpg',
   ),
   Location(
-    name: 'Singapore',
-    place: 'China',
+    name: 'Supertree Grove',
+    place: 'Singapore',
     imageUrl: '$urlPrefix/02-singapore.jpg',
   ),
   Location(
