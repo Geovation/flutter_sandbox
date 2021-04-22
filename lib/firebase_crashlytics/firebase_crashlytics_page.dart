@@ -13,7 +13,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("FirebaseCrashlytics");
+        _pageNavigator.getPageIndex("Firebase Crashlytics");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     FirebaseCrashlytics fci = FirebaseCrashlytics.instance;

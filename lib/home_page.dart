@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -73,9 +74,12 @@ class _HomePageState extends State<HomePage> {
             _title = 'Google Maps';
             break;
           case 8:
-            _title = 'Login';
+            _title = 'Basic Effects';
             break;
           case 9:
+            _title = 'Login';
+            break;
+          case 10:
             _title = 'Register';
             break;
           default:
@@ -94,6 +98,7 @@ class _HomePageState extends State<HomePage> {
       FirestorePage(),
       FirebaseFunctionsPage(),
       GoogleMapsPage(),
+      BasicEffectsPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -145,9 +150,10 @@ class BottonNavBarView extends StatelessWidget {
           backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Camera',
-            backgroundColor: Theme.of(context).accentColor,),
+          icon: Icon(Icons.camera_alt),
+          label: 'Camera',
+          backgroundColor: Theme.of(context).accentColor,
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.widgets_rounded),
           label: 'Basic Widgets',
@@ -213,8 +219,8 @@ class DrawerWindow extends StatelessWidget {
         title: Text('Firebase Crashlytics'),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 0) {
-            _pageController
-                .jumpToPage(_pageNavigator.getPageIndex('FirebaseCrashlytics'));
+            _pageController.jumpToPage(
+                _pageNavigator.getPageIndex('Firebase Crashlytics'));
           }
           Navigator.pop(context);
         },
@@ -245,7 +251,7 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 3) {
             _pageController
-                .jumpToPage(_pageNavigator.getPageIndex('BasicWidgets'));
+                .jumpToPage(_pageNavigator.getPageIndex('Basic Widgets'));
           }
           Navigator.pop(context);
         },
@@ -289,6 +295,17 @@ class DrawerWindow extends StatelessWidget {
           if (_pageNavigator.getCurrentPageIndex != 7) {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('Google Maps'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 8,
+        title: Text('Basic Effects'),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 8) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Basic Effects'));
           }
           Navigator.pop(context);
         },

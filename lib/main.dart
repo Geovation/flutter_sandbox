@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/auth.dart';
+import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
           HomePage.id: (context) => HomePage(cameraList: cameraList),
           FirestorePage.id: (context) => FirestorePage(),
           GoogleMapsPage.id: (context) => GoogleMapsPage(),
+          BasicEffectsPage.id: (context) => BasicEffectsPage(),
         },
       ),
     );

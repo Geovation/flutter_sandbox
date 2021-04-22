@@ -5,16 +5,17 @@ class PageNavigatorCustom extends ChangeNotifier {
   int currentIndex;
   PageController pageController;
   Map<String, int> pageIndices = {
-    "FirebaseCrashlytics": 0,
+    "Firebase Crashlytics": 0,
     "Mapbox": 1,
     "Camera": 2,
-    "BasicWidgets": 3,
+    "Basic Widgets": 3,
     "GPS": 4,
     "Firestore": 5,
     "Cloud Functions": 6,
     "Google Maps": 7,
-    "FirebaseAuthLogin": 8,
-    "FirebaseAuthRegister": 9,
+    "Basic Effects": 8,
+    "FirebaseAuthLogin": 9,
+    "FirebaseAuthRegister": 10,
   };
   int fromIndex;
 

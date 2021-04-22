@@ -324,7 +324,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("BasicWidgets");
+        _pageNavigator.getPageIndex("Basic Widgets");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     _height = MediaQuery.of(context).size.height;
