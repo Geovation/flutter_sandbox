@@ -31,25 +31,6 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     super.dispose();
   }
 
-  Widget onSelectedWindow(int index) {
-    Widget indexedWidget;
-    switch (index) {
-      case 0:
-        indexedWidget = ParallaxView();
-        break;
-      case 1:
-        indexedWidget = ShimmerView();
-
-        break;
-      default:
-        indexedWidget = Center(
-          child: Text('No views to be found'),
-        );
-        break;
-    }
-    return indexedWidget;
-  }
-
   @override
   Widget build(BuildContext context) {
     final PageNavigatorCustom _pageNavigator =
@@ -71,8 +52,8 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          onSelectedWindow(0),
-          onSelectedWindow(1),
+          ParallaxView(),
+          ShimmerView(),
         ],
       ),
     );
