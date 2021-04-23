@@ -313,7 +313,9 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
         break;
 
       default:
-        print('default');
+        indexedWidget = Center(
+          child: Text('No views to be found'),
+        );
         break;
     }
     return indexedWidget;

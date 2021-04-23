@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:getwidget/components/shimmer/gf_shimmer.dart';
 import 'package:parallax_image/parallax_image.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,7 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
 
   final List<Tab> basicEffectTabs = <Tab>[
     Tab(text: 'Parallax'),
+    Tab(text: 'Shimmer'),
   ];
 
   @override
@@ -33,39 +35,44 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     Widget indexedWidget;
     switch (index) {
       case 0:
-        indexedWidget = Column(
-          children: [
-            Container(
-              constraints: BoxConstraints(maxHeight: 200.0),
-              child: ListView.builder(
-                itemCount: locations.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return BuildCard(
-                    imageUrl: locations[index].imageUrl,
-                    title: locations[index].name,
-                    subtitle: locations[index].place,
-                    aspectRatio: 3 / 4,
-                    titleFontSize: 12.0,
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: locations.length,
-                itemBuilder: (context, index) {
-                  return BuildCard(
-                    imageUrl: locations[index].imageUrl,
-                    title: locations[index].name,
-                    subtitle: locations[index].place,
-                  );
-                },
-              ),
-            ),
-          ],
-        );
+        indexedWidget = parallaxView();
+        break;
+      case 1:
+        Future<List<int>> _getResults() async {
+          await Future.delayed(
+            Duration(seconds: 7),
+          );
+          return List<int>.generate(10, (index) => index);
+        }
+        indexedWidget = FutureBuilder<List<int>>(
+            // perform the future delay to simulate request
+            future: _getResults(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: 10,
+                  // Important code
+                  itemBuilder: (context, index) => GFShimmer(
+                    child: ShimmerListItem(
+                      index: -1,
+                    ),
+                  ),
+                );
+              }
 
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => ShimmerListItem(
+                  index: index + 1,
+                ),
+              );
+            });
+
+        break;
+      default:
+        indexedWidget = Center(
+          child: Text('No views to be found'),
+        );
         break;
     }
     return indexedWidget;
@@ -93,8 +100,51 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
         controller: _tabController,
         children: [
           onSelectedWindow(0),
+          onSelectedWindow(1),
         ],
       ),
+    );
+  }
+}
+
+class parallaxView extends StatelessWidget {
+  const parallaxView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          constraints: BoxConstraints(maxHeight: 200.0),
+          child: ListView.builder(
+            itemCount: locations.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return BuildCard(
+                imageUrl: locations[index].imageUrl,
+                title: locations[index].name,
+                subtitle: locations[index].place,
+                aspectRatio: 3 / 4,
+                titleFontSize: 12.0,
+              );
+            },
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (context, index) {
+              return BuildCard(
+                imageUrl: locations[index].imageUrl,
+                title: locations[index].name,
+                subtitle: locations[index].place,
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -126,6 +176,7 @@ class BuildCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       child: Card(
+        color: Colors.orange.shade400,
         elevation: 5,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: AspectRatio(
@@ -228,3 +279,113 @@ const locations = [
     imageUrl: '$urlPrefix/07-cairo.jpg',
   ),
 ];
+
+class ShimmerListItem extends StatelessWidget {
+  ShimmerListItem({Key key, this.index});
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return index != -1
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.orange.shade50,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.orangeAccent,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Index number is $index',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                              'Index $index travelled from far. Either your internet speed or distance was a factor for the delay to arrive, so adding some shimmer to it.'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border(
+                  top: BorderSide(
+                    width: 1,
+                    color: Colors.orange,
+                  ),
+                  right: BorderSide(
+                    width: 1,
+                    color: Colors.orange,
+                  ),
+                  bottom: BorderSide(
+                    width: 1,
+                    color: Colors.orange,
+                  ),
+                  left: BorderSide(
+                    width: 1,
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.orangeAccent,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 10,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 10,
+                            color: Colors.red,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+  }
+}
