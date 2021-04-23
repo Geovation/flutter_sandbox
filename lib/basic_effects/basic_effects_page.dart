@@ -35,38 +35,10 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     Widget indexedWidget;
     switch (index) {
       case 0:
-        indexedWidget = parallaxView();
+        indexedWidget = ParallaxView();
         break;
       case 1:
-        Future<List<int>> _getResults() async {
-          await Future.delayed(
-            Duration(seconds: 7),
-          );
-          return List<int>.generate(10, (index) => index);
-        }
-        indexedWidget = FutureBuilder<List<int>>(
-            // perform the future delay to simulate request
-            future: _getResults(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: 10,
-                  // Important code
-                  itemBuilder: (context, index) => GFShimmer(
-                    child: ShimmerListItem(
-                      index: -1,
-                    ),
-                  ),
-                );
-              }
-
-              return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => ShimmerListItem(
-                  index: index + 1,
-                ),
-              );
-            });
+        indexedWidget = ShimmerView();
 
         break;
       default:
@@ -107,8 +79,48 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
   }
 }
 
-class parallaxView extends StatelessWidget {
-  const parallaxView({
+class ShimmerView extends StatelessWidget {
+  const ShimmerView({
+    Key key,
+  }) : super(key: key);
+
+  Future<List<int>> _getResults() async {
+    await Future.delayed(
+      Duration(seconds: 7),
+    );
+    return List<int>.generate(10, (index) => index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<int>>(
+        // perform the future delay to simulate request
+        future: _getResults(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return ListView.builder(
+              itemCount: 10,
+              // Important code
+              itemBuilder: (context, index) => GFShimmer(
+                child: ShimmerListItem(
+                  index: -1,
+                ),
+              ),
+            );
+          }
+
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) => ShimmerListItem(
+              index: index + 1,
+            ),
+          );
+        });
+  }
+}
+
+class ParallaxView extends StatelessWidget {
+  const ParallaxView({
     Key key,
   }) : super(key: key);
 
