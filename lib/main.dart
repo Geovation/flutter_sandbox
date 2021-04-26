@@ -19,6 +19,7 @@ import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:provider/provider.dart';
 
 import 'basic_widget/basic_widget_page.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
           FirestorePage.id: (context) => FirestorePage(),
           GoogleMapsPage.id: (context) => GoogleMapsPage(),
           BasicEffectsPage.id: (context) => BasicEffectsPage(),
+          RivePage.id: (context) => RivePage(),
         },
       ),
     );
