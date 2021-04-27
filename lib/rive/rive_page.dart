@@ -4,7 +4,7 @@ import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
-import '../pageNavigatorCustom.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 
 class RivePage extends StatefulWidget {
   static const id = "rive_page";
@@ -14,9 +14,8 @@ class RivePage extends StatefulWidget {
 
 class _RivePageState extends State<RivePage> {
   final riveFileName =
-      'assets/rive/truck_run7.riv'; // available animations: idle,bouncing,windshield_wipers,broken
+      'assets/rive/truck_run7.riv'; // available animations: idle, bouncing, windshield_wipers, and broken
   Artboard _artboard;
-  int selectedAnimationIndex = 0;
   List<String> animationNames = [
     'idle',
     'bouncing',
@@ -30,9 +29,7 @@ class _RivePageState extends State<RivePage> {
     false,
   ];
 
-  WiperAnimation _wipersController;
-  BouncingAnimation _bouncingController;
-  BrokenAnimation _brokenController;
+  CustomAnimation _wipersController, _bouncingController, _brokenController;
 
   @override
   void initState() {
@@ -74,7 +71,7 @@ class _RivePageState extends State<RivePage> {
   void _wipersChange(bool wipersOn) {
     if (_wipersController == null) {
       _artboard.addController(
-        _wipersController = WiperAnimation(animationNames[2]),
+        _wipersController = CustomAnimation(animationNames[2]),
       );
     }
     if (wipersOn) {
@@ -87,7 +84,7 @@ class _RivePageState extends State<RivePage> {
   void _bouncingChange(bool bouncingOn) {
     if (_bouncingController == null) {
       _artboard.addController(
-        _bouncingController = BouncingAnimation(animationNames[1]),
+        _bouncingController = CustomAnimation(animationNames[1]),
       );
     }
     if (bouncingOn) {
@@ -100,7 +97,7 @@ class _RivePageState extends State<RivePage> {
   void _brokenChange(bool brokenOn) {
     if (_brokenController == null) {
       _artboard.addController(
-        _brokenController = BrokenAnimation(animationNames[3]),
+        _brokenController = CustomAnimation(animationNames[3]),
       );
     }
     if (brokenOn) {
@@ -158,7 +155,6 @@ class _RivePageState extends State<RivePage> {
                 setState(() {
                   animationToggles[animationToggles.indexOf(true)] = false;
                   animationToggles[index] = true;
-                  selectedAnimationIndex = index;
                 });
 
                 switch (index) {
@@ -183,7 +179,6 @@ class _RivePageState extends State<RivePage> {
                     _brokenChange(true);
                     break;
                 }
-                ;
               },
             ),
           )
@@ -200,30 +195,8 @@ class _RivePageState extends State<RivePage> {
   }
 }
 
-class WiperAnimation extends SimpleAnimation {
-  WiperAnimation(String animationName) : super(animationName);
-
-  start() {
-    instance.animation.loop = Loop.loop;
-    isActive = true;
-  }
-
-  stop() => instance.animation.loop = Loop.oneShot;
-}
-
-class BouncingAnimation extends SimpleAnimation {
-  BouncingAnimation(String animationName) : super(animationName);
-
-  start() {
-    instance.animation.loop = Loop.loop;
-    isActive = true;
-  }
-
-  stop() => instance.animation.loop = Loop.oneShot;
-}
-
-class BrokenAnimation extends SimpleAnimation {
-  BrokenAnimation(String animationName) : super(animationName);
+class CustomAnimation extends SimpleAnimation {
+  CustomAnimation(String animationName) : super(animationName);
 
   start() {
     instance.animation.loop = Loop.loop;
