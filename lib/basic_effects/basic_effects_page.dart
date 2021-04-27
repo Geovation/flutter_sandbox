@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sandbox/basic_effects/rive_refresh_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/components/shimmer/gf_shimmer.dart';
 import 'package:parallax_image/parallax_image.dart';
@@ -17,6 +18,7 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
   final List<Tab> basicEffectTabs = <Tab>[
     Tab(text: 'Parallax'),
     Tab(text: 'Shimmer'),
+    Tab(text: 'Rive Refresh'),
   ];
 
   @override
@@ -54,6 +56,7 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
         children: [
           ParallaxView(),
           ShimmerView(),
+          RiveRefresh(),
         ],
       ),
     );
