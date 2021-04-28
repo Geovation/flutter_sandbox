@@ -36,6 +36,27 @@ class _HomePageState extends State<HomePage> {
   String _title = 'Firebase Crashlytics';
   int currentPageIndex;
 
+  String licenseMIT = 'MIT License\n\n' +
+      'Copyright (c) 2020 Rive\n\n' +
+      'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\n' +
+      'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n' +
+      'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.';
+
+  Stream<LicenseEntry> licenses() async* {
+    yield FlutterLicense(['rocket_reload_run7.riv, truck_run7.riv'],
+        [LicenseParagraph(licenseMIT, 0)]);
+  }
+
+  void addLicenses() {
+    LicenseRegistry.addLicense(licenses);
+  }
+
+  @override
+  void initState() {
+    addLicenses();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final PageNavigatorCustom _pageNavigator =
@@ -81,9 +102,12 @@ class _HomePageState extends State<HomePage> {
             _title = 'Rive';
             break;
           case 10:
-            _title = 'Login';
+            _title = 'Thank you';
             break;
           case 11:
+            _title = 'Login';
+            break;
+          case 12:
             _title = 'Register';
             break;
           default:
@@ -104,6 +128,16 @@ class _HomePageState extends State<HomePage> {
       GoogleMapsPage(),
       BasicEffectsPage(),
       RivePage(),
+      LicensePage(
+        applicationIcon: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child:
+                  Image(image: AssetImage('assets/logo/geovation_logo.png'))),
+        ),
+        applicationVersion: '0.0.1',
+      ),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -120,14 +154,14 @@ class _HomePageState extends State<HomePage> {
         onPageChanged: _onPageChanged,
       ),
       drawer: DrawerView(),
-      bottomNavigationBar: BottonNavBarView(currentPageIndex),
+      bottomNavigationBar: BottomNavBarView(currentPageIndex),
     );
   }
 }
 
-class BottonNavBarView extends StatelessWidget {
-  BottonNavBarView(this.currentPageIndex);
-  int currentPageIndex;
+class BottomNavBarView extends StatelessWidget {
+  BottomNavBarView(this.currentPageIndex);
+  final int currentPageIndex;
   @override
   Widget build(BuildContext context) {
     final PageNavigatorCustom _pageNavigator =
@@ -325,6 +359,16 @@ class DrawerWindow extends StatelessWidget {
           Navigator.pop(context);
         },
       ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 10,
+        title: Text('License'),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 10) {
+            _pageController.jumpToPage(_pageNavigator.getPageIndex('License'));
+          }
+          Navigator.pop(context);
+        },
+      ),
       Divider(
         thickness: 2,
       ),
@@ -421,4 +465,10 @@ class DrawerWindow extends StatelessWidget {
       ),
     );
   }
+}
+
+class FlutterLicense extends LicenseEntry {
+  FlutterLicense(this.packages, this.paragraphs);
+  final packages;
+  final paragraphs;
 }

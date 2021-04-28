@@ -15,8 +15,9 @@ class PageNavigatorCustom extends ChangeNotifier {
     "Google Maps": 7,
     "Basic Effects": 8,
     "Rive": 9,
-    "FirebaseAuthLogin": 10,
-    "FirebaseAuthRegister": 11,
+    "License": 10,
+    "FirebaseAuthLogin": 11,
+    "FirebaseAuthRegister": 12,
   };
   int fromIndex;
 
