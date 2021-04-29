@@ -39,94 +39,41 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
       onPressCrash = null;
     }
 
-    Widget landscapeViewWidget = Card(
-      child: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Container(
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red.shade100,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: deviceData.size.height * 0.5,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
+            decoration: BoxDecoration(
+              color: Colors.red.shade100,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            width: deviceData.orientation == Orientation.portrait
+                ? deviceData.size.width * 0.9
+                : deviceData.size.width * 0.7,
+            height: deviceData.size.height * 0.3,
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                message,
+                style: TextStyle(
+                  fontSize: 20.0,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton.icon(
-                    onPressed: onPressCrash,
-                    icon: Icon(Icons.error_rounded),
-                    label: Text('Press to crash'),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-
-    Widget portraitViewWidget = Card(
-      child: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red.shade100,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    height: deviceData.size.height * 0.3,
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: deviceData.size.width * 0.6,
-                    child: ElevatedButton.icon(
-                      onPressed: onPressCrash,
-                      icon: Icon(Icons.error_rounded),
-                      label: Text('Press to crash'),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: ElevatedButton.icon(
+            onPressed: onPressCrash,
+            icon: Icon(Icons.error_rounded),
+            label: Text('Press to crash'),
           ),
         ),
-      ),
+      ],
     );
-
-    return deviceData.orientation == Orientation.portrait
-        ? portraitViewWidget
-        : landscapeViewWidget;
   }
 }
