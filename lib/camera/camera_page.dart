@@ -133,8 +133,9 @@ class _CameraPageState extends State<CameraPage> {
     Widget bodyWidget;
 
     Widget portraitView = Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        Spacer(),
         Container(
           padding: EdgeInsets.all(10),
           height: deviceData.size.height * 0.7,
@@ -154,6 +155,7 @@ class _CameraPageState extends State<CameraPage> {
                 }
               }),
         ),
+        Spacer(),
         Align(
           alignment: Alignment.bottomCenter,
           child: Card(
@@ -266,6 +268,7 @@ class _CameraPageState extends State<CameraPage> {
     Widget landscapeView = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Spacer(),
         Container(
           padding: EdgeInsets.all(10),
           height: deviceData.size.height * 0.7,
@@ -285,6 +288,7 @@ class _CameraPageState extends State<CameraPage> {
                 }
               }),
         ),
+        Spacer(),
         Align(
           alignment: Alignment.centerRight,
           child: Card(
@@ -316,14 +320,12 @@ class _CameraPageState extends State<CameraPage> {
                                 buttonIndex++) {
                               if (buttonIndex == index) {
                                 isSelectedLensDirection[buttonIndex] = true;
-                                setState(() {
-                                  _controller = CameraController(
-                                    widget.cameras[index],
-                                    ResolutionPreset.veryHigh,
-                                  );
-                                  _initializeControllerFuture =
-                                      _controller.initialize();
-                                });
+                                _controller = CameraController(
+                                  widget.cameras[index],
+                                  ResolutionPreset.veryHigh,
+                                );
+                                _initializeControllerFuture =
+                                    _controller.initialize();
                               } else {
                                 isSelectedLensDirection[buttonIndex] = false;
                               }
