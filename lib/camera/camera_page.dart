@@ -385,18 +385,13 @@ class _CameraPageState extends State<CameraPage> {
                       ),
                       isRecording
                           ? MaterialButton(
-                              onPressed: isRecording ? stopRecording : null,
-                              color: isRecording
-                                  ? Colors.redAccent
-                                  : Colors.transparent,
-                              child: isRecording
-                                  ? Icon(
+                              onPressed: stopRecording,
+                              color: Colors.redAccent,
+                              child: Icon(
                                       Icons.stop,
                                       size: 40,
-                                      color: Colors.black,
-                                    )
-                                  : null,
-                              padding: EdgeInsets.all(1),
+                                      color: Colors.black, ),
+                        padding: EdgeInsets.all(1),
                               shape: CircleBorder(),
                             )
                           : SizedBox.shrink(),

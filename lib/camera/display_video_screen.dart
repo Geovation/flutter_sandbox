@@ -38,21 +38,27 @@ class _DisplayVideoViewState extends State<DisplayVideoView> {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData deviceSizeData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Display the Video')),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(40),
-          child: AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: <Widget>[
-                VideoPlayer(_controller),
-                _ControlsOverlay(controller: _controller),
-                VideoProgressIndicator(_controller, allowScrubbing: true),
-              ],
+          height: deviceSizeData.size.height * 0.8,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    VideoPlayer(_controller),
+                    _ControlsOverlay(controller: _controller),
+                    VideoProgressIndicator(_controller, allowScrubbing: true),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
