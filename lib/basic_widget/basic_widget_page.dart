@@ -1,6 +1,5 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
@@ -32,8 +31,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
   String _setTime, _setDate;
 
   String _hour, _minute, _time;
-
-  String dateTime;
 
   DateTime selectedDate = DateTime.now();
 
@@ -111,7 +108,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     super.dispose();
   }
 
-  Widget onSelectedWindow(int index, Orientation orientation) {
+  Widget onSelectedWindow(int index) {
     Widget indexedWidget;
     switch (index) {
       case 0:
@@ -119,8 +116,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              width:
-                  (orientation == Orientation.portrait) ? _width : _width * 0.8,
+              width: _width,
               child: Slider.adaptive(
                 activeColor: Theme.of(context).accentColor,
                 inactiveColor: kSliderInActiveColor,
@@ -137,8 +133,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               height: 3,
             ),
             Container(
-              width:
-                  (orientation == Orientation.portrait) ? _width : _width * 0.8,
+              width: _width,
               child: Slider.adaptive(
                 activeColor: Theme.of(context).accentColor,
                 inactiveColor: kSliderInActiveColor,
@@ -250,8 +245,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
       case 2:
         indexedWidget = Center(
           child: Container(
-            width:
-                (orientation == Orientation.portrait) ? _width : _width * 0.8,
+            width: _width,
             child: ListView(
               children: [
                 CheckboxListTile(
@@ -342,12 +336,12 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
         _pageNavigator.getPageIndex('Basic Widgets');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
-    MediaQueryData deviceDataSize = MediaQuery.of(context);
+    MediaQueryData deviceData = MediaQuery.of(context);
 
-    _height = deviceDataSize.size.height;
-    _width = deviceDataSize.size.width;
-    dateTime = DateFormat.yMd().format(DateTime.now());
-    Orientation orientation = deviceDataSize.orientation;
+    _height = deviceData.size.height;
+    _width = (deviceData.orientation == Orientation.portrait)
+        ? deviceData.size.width
+        : deviceData.size.width * 0.8;
 
     return Scaffold(
       appBar: AppBar(
@@ -362,10 +356,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          onSelectedWindow(0, orientation),
-          onSelectedWindow(1, orientation),
-          onSelectedWindow(2, orientation),
-          onSelectedWindow(3, orientation),
+          onSelectedWindow(0),
+          onSelectedWindow(1),
+          onSelectedWindow(2),
+          onSelectedWindow(3),
         ],
       ),
       floatingActionButton: Visibility(
