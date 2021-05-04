@@ -183,14 +183,12 @@ class _CameraPageState extends State<CameraPage> {
                             buttonIndex++) {
                           if (buttonIndex == index) {
                             isSelectedLensDirection[buttonIndex] = true;
-                            setState(() {
-                              _controller = CameraController(
-                                widget.cameras[index],
-                                ResolutionPreset.veryHigh,
-                              );
-                              _initializeControllerFuture =
-                                  _controller.initialize();
-                            });
+                            _controller = CameraController(
+                              widget.cameras[index],
+                              ResolutionPreset.veryHigh,
+                            );
+                            _initializeControllerFuture =
+                                _controller.initialize();
                           } else {
                             isSelectedLensDirection[buttonIndex] = false;
                           }
