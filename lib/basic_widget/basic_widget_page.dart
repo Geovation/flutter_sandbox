@@ -344,8 +344,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
     MediaQueryData deviceDataSize = MediaQuery.of(context);
 
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
+    _height = deviceDataSize.size.height;
+    _width = deviceDataSize.size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());
     Orientation orientation = deviceDataSize.orientation;
 
