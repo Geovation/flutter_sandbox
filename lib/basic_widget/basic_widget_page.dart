@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
@@ -110,40 +111,48 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     super.dispose();
   }
 
-  Widget onSelectedWindow(int index) {
+  Widget onSelectedWindow(int index, Orientation orientation) {
     Widget indexedWidget;
     switch (index) {
       case 0:
         indexedWidget = Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Slider.adaptive(
-              activeColor: Theme.of(context).accentColor,
-              inactiveColor: kSliderInActiveColor,
-              value: currentSliderValueContinuous,
-              onChanged: (double value) {
-                setState(() {
-                  currentSliderValueContinuous = value;
-                });
-              },
+            Container(
+              width:
+                  (orientation == Orientation.portrait) ? _width : _width * 0.8,
+              child: Slider.adaptive(
+                activeColor: Theme.of(context).accentColor,
+                inactiveColor: kSliderInActiveColor,
+                value: currentSliderValueContinuous,
+                onChanged: (double value) {
+                  setState(() {
+                    currentSliderValueContinuous = value;
+                  });
+                },
+              ),
             ),
             Text(currentSliderValueContinuous.toStringAsFixed(1)),
             SizedBox(
               height: 3,
             ),
-            Slider.adaptive(
-              activeColor: Theme.of(context).accentColor,
-              inactiveColor: kSliderInActiveColor,
-              value: currentSliderValueDiscrete,
-              min: 0,
-              max: 100,
-              divisions: 5,
-              label: currentSliderValueDiscrete.round().toString(),
-              onChanged: (double value) {
-                setState(() {
-                  currentSliderValueDiscrete = value;
-                });
-              },
+            Container(
+              width:
+                  (orientation == Orientation.portrait) ? _width : _width * 0.8,
+              child: Slider.adaptive(
+                activeColor: Theme.of(context).accentColor,
+                inactiveColor: kSliderInActiveColor,
+                value: currentSliderValueDiscrete,
+                min: 0,
+                max: 100,
+                divisions: 5,
+                label: currentSliderValueDiscrete.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    currentSliderValueDiscrete = value;
+                  });
+                },
+              ),
             ),
             Text(currentSliderValueDiscrete.round().toString()),
           ],
@@ -240,42 +249,46 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
       case 2:
         indexedWidget = Center(
-          child: ListView(
-            children: [
-              CheckboxListTile(
-                activeColor: kPrimary,
-                title: Text('Wake up'),
-                value: checkBoxValues[0],
-                onChanged: (bool value) {
-                  setState(() {
-                    checkBoxValues[0] = value;
-                  });
-                },
-                secondary: Icon(Icons.alarm),
-              ),
-              CheckboxListTile(
-                activeColor: kPrimary,
-                title: Text('Put on the suit'),
-                value: checkBoxValues[1],
-                onChanged: (bool value) {
-                  setState(() {
-                    checkBoxValues[1] = value;
-                  });
-                },
-                secondary: Icon(Icons.work),
-              ),
-              CheckboxListTile(
-                activeColor: kPrimary,
-                title: Text('Be the Hero'),
-                value: checkBoxValues[2],
-                onChanged: (bool value) {
-                  setState(() {
-                    checkBoxValues[2] = value;
-                  });
-                },
-                secondary: Icon(Icons.engineering),
-              ),
-            ],
+          child: Container(
+            width:
+                (orientation == Orientation.portrait) ? _width : _width * 0.8,
+            child: ListView(
+              children: [
+                CheckboxListTile(
+                  activeColor: kPrimary,
+                  title: Text('Wake up'),
+                  value: checkBoxValues[0],
+                  onChanged: (bool value) {
+                    setState(() {
+                      checkBoxValues[0] = value;
+                    });
+                  },
+                  secondary: Icon(Icons.alarm),
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimary,
+                  title: Text('Put on the suit'),
+                  value: checkBoxValues[1],
+                  onChanged: (bool value) {
+                    setState(() {
+                      checkBoxValues[1] = value;
+                    });
+                  },
+                  secondary: Icon(Icons.work),
+                ),
+                CheckboxListTile(
+                  activeColor: kPrimary,
+                  title: Text('Be the Hero'),
+                  value: checkBoxValues[2],
+                  onChanged: (bool value) {
+                    setState(() {
+                      checkBoxValues[2] = value;
+                    });
+                  },
+                  secondary: Icon(Icons.engineering),
+                ),
+              ],
+            ),
           ),
         );
         break;
@@ -329,9 +342,12 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
         _pageNavigator.getPageIndex('Basic Widgets');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
+    MediaQueryData deviceDataSize = MediaQuery.of(context);
+
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     dateTime = DateFormat.yMd().format(DateTime.now());
+    Orientation orientation = deviceDataSize.orientation;
 
     return Scaffold(
       appBar: AppBar(
@@ -346,10 +362,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          onSelectedWindow(0),
-          onSelectedWindow(1),
-          onSelectedWindow(2),
-          onSelectedWindow(3),
+          onSelectedWindow(0, orientation),
+          onSelectedWindow(1, orientation),
+          onSelectedWindow(2, orientation),
+          onSelectedWindow(3, orientation),
         ],
       ),
       floatingActionButton: Visibility(
