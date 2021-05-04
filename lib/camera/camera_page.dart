@@ -388,10 +388,11 @@ class _CameraPageState extends State<CameraPage> {
                               onPressed: stopRecording,
                               color: Colors.redAccent,
                               child: Icon(
-                                      Icons.stop,
-                                      size: 40,
-                                      color: Colors.black, ),
-                        padding: EdgeInsets.all(1),
+                                Icons.stop,
+                                size: 40,
+                                color: Colors.black,
+                              ),
+                              padding: EdgeInsets.all(1),
                               shape: CircleBorder(),
                             )
                           : SizedBox.shrink(),
