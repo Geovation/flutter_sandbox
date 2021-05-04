@@ -410,14 +410,23 @@ class _CameraPageState extends State<CameraPage> {
       ],
     );
     if (!kIsWeb && widget.cameras.isNotEmpty) {
-      bodyWidget = SafeArea(
-        child: Container(
-          color: Colors.black,
-          child: (deviceData.orientation == Orientation.portrait)
-              ? portraitView
-              : landscapeView,
-        ),
-      );
+      bodyWidget = OrientationBuilder(builder: (context, orientation) {
+        if (orientation == Orientation.portrait) {
+          return SafeArea(
+            child: Container(
+              color: Colors.black,
+              child: portraitView,
+            ),
+          );
+        } else {
+          return SafeArea(
+            child: Container(
+              color: Colors.black,
+              child: landscapeView,
+            ),
+          );
+        }
+      });
     } else {
       bodyWidget = Container(
         child: Center(
