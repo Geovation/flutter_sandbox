@@ -110,6 +110,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
                         if (user != null) {
+                          authProvider.setUserLoginStatus = true;
                           _pageController
                               .jumpToPage(_pageNavigator.getFromIndex);
                         }

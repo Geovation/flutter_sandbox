@@ -29,5 +29,6 @@ class Auth extends ChangeNotifier {
 
   set setUserLoginStatus(bool status) {
     isUserLoggedIn = status;
+    notifyListeners();
   }
 }

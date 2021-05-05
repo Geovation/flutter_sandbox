@@ -6,49 +6,25 @@ import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
-class FirestorePage extends StatelessWidget {
+class FirestorePage extends StatefulWidget {
+  const FirestorePage({Key key}) : super(key: key);
   static const id = 'firestore_page';
 
   @override
-  Widget build(BuildContext context) {
-    bool isLoggedIn = false;
-    Auth auth = Provider.of<Auth>(context);
-    return StreamBuilder(
-        stream: auth.onAuthStateChanges,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            User user = snapshot.data;
-
-            isLoggedIn = (user == null) ? false : true;
-            return FirestorePageView(isLoggedIn, auth.getAuthCurrentUserUID);
-          } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        });
-  }
+  _FirestorePageState createState() => _FirestorePageState();
 }
 
-class FirestorePageView extends StatefulWidget {
-  FirestorePageView(this.isUserLoggedIn, this.uid);
-  bool isUserLoggedIn;
-  String uid;
-  @override
-  _FirestorePageViewState createState() => _FirestorePageViewState();
-}
-
-class _FirestorePageViewState extends State<FirestorePageView> {
+class _FirestorePageState extends State<FirestorePage> {
+  bool isLoggedIn = false;
   bool isInEditingMode = true;
   TextEditingController _editingController;
   String note;
   DocumentReference usersNote;
   Function getUserDoc;
   FirebaseFirestore firestore;
-  bool isUserLoggedIn;
-  String uid;
+  bool isUserLoggedIn = false;
+  String uid = "";
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -69,14 +45,15 @@ class _FirestorePageViewState extends State<FirestorePageView> {
 
   @override
   Widget build(BuildContext context) {
-    isUserLoggedIn = widget.isUserLoggedIn;
-    uid = widget.uid;
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.getPageController;
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex("Firestore");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    Auth auth = Provider.of<Auth>(context);
+    isUserLoggedIn = auth.getUserLoginStatus;
+    uid = auth.getAuthCurrentUserUID;
 
     if (uid.isNotEmpty) {
       usersNote = firestore.collection('users').doc(uid);
@@ -145,7 +122,7 @@ class _FirestorePageViewState extends State<FirestorePageView> {
       return rowWidget;
     }
 
-    return SingleChildScrollView(
+    Widget bodyView = SingleChildScrollView(
       child: Column(
         children: [
           Card(
@@ -175,5 +152,7 @@ class _FirestorePageViewState extends State<FirestorePageView> {
         ],
       ),
     );
+
+    return bodyView;
   }
 }

@@ -113,6 +113,7 @@ class _FirebaseAuthRegistrationPageState
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
                       if (newUser != null) {
+                        authProvider.setUserLoginStatus = true;
                         _pageController.jumpToPage(_pageNavigator.getFromIndex);
                       }
 
