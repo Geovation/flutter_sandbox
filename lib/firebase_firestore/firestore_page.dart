@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/constants.dart';
@@ -15,16 +14,13 @@ class FirestorePage extends StatefulWidget {
 }
 
 class _FirestorePageState extends State<FirestorePage> {
-  bool isLoggedIn = false;
   bool isInEditingMode = true;
   TextEditingController _editingController;
-  String note;
   DocumentReference usersNote;
   Function getUserDoc;
   FirebaseFirestore firestore;
   bool isUserLoggedIn = false;
   String uid = "";
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
