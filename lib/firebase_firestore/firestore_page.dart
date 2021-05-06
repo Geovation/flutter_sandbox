@@ -16,7 +16,7 @@ class FirestorePage extends StatefulWidget {
 class _FirestorePageState extends State<FirestorePage> {
   bool isInEditingMode = true;
   TextEditingController _editingController;
-  DocumentReference usersNote;
+  DocumentReference<Map<String, dynamic>> usersNote;
   Function getUserDoc;
   FirebaseFirestore firestore;
   bool isUserLoggedIn = false;

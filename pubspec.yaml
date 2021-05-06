@@ -31,9 +31,9 @@ dependencies:
   mapbox_gl: ^0.11.0
   firebase_core: ^1.1.0
   firebase_auth: ^1.1.3
-  firebase_crashlytics: ^1.0.0
-  cloud_firestore: ^1.0.7
-  cloud_functions: ^1.0.3
+  firebase_crashlytics: ^2.0.2
+  cloud_firestore: ^2.0.0
+  cloud_functions: ^1.0.6
   modal_progress_hud: ^0.1.3
   provider: ^5.0.0
   camera: ^0.8.1
