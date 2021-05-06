@@ -43,8 +43,13 @@ class _RiveRefreshState extends State<RiveRefresh> {
     _controller.refreshIndicatorExtent = refreshIndicatorExtent;
 
     return _artboard != null
-        ? Rive(
-            artboard: _artboard, fit: BoxFit.cover, alignment: Alignment.center)
+        ? Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Rive(
+                artboard: _artboard,
+                fit: BoxFit.cover,
+                alignment: Alignment.center),
+          )
         : Container();
   }
 
@@ -63,8 +68,8 @@ class _RiveRefreshState extends State<RiveRefresh> {
             physics: BouncingScrollPhysics(),
             slivers: [
               CupertinoSliverRefreshControl(
-                refreshTriggerPullDistance: 240.0,
-                refreshIndicatorExtent: 240.0,
+                refreshTriggerPullDistance: 170.0,
+                refreshIndicatorExtent: 170.0,
                 builder: buildRefreshWidget,
                 onRefresh: () {
                   return Future<void>.delayed(const Duration(seconds: 5))

@@ -110,7 +110,41 @@ class ParallaxView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    Widget landscapeView = Row(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          constraints: BoxConstraints(maxHeight: 200.0),
+          child: ListView.builder(
+            itemCount: locations.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return BuildCard(
+                imageUrl: locations[index].imageUrl,
+                title: locations[index].name,
+                subtitle: locations[index].place,
+                aspectRatio: 3 / 4,
+                titleFontSize: 12.0,
+              );
+            },
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (context, index) {
+              return BuildCard(
+                imageUrl: locations[index].imageUrl,
+                title: locations[index].name,
+                subtitle: locations[index].place,
+              );
+            },
+          ),
+        ),
+      ],
+    );
+
+    Widget portraitView = Column(
       children: [
         Container(
           constraints: BoxConstraints(maxHeight: 200.0),
@@ -142,6 +176,13 @@ class ParallaxView extends StatelessWidget {
         ),
       ],
     );
+    return OrientationBuilder(builder: (context, orientation) {
+      if (orientation == Orientation.landscape) {
+        return landscapeView;
+      } else {
+        return portraitView;
+      }
+    });
   }
 }
 
