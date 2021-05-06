@@ -57,7 +57,7 @@ class _FirestorePageState extends State<FirestorePage> {
 
     getUserDoc = () async {
       if (isUserLoggedIn) {
-        DocumentSnapshot doc = await usersNote.get();
+        DocumentSnapshot<Map<String, dynamic>> doc = await usersNote.get();
         Map<String, dynamic> userData = doc.data();
         setState(() {
           if (userData != null) {

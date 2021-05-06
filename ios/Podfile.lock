@@ -220,7 +220,7 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.7)
   - camera (0.0.1):
     - Flutter
-  - cloud_firestore (1.0.7):
+  - cloud_firestore (2.0.0):
     - Firebase/Firestore (= 7.11.0)
     - firebase_core
     - Flutter
@@ -249,9 +249,10 @@ PODS:
   - firebase_core (1.1.0):
     - Firebase/CoreOnly (= 7.11.0)
     - Flutter
-  - firebase_crashlytics (1.0.0):
+  - firebase_crashlytics (2.0.2):
     - Firebase/Crashlytics (= 7.11.0)
     - firebase_core
+    - Flutter
   - FirebaseAuth (7.11.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
@@ -444,12 +445,12 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   camera: a0ca5080336f7af47b88436e5e26da3dee5568f0
-  cloud_firestore: 5dbb01f115c77f4380e2248852518f52830d631f
+  cloud_firestore: 01f3fc4bb5c46b400a329320ea7f61a73817a657
   cloud_functions: 4fd0494a73f7f04056ff0d5014e4f4251c954697
   Firebase: c121feb35e4126c0b355e3313fa9b487d47319fd
   firebase_auth: e831dc75625eceb49a508832c165a63032eecc35
   firebase_core: 84dcd80ac6d29c3d1039071b7306ee99688eb9c7
-  firebase_crashlytics: b8ee39130e41e860d5b1d192f1646c5d76bcf1f3
+  firebase_crashlytics: 1bf37e6bace6394a2bab8f316de395f49a836189
   FirebaseAuth: 5fe4585c2ed847319f0ea68bd1d82c77e49ff9a0
   FirebaseCore: 907447d8917a4d3eb0cce2829c5a0ad21d90b432
   FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
