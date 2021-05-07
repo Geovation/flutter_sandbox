@@ -14,6 +14,7 @@ import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
+import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:provider/provider.dart';
 
 import 'auth.dart';
@@ -128,16 +129,7 @@ class _HomePageState extends State<HomePage> {
       GoogleMapsPage(),
       BasicEffectsPage(),
       RivePage(),
-      LicensePage(
-        applicationIcon: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child:
-                  Image(image: AssetImage('assets/logo/geovation_logo.png'))),
-        ),
-        applicationVersion: '0.0.1',
-      ),
+      SandboxLicensePage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),

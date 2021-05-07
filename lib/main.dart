@@ -20,6 +20,7 @@ import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
+import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:provider/provider.dart';
 
 import 'basic_widget/basic_widget_page.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
           GoogleMapsPage.id: (context) => GoogleMapsPage(),
           BasicEffectsPage.id: (context) => BasicEffectsPage(),
           RivePage.id: (context) => RivePage(),
+          SandboxLicensePage.id: (context) => SandboxLicensePage(),
         },
       ),
     );
