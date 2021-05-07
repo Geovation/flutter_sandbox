@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-
-import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 
 class RivePage extends StatefulWidget {
   static const id = "rive_page";
@@ -121,74 +120,140 @@ class _RivePageState extends State<RivePage> {
       );
     }
 
-    Widget riveAnimationView() {
-      Widget bodyWidget;
-      bodyWidget = Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: Rive(
-              artboard: _artboard,
-              fit: BoxFit.cover,
-            ),
+    Widget portraitView = Column(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height * 0.6,
+          child: Rive(
+            artboard: _artboard,
+            fit: BoxFit.cover,
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            child: ToggleButtons(
-              color: Colors.blueGrey,
-              selectedColor: Colors.deepOrange,
-              selectedBorderColor: Colors.deepOrangeAccent,
-              borderColor: Colors.blueGrey,
-              hoverColor: Colors.orange.shade100,
-              splashColor: Colors.orange.shade100,
-              borderRadius: BorderRadius.circular(15),
-              children: [
-                paddedTextForToggleButton('Idle'),
-                paddedTextForToggleButton('Bouncing'),
-                paddedTextForToggleButton('Wipers'),
-                paddedTextForToggleButton('Broken'),
-              ],
-              isSelected: animationToggles,
-              onPressed: (int index) {
-                setState(() {
-                  animationToggles[animationToggles.indexOf(true)] = false;
-                  animationToggles[index] = true;
-                });
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          child: ToggleButtons(
+            color: Colors.blueGrey,
+            selectedColor: Colors.deepOrange,
+            selectedBorderColor: Colors.deepOrangeAccent,
+            borderColor: Colors.blueGrey,
+            hoverColor: Colors.orange.shade100,
+            splashColor: Colors.orange.shade100,
+            borderRadius: BorderRadius.circular(15),
+            children: [
+              paddedTextForToggleButton('Idle'),
+              paddedTextForToggleButton('Bouncing'),
+              paddedTextForToggleButton('Wipers'),
+              paddedTextForToggleButton('Broken'),
+            ],
+            isSelected: animationToggles,
+            onPressed: (int index) {
+              setState(() {
+                animationToggles[animationToggles.indexOf(true)] = false;
+                animationToggles[index] = true;
+              });
 
-                switch (index) {
-                  case 0:
-                    _wipersChange(false);
-                    _bouncingChange(false);
-                    _brokenChange(false);
-                    break;
-                  case 1:
-                    _wipersChange(false);
-                    _bouncingChange(true);
-                    _brokenChange(false);
-                    break;
-                  case 2:
-                    _wipersChange(true);
-                    _bouncingChange(false);
-                    _brokenChange(false);
-                    break;
-                  case 3:
-                    _wipersChange(false);
-                    _bouncingChange(false);
-                    _brokenChange(true);
-                    break;
-                }
-              },
-            ),
-          )
-        ],
-      );
-      return bodyWidget;
-    }
+              switch (index) {
+                case 0:
+                  _wipersChange(false);
+                  _bouncingChange(false);
+                  _brokenChange(false);
+                  break;
+                case 1:
+                  _wipersChange(false);
+                  _bouncingChange(true);
+                  _brokenChange(false);
+                  break;
+                case 2:
+                  _wipersChange(true);
+                  _bouncingChange(false);
+                  _brokenChange(false);
+                  break;
+                case 3:
+                  _wipersChange(false);
+                  _bouncingChange(false);
+                  _brokenChange(true);
+                  break;
+              }
+            },
+          ),
+        )
+      ],
+    );
+    Widget landscapeView = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          height: MediaQuery.of(context).size.height * 0.7,
+          child: Rive(
+            artboard: _artboard,
+            fit: BoxFit.contain,
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Container(
+          child: ToggleButtons(
+            direction: Axis.vertical,
+            color: Colors.blueGrey,
+            selectedColor: Colors.deepOrange,
+            selectedBorderColor: Colors.deepOrangeAccent,
+            borderColor: Colors.blueGrey,
+            hoverColor: Colors.orange.shade100,
+            splashColor: Colors.orange.shade100,
+            borderRadius: BorderRadius.circular(15),
+            children: [
+              paddedTextForToggleButton('Idle'),
+              paddedTextForToggleButton('Bouncing'),
+              paddedTextForToggleButton('Wipers'),
+              paddedTextForToggleButton('Broken'),
+            ],
+            isSelected: animationToggles,
+            onPressed: (int index) {
+              setState(() {
+                animationToggles[animationToggles.indexOf(true)] = false;
+                animationToggles[index] = true;
+              });
+
+              switch (index) {
+                case 0:
+                  _wipersChange(false);
+                  _bouncingChange(false);
+                  _brokenChange(false);
+                  break;
+                case 1:
+                  _wipersChange(false);
+                  _bouncingChange(true);
+                  _brokenChange(false);
+                  break;
+                case 2:
+                  _wipersChange(true);
+                  _bouncingChange(false);
+                  _brokenChange(false);
+                  break;
+                case 3:
+                  _wipersChange(false);
+                  _bouncingChange(false);
+                  _brokenChange(true);
+                  break;
+              }
+            },
+          ),
+        )
+      ],
+    );
 
     return _artboard != null
-        ? SingleChildScrollView(child: riveAnimationView())
+        ? OrientationBuilder(builder: (context, orientation) {
+            if (orientation == Orientation.landscape) {
+              return landscapeView;
+            } else {
+              return portraitView;
+            }
+          })
         : GFLoader(
             type: GFLoaderType.circle,
           );
