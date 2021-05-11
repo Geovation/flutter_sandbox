@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
     MediaQueryData deviceData = MediaQuery.of(context);
 
     FirebaseCrashlytics fci = FirebaseCrashlytics.instance;
-    String message =
-        'Press the button to simulate a crash. Restart the app for crashlytics to log the crash';
+    String message = AppLocalizations.of(context).firebaseCrashlyticsMessage;
 
     Function onPressCrash = () async {
       FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,7 +35,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
     };
 
     if (kIsWeb) {
-      message = 'Firebase Crashlytics does not support web apps.';
+      message = AppLocalizations.of(context).firebaseCrashlyticsWebMessage;
       onPressCrash = null;
     }
 
@@ -70,7 +70,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
           child: ElevatedButton.icon(
             onPressed: onPressCrash,
             icon: Icon(Icons.error_rounded),
-            label: Text('Press to crash'),
+            label: Text(AppLocalizations.of(context).firebaseCrashlyticsButton),
           ),
         ),
       ],

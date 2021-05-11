@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -25,8 +26,9 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
   }) async {
     // set up the buttons
     final Widget gotItButton = TextButton(
-      onPressed: () => Navigator.pop(context, 'Got it'),
-      child: const Text('Got it'),
+      onPressed: () =>
+          Navigator.pop(context, AppLocalizations.of(context).gotIt),
+      child: Text(AppLocalizations.of(context).gotIt),
     );
 
     // set up the AlertDialog
@@ -58,7 +60,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
       if (_auth.currentUser != null) {
         bodyWidget = Center(
           child: RoundedButton(
-            title: 'Sign out',
+            title: AppLocalizations.of(context).firebaseAuthSignOut,
             colour: Colors.deepOrangeAccent,
             onPressed: () {
               _auth.signOut();
@@ -82,7 +84,9 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                   onChanged: (value) {
                     email = value;
                   },
-                  decoration: InputDecoration(hintText: 'Enter your email'),
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)
+                          .firebaseAuthEnterYourEmail),
                 ),
                 SizedBox(
                   height: 8.0,
@@ -93,13 +97,15 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                   onChanged: (value) {
                     password = value;
                   },
-                  decoration: InputDecoration(hintText: 'Enter your password'),
+                  decoration: InputDecoration(
+                      hintText: AppLocalizations.of(context)
+                          .firebaseAuthEnterYourPassword),
                 ),
                 SizedBox(
                   height: 24.0,
                 ),
                 RoundedButton(
-                  title: 'Log In',
+                  title: AppLocalizations.of(context).firebaseAuthLogIn,
                   colour: Colors.deepOrangeAccent,
                   onPressed: () async {
                     if (email.isNotEmpty && password.isNotEmpty) {
@@ -133,7 +139,8 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                       await showErrorAlertDialog(
                         context: context,
                         titleText: 'Uh Oh!',
-                        messageText: 'Email & Password field cannot be empty.',
+                        messageText: AppLocalizations.of(context)
+                            .firebaseAuthEmptyFieldError,
                       );
                     }
                   },
@@ -145,7 +152,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
       }
     } else {
       bodyWidget = Center(
-        child: Text('Could not initiate firebase auth'),
+        child: Text(AppLocalizations.of(context).firebaseAuthInitiationError),
       );
     }
     return bodyWidget;

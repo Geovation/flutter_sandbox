@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
@@ -18,14 +19,13 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
   double _height;
   double _width;
   List checkBoxValues = [false, false, false];
-  final List<Item> _data = generateItems(8);
   bool isFABVisible = true;
   TabController _tabController;
-  final List<Tab> basicWidgetTabs = <Tab>[
-    Tab(text: 'Slider'),
-    Tab(text: 'Date picker'),
-    Tab(text: 'Checkbox'),
-    Tab(text: 'Expansion List'),
+  List<Item> _data = [
+    Item(
+      headerValue: 'Default value is 1',
+      expandedValue: 'Default Index is 1',
+    )
   ];
 
   String _setTime, _setDate;
@@ -78,8 +78,13 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _timeController.text = formatDate(
         DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
         [hh, ':', nn, " ", am]).toString();
-    _tabController = TabController(vsync: this, length: basicWidgetTabs.length);
+    _tabController = TabController(vsync: this, length: 4);
     _tabController.addListener(_setActiveTabIndex);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _data = generateItems(8, context);
+    });
+
     super.initState();
   }
 
@@ -164,7 +169,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               Column(
                 children: <Widget>[
                   Text(
-                    'Choose Date',
+                    AppLocalizations.of(context).basicWidgetsChooseDate,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
@@ -202,7 +207,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               Column(
                 children: <Widget>[
                   Text(
-                    'Choose Time',
+                    AppLocalizations.of(context).basicWidgetsChooseTime,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
@@ -250,7 +255,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               children: [
                 CheckboxListTile(
                   activeColor: kPrimary,
-                  title: Text('Wake up'),
+                  title: Text(AppLocalizations.of(context).basicWidgetsWakeUp),
                   value: checkBoxValues[0],
                   onChanged: (bool value) {
                     setState(() {
@@ -261,7 +266,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 ),
                 CheckboxListTile(
                   activeColor: kPrimary,
-                  title: Text('Put on the suit'),
+                  title: Text(
+                      AppLocalizations.of(context).basicWidgetsPutOnTheSuit),
                   value: checkBoxValues[1],
                   onChanged: (bool value) {
                     setState(() {
@@ -272,7 +278,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 ),
                 CheckboxListTile(
                   activeColor: kPrimary,
-                  title: Text('Be the Hero'),
+                  title:
+                      Text(AppLocalizations.of(context).basicWidgetsBetheHero),
                   value: checkBoxValues[2],
                   onChanged: (bool value) {
                     setState(() {
@@ -303,8 +310,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 },
                 body: ListTile(
                     title: Text(item.expandedValue),
-                    subtitle: const Text(
-                        'To delete this panel, tap the trash can icon'),
+                    subtitle: Text(AppLocalizations.of(context)
+                        .basicWidgetsExpansionPanelText),
                     trailing: const Icon(Icons.delete),
                     onTap: () {
                       setState(() {
@@ -321,7 +328,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
       default:
         indexedWidget = Center(
-          child: Text('No views to be found'),
+          child: Text(AppLocalizations.of(context)
+              .basicWidgetsExpansionPanelDefaultText),
         );
         break;
     }
@@ -337,6 +345,13 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     MediaQueryData deviceData = MediaQuery.of(context);
+
+    final List<Tab> basicWidgetTabs = <Tab>[
+      Tab(text: AppLocalizations.of(context).basicWidgetsSliderTitle),
+      Tab(text: AppLocalizations.of(context).basicWidgetsDatePickerTitle),
+      Tab(text: AppLocalizations.of(context).basicWidgetsCheckboxTitle),
+      Tab(text: AppLocalizations.of(context).basicWidgetsExpansionListTitle),
+    ];
 
     _height = deviceData.size.height;
     _width = (deviceData.orientation == Orientation.portrait)
@@ -388,11 +403,12 @@ class Item {
   bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems) {
+List<Item> generateItems(int numberOfItems, BuildContext context) {
   return List<Item>.generate(numberOfItems, (int index) {
     return Item(
-      headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
+      headerValue: '${AppLocalizations.of(context).basicWidgetsPanel} $index',
+      expandedValue:
+          '${AppLocalizations.of(context).basicWidgetsThisIsItemNumber} $index',
     );
   });
 }

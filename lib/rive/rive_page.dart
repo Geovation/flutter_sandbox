@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-
-import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 
 class RivePage extends StatefulWidget {
   static const id = "rive_page";
@@ -150,10 +150,14 @@ class _RivePageState extends State<RivePage> {
                 splashColor: Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(15),
                 children: [
-                  paddedTextForToggleButton('Idle'),
-                  paddedTextForToggleButton('Bouncing'),
-                  paddedTextForToggleButton('Wipers'),
-                  paddedTextForToggleButton('Broken'),
+                  paddedTextForToggleButton(
+                      AppLocalizations.of(context).riveIdle),
+                  paddedTextForToggleButton(
+                      AppLocalizations.of(context).riveBouncing),
+                  paddedTextForToggleButton(
+                      AppLocalizations.of(context).riveWipers),
+                  paddedTextForToggleButton(
+                      AppLocalizations.of(context).riveBroken),
                 ],
                 isSelected: animationToggles,
                 onPressed: (int index) {

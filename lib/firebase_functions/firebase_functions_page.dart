@@ -1,5 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +21,9 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
   }) async {
     // set up the buttons
     final Widget gotItButton = TextButton(
-      onPressed: () => Navigator.pop(context, 'Got it'),
-      child: const Text('Got it'),
+      onPressed: () =>
+          Navigator.pop(context, AppLocalizations.of(context).gotIt),
+      child: Text(AppLocalizations.of(context).gotIt),
     );
 
     // set up the AlertDialog
@@ -56,7 +58,8 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
 
     Future<void> getGeoJSON() async {
       setState(() {
-        cloudFunctionData = "-----LOADING-----";
+        cloudFunctionData =
+            "-----${AppLocalizations.of(context).loadingCAPS}-----";
       });
       HttpsCallable callable = functions.httpsCallable('getGeoJSON');
       try {
@@ -101,7 +104,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
             onPressed: () {
               getGeoJSON();
             },
-            child: Text('Fetch geoJSON'),
+            child: Text(AppLocalizations.of(context).functionsFetchGeoJSON),
           ),
         ),
       ],

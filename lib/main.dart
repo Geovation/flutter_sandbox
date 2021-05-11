@@ -4,10 +4,12 @@ import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/constants.dart';
+import 'package:flutter_sandbox/currentLocale.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -48,53 +50,60 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (_) => PageNavigatorCustom(0, 0, _pageController)),
         ChangeNotifierProvider(create: (_) => Auth()),
+        ChangeNotifierProvider(create: (_) => CurrentLocale('en')),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Sandbox',
-        theme: ThemeData.light().copyWith(
-          colorScheme: ColorScheme(
-              primary: kPrimary,
-              primaryVariant: Colors.orange.shade300,
-              secondary: kSecondary,
-              secondaryVariant: Colors.deepOrangeAccent.shade400,
-              surface: Colors.white,
-              background: Colors.white,
-              error: Colors.redAccent,
-              onPrimary: Colors.black,
-              onSecondary: Colors.white,
-              onSurface: Colors.grey,
-              onBackground: Colors.grey,
-              onError: Colors.white,
-              brightness: Brightness.light),
-          primaryColorDark: Color(0xFFF57C00),
-          primaryColorLight: Color(0xFFFFE0B2),
-          primaryColor: Color(0xFFFF9800),
-          accentColor: Color(0xFFFF5252),
-          dividerColor: Color(0xFFBDBDBD),
-          bottomAppBarColor: Color(0xFFFF5252),
-          buttonColor: Color(0xFFFF5252),
-        ),
-        initialRoute: HomePage.id,
-        routes: {
-          MapboxMapPage.id: (context) => MapboxMapPage(),
-          FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
-          FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
-          FirebaseAuthRegistrationPage.id: (context) =>
-              FirebaseAuthRegistrationPage(),
-          FirebaseAuthSignedInPage.id: (context) => FirebaseAuthSignedInPage(),
-          FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
-          CameraPage.id: (context) => CameraPage(cameras: cameraList),
-          BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
-          GPSPage.id: (context) => GPSPage(),
-          HomePage.id: (context) => HomePage(cameraList: cameraList),
-          FirestorePage.id: (context) => FirestorePage(),
-          GoogleMapsPage.id: (context) => GoogleMapsPage(),
-          BasicEffectsPage.id: (context) => BasicEffectsPage(),
-          RivePage.id: (context) => RivePage(),
-          SandboxLicensePage.id: (context) => SandboxLicensePage(),
-        },
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Sandbox',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: Locale(Provider.of<CurrentLocale>(context).getCurrentLocale),
+          theme: ThemeData.light().copyWith(
+            colorScheme: ColorScheme(
+                primary: kPrimary,
+                primaryVariant: Colors.orange.shade300,
+                secondary: kSecondary,
+                secondaryVariant: Colors.deepOrangeAccent.shade400,
+                surface: Colors.white,
+                background: Colors.white,
+                error: Colors.redAccent,
+                onPrimary: Colors.black,
+                onSecondary: Colors.white,
+                onSurface: Colors.grey,
+                onBackground: Colors.grey,
+                onError: Colors.white,
+                brightness: Brightness.light),
+            primaryColorDark: Color(0xFFF57C00),
+            primaryColorLight: Color(0xFFFFE0B2),
+            primaryColor: Color(0xFFFF9800),
+            accentColor: Color(0xFFFF5252),
+            dividerColor: Color(0xFFBDBDBD),
+            bottomAppBarColor: Color(0xFFFF5252),
+            buttonColor: Color(0xFFFF5252),
+          ),
+          initialRoute: HomePage.id,
+          routes: {
+            MapboxMapPage.id: (context) => MapboxMapPage(),
+            FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
+            FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
+            FirebaseAuthRegistrationPage.id: (context) =>
+                FirebaseAuthRegistrationPage(),
+            FirebaseAuthSignedInPage.id: (context) =>
+                FirebaseAuthSignedInPage(),
+            FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
+            CameraPage.id: (context) => CameraPage(cameras: cameraList),
+            BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
+            GPSPage.id: (context) => GPSPage(),
+            HomePage.id: (context) => HomePage(cameraList: cameraList),
+            FirestorePage.id: (context) => FirestorePage(),
+            GoogleMapsPage.id: (context) => GoogleMapsPage(),
+            BasicEffectsPage.id: (context) => BasicEffectsPage(),
+            RivePage.id: (context) => RivePage(),
+            SandboxLicensePage.id: (context) => SandboxLicensePage(),
+          },
+        );
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 
 class FirebaseAuthSignedInPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class FirebaseAuthSignedInPage extends StatelessWidget {
               child: Container(
                 height: 100,
                 child: Text(
-                  'Welcome! You are in the secret room now.',
+                  AppLocalizations.of(context).firebaseSignedInSecretMessage,
                   style: TextStyle(
                       color: Colors.blueGrey.shade900, fontSize: 30.0),
                   textAlign: TextAlign.center,
@@ -25,7 +26,7 @@ class FirebaseAuthSignedInPage extends StatelessWidget {
               ),
             ),
             RoundedButton(
-              title: 'Sign out',
+              title: AppLocalizations.of(context).firebaseAuthSignOut,
               colour: Colors.deepOrangeAccent,
               onPressed: () {
                 _auth.signOut();

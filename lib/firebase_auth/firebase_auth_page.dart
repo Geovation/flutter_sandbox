@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
@@ -45,7 +46,7 @@ class FirebaseAuthLoggedOutState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RoundedButton(
-              title: 'Log In',
+              title: AppLocalizations.of(context).firebaseAuthLogIn,
               colour: Colors.deepOrangeAccent,
               onPressed: () {
                 if (args != null) {
@@ -57,7 +58,7 @@ class FirebaseAuthLoggedOutState extends StatelessWidget {
               },
             ),
             RoundedButton(
-              title: 'Register',
+              title: AppLocalizations.of(context).firebaseAuthRegister,
               colour: Colors.deepOrangeAccent,
               onPressed: () {
                 if (args != null) {
@@ -86,7 +87,7 @@ class FirebaseAuthLoggedInState extends StatelessWidget {
         ),
         body: Center(
           child: RoundedButton(
-            title: 'Sign out',
+            title: AppLocalizations.of(context).firebaseAuthSignOut,
             colour: Colors.lightBlueAccent,
             onPressed: () {
               _auth.signOut();

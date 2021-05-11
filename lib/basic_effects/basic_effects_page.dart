@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/basic_effects/rive_refresh_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/components/shimmer/gf_shimmer.dart';
@@ -15,16 +16,10 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  final List<Tab> basicEffectTabs = <Tab>[
-    Tab(text: 'Parallax'),
-    Tab(text: 'Shimmer'),
-    Tab(text: 'Rive Refresh'),
-  ];
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: basicEffectTabs.length);
+    _tabController = TabController(vsync: this, length: 3);
   }
 
   @override
@@ -40,6 +35,12 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex('Basic Effects');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+
+    final List<Tab> basicEffectTabs = <Tab>[
+      Tab(text: AppLocalizations.of(context).basicEffectsParallaxTitle),
+      Tab(text: AppLocalizations.of(context).basicEffectsShimmerTitle),
+      Tab(text: AppLocalizations.of(context).basicEffectsRiveRefreshTitle),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -348,14 +349,14 @@ class ShimmerListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Index number is $index',
+                            '${AppLocalizations.of(context).basicEffectsIndexNumberOf} $index',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           Text(
-                              'Index $index travelled from far. Either your internet speed or distance was a factor for the delay to arrive, so adding some shimmer to it.'),
+                              '${AppLocalizations.of(context).basicEffectsIndex} $index ${AppLocalizations.of(context).basicEffectsIndexDescription}'),
                         ],
                       ),
                     ),

@@ -16,8 +16,9 @@ class PageNavigatorCustom extends ChangeNotifier {
     "Basic Effects": 8,
     "Rive": 9,
     "License": 10,
-    "FirebaseAuthLogin": 11,
-    "FirebaseAuthRegister": 12,
+    "Languages": 11,
+    "FirebaseAuthLogin": 12,
+    "FirebaseAuthRegister": 13,
   };
   int fromIndex;
 

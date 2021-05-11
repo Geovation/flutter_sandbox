@@ -1,0 +1,90 @@
+{
+  "firebaseCrashlyticsTitle": "Firebase Crashlytics",
+  "mapboxMapTitle": "Mapbox Map",
+  "cameraTitle": "Telecamera",
+  "basicWidgetsTitle": "Widget di base",
+  "gpsTitle": "GPS",
+  "firestoreTitle": "Firestore",
+  "cloudFunctionsTitle": "Cloud Functions",
+  "googleMapsTitle": "Google Maps",
+  "basicEffectsTitle": "Effetti di base",
+  "riveTitle": "Rive",
+  "thankYouTitle": "Grazie",
+  "languagesTitle": "Le lingue",
+  "loginTitle": "Login",
+  "registerTitle": "Registrati",
+  "sandboxTitle": "Sandbox",
+  "licenseTitle": "Licenza",
+  "accountTitle": "Account",
+  "demosTitle": "Demo",
+
+  "logOut": "Disconnettersi",
+
+  "bottomNavCrashlyticsTitle": "Crashlytics",
+  "bottomNavMapboxTitle": "Mapbox",
+  "bottomNavExtraTitle": "Extra",
+
+  "firebaseCrashlyticsMessage": "Premere il pulsante per simulare un incidente. Riavvia l'app affinché crashlytics registri l'arresto anomalo",
+  "firebaseCrashlyticsWebMessage": "Firebase Crashlytics non supporta le app web",
+  "firebaseCrashlyticsButton": "Premi per andare in crash",
+
+  "basicEffectsParallaxTitle": "Parallasse",
+  "basicEffectsShimmerTitle": "Shimmer",
+  "basicEffectsRiveRefreshTitle": "Rive Refresh",
+  "basicEffectsIndexNumberOf": "Il numero di indice è",
+  "basicEffectsIndex": "Indice",
+  "basicEffectsIndexDescription": "viaggiato da lontano. O la velocità o la distanza di Internet erano un fattore per il ritardo nell'arrivo, quindi aggiungi un po 'di brillantezza.",
+
+  "basicWidgetsSliderTitle": "Slider",
+  "basicWidgetsDatePickerTitle": "Date picker",
+  "basicWidgetsCheckboxTitle": "Casella di controllo",
+  "basicWidgetsExpansionListTitle": "Elenco di espansione",
+  "basicWidgetsChooseDate": "Scegli la data",
+  "basicWidgetsChooseTime": "Scegli l'ora",
+  "basicWidgetsWakeUp": "Svegliati",
+  "basicWidgetsPutOnTheSuit": "Indossa la tuta",
+  "basicWidgetsBetheHero": "Sii l'eroe",
+  "basicWidgetsExpansionPanelText": "Per eliminare questo pannello, tocca l'icona del cestino",
+  "basicWidgetsExpansionPanelDefaultText": "Nessuna vista da trovare",
+  "basicWidgetsPanel": "Pannello",
+  "basicWidgetsThisIsItemNumber": "Questo è il numero dell'articolo",
+
+  "cameraNotSupportedText": "La fotocamera non è ancora supportata su questa piattaforma.",
+  "displayThePictureTitle": "Visualizza l'immagine",
+  "displayTheVideoTitle": "Visualizza il video",
+
+  "gotIt": "Fatto",
+  "firebaseAuthSignOut": "Disconnessione",
+  "firebaseAuthEnterYourEmail": "Inserisci il tuo indirizzo email",
+  "firebaseAuthEnterYourPassword": "Inserisci la tua password",
+  "firebaseAuthLogIn": "Accesso",
+  "firebaseAuthEmptyFieldError": "Il campo Email e Password non può essere vuoto.",
+  "firebaseAuthInitiationError": "Impossibile avviare Firebase Auth",
+  "firebaseAuthRegister": "Registrati",
+  "firebaseSignedInSecretMessage": "Benvenuto! Adesso sei nella stanza segreta.",
+
+  "firestoreEditingMode": "Modalità di modifica",
+  "firestoreSave": "Salva",
+  "firestoreEnterAShortNote": "Inserisci una breve nota.",
+
+  "loadingCAPS": "CARICAMENTO IN CORSO",
+  "functionsFetchGeoJSON": "Recupera geoJSON",
+
+  "googleMapsToThePool": "Alla piscina",
+
+  "gpsLocationsServiceDisabled": "I servizi di localizzazione sono disabilitati.",
+  "gpsLocationsServicePermanentlyDisabled": "Le autorizzazioni per la posizione vengono negate in modo permanente, non possiamo richiedere le autorizzazioni.",
+  "gpsLocationsServiceDenied": "Le autorizzazioni per la posizione vengono negate.",
+  "gpsLatitude": "Latitudine",
+  "gpsLongitude": "Longitudine",
+  "gpsLocateMe": "Localizzami",
+
+  "mapboxNotSupported": "Attualmente Mapbox non è ancora completamente supportato.",
+
+  "riveIdle": "Inattiva",
+  "riveBouncing": "Rimbalzare",
+  "riveWipers": "Tergicristalli",
+  "riveBroken": "Rotta"
+
+
+}

@@ -1,0 +1,90 @@
+{
+  "firebaseCrashlyticsTitle": "Firebase Crashlytics",
+  "mapboxMapTitle": "Mapbox Map",
+  "cameraTitle": "Camera",
+  "basicWidgetsTitle": "Basic Widgets",
+  "gpsTitle": "GPS",
+  "firestoreTitle": "Firestore",
+  "cloudFunctionsTitle": "Cloud Functions",
+  "googleMapsTitle": "Google Maps",
+  "basicEffectsTitle": "Basic Effects",
+  "riveTitle": "Rive",
+  "thankYouTitle": "Thank you",
+  "languagesTitle": "Languages",
+  "loginTitle": "Login",
+  "registerTitle": "Register",
+  "sandboxTitle": "Sandbox",
+  "licenseTitle": "License",
+  "accountTitle": "Account",
+  "demosTitle": "Demos",
+
+  "logOut": "Log out",
+
+  "bottomNavCrashlyticsTitle": "Crashlytics",
+  "bottomNavMapboxTitle": "Mapbox",
+  "bottomNavExtraTitle": "Extra",
+
+  "firebaseCrashlyticsMessage": "Press the button to simulate a crash. Restart the app for crashlytics to log the crash",
+  "firebaseCrashlyticsWebMessage": "Firebase Crashlytics does not support web apps.",
+  "firebaseCrashlyticsButton": "Press to crash",
+
+  "basicEffectsParallaxTitle": "Parallax",
+  "basicEffectsShimmerTitle": "Shimmer",
+  "basicEffectsRiveRefreshTitle": "Rive Refresh",
+  "basicEffectsIndexNumberOf": "Index number is",
+  "basicEffectsIndex": "Index",
+  "basicEffectsIndexDescription": "travelled from far. Either your internet speed or distance was a factor for the delay to arrive, so adding some shimmer to it.",
+
+  "basicWidgetsSliderTitle": "Slider",
+  "basicWidgetsDatePickerTitle": "Date picker",
+  "basicWidgetsCheckboxTitle": "Checkbox",
+  "basicWidgetsExpansionListTitle": "Expansion List",
+  "basicWidgetsChooseDate": "Choose Date",
+  "basicWidgetsChooseTime": "Choose Time",
+  "basicWidgetsWakeUp": "Wake up",
+  "basicWidgetsPutOnTheSuit": "Put on the suit",
+  "basicWidgetsBetheHero": "Be the Hero",
+  "basicWidgetsExpansionPanelText": "To delete this panel, tap the trash can icon",
+  "basicWidgetsExpansionPanelDefaultText": "No views to be found",
+  "basicWidgetsPanel": "Panel",
+  "basicWidgetsThisIsItemNumber": "This is item number",
+
+  "cameraNotSupportedText": "Camera is not supported yet on this platform.",
+  "displayThePictureTitle": "Display the Picture",
+  "displayTheVideoTitle": "Display the Video",
+
+  "gotIt": "Got it",
+  "firebaseAuthSignOut": "Sign out",
+  "firebaseAuthEnterYourEmail": "Enter your email",
+  "firebaseAuthEnterYourPassword": "Enter your password",
+  "firebaseAuthLogIn": "Log In",
+  "firebaseAuthEmptyFieldError": "Email & Password field cannot be empty.",
+  "firebaseAuthInitiationError": "Could not initiate Firebase Auth",
+  "firebaseAuthRegister": "Register",
+  "firebaseSignedInSecretMessage": "Welcome! You are in the secret room now.",
+
+  "firestoreEditingMode": "Editing Mode",
+  "firestoreSave": "Save",
+  "firestoreEnterAShortNote": "Enter a short note.",
+
+  "loadingCAPS": "LOADING",
+  "functionsFetchGeoJSON": "Fetch geoJSON",
+
+  "googleMapsToThePool": "To the Pool",
+
+  "gpsLocationsServiceDisabled": "Location services are disabled.",
+  "gpsLocationsServicePermanentlyDisabled": "Location permissions are permanently denied, we cannot request permissions.",
+  "gpsLocationsServiceDenied": "Location permissions are denied.",
+  "gpsLatitude": "Latitude",
+  "gpsLongitude": "Longitude",
+  "gpsLocateMe": "Locate me",
+
+  "mapboxNotSupported": "Currently Mapbox is not fully supported yet.",
+
+  "riveIdle": "Idle",
+  "riveBouncing": "Bouncing",
+  "riveWipers": "Wipers",
+  "riveBroken": "Broken"
+
+
+}

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -93,7 +94,7 @@ class _FirestorePageState extends State<FirestorePage> {
           Row(
             children: [
               Text(
-                'Editing Mode',
+                AppLocalizations.of(context).firestoreEditingMode,
                 style: TextStyle(fontSize: 20),
               ),
               Switch.adaptive(
@@ -111,7 +112,7 @@ class _FirestorePageState extends State<FirestorePage> {
             onPressed: () {
               saveNote();
             },
-            child: Text('Save'),
+            child: Text(AppLocalizations.of(context).firestoreSave),
           ),
         ],
       );
@@ -136,7 +137,8 @@ class _FirestorePageState extends State<FirestorePage> {
                     readOnly: !isInEditingMode,
                     decoration: new InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Enter a short note.',
+                      hintText:
+                          AppLocalizations.of(context).firestoreEnterAShortNote,
                       contentPadding: EdgeInsets.all(10.0),
                     ),
                   ),

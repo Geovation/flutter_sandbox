@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +125,7 @@ class _MapboxMapState extends State<MapboxMapPage> {
     Widget bodyWidget;
     if (kIsWeb) {
       bodyWidget = Center(
-        child: Text('Currently Mapbox is not fully supported yet.'),
+        child: Text(AppLocalizations.of(context).mapboxNotSupported),
       );
     } else {
       bodyWidget = MapboxMap(

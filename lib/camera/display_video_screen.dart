@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:video_player/video_player.dart';
 
 class DisplayVideoView extends StatefulWidget {
@@ -40,7 +41,8 @@ class _DisplayVideoViewState extends State<DisplayVideoView> {
   Widget build(BuildContext context) {
     MediaQueryData deviceSizeData = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Display the Video')),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context).displayTheVideoTitle)),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(

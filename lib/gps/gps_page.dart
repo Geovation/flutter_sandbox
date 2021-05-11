@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,8 @@ class _GPSPageState extends State<GPSPage> {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      return Future.error('Location services are disabled.');
+      return Future.error(
+          AppLocalizations.of(context).gpsLocationsServiceDisabled);
     }
 
     permission = await Geolocator.checkPermission();
@@ -29,8 +31,8 @@ class _GPSPageState extends State<GPSPage> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.deniedForever) {
         // Permissions are denied forever, handle appropriately.
-        return Future.error(
-            'Location permissions are permanently denied, we cannot request permissions.');
+        return Future.error(AppLocalizations.of(context)
+            .gpsLocationsServicePermanentlyDisabled);
       }
 
       if (permission == LocationPermission.denied) {
@@ -39,7 +41,8 @@ class _GPSPageState extends State<GPSPage> {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future.error(
+            AppLocalizations.of(context).gpsLocationsServiceDenied);
       }
     }
 
@@ -96,7 +99,7 @@ class _GPSPageState extends State<GPSPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Latitude : ',
+              '${AppLocalizations.of(context).gpsLatitude} : ',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -116,7 +119,7 @@ class _GPSPageState extends State<GPSPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Longitude : ',
+              '${AppLocalizations.of(context).gpsLongitude} : ',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -142,7 +145,7 @@ class _GPSPageState extends State<GPSPage> {
               _currentPos = positionValue;
             });
           },
-          child: Text('Locate me'),
+          child: Text(AppLocalizations.of(context).gpsLocateMe),
         ),
       ],
     );

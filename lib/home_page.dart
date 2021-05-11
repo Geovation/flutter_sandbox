@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
+import 'package:flutter_sandbox/languages/languages_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
@@ -73,46 +75,49 @@ class _HomePageState extends State<HomePage> {
 
         switch (pageIndex) {
           case 0:
-            _title = 'Firebase Crashlytics';
+            _title = AppLocalizations.of(context).firebaseCrashlyticsTitle;
             break;
           case 1:
-            _title = 'Mapbox Map';
+            _title = AppLocalizations.of(context).mapboxMapTitle;
             break;
           case 2:
-            _title = 'Camera';
+            _title = AppLocalizations.of(context).cameraTitle;
             break;
           case 3:
-            _title = 'Basic Widgets';
+            _title = AppLocalizations.of(context).basicWidgetsTitle;
             break;
           case 4:
-            _title = 'GPS';
+            _title = AppLocalizations.of(context).gpsTitle;
             break;
           case 5:
-            _title = 'Firestore';
+            _title = AppLocalizations.of(context).firestoreTitle;
             break;
           case 6:
-            _title = 'Cloud Functions';
+            _title = AppLocalizations.of(context).cloudFunctionsTitle;
             break;
           case 7:
-            _title = 'Google Maps';
+            _title = AppLocalizations.of(context).googleMapsTitle;
             break;
           case 8:
-            _title = 'Basic Effects';
+            _title = AppLocalizations.of(context).basicEffectsTitle;
             break;
           case 9:
-            _title = 'Rive';
+            _title = AppLocalizations.of(context).riveTitle;
             break;
           case 10:
-            _title = 'Thank you';
+            _title = AppLocalizations.of(context).thankYouTitle;
             break;
           case 11:
-            _title = 'Login';
+            _title = AppLocalizations.of(context).languagesTitle;
             break;
           case 12:
-            _title = 'Register';
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 13:
+            _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
-            _title = 'Sandbox';
+            _title = AppLocalizations.of(context).sandboxTitle;
             break;
         }
       });
@@ -130,6 +135,7 @@ class _HomePageState extends State<HomePage> {
       BasicEffectsPage(),
       RivePage(),
       SandboxLicensePage(),
+      LanguagesPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -172,27 +178,27 @@ class BottomNavBarView extends StatelessWidget {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.error),
-          label: 'Crashlytics',
+          label: AppLocalizations.of(context).bottomNavCrashlyticsTitle,
           backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
-          label: 'Mapbox',
+          label: AppLocalizations.of(context).bottomNavMapboxTitle,
           backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.camera_alt),
-          label: 'Camera',
+          label: AppLocalizations.of(context).cameraTitle,
           backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.widgets_rounded),
-          label: 'Basic Widgets',
+          label: AppLocalizations.of(context).basicWidgetsTitle,
           backgroundColor: Theme.of(context).accentColor,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.extension_rounded),
-          label: 'Extra',
+          label: AppLocalizations.of(context).bottomNavExtraTitle,
           backgroundColor: Theme.of(context).accentColor,
         ),
       ],
@@ -243,11 +249,11 @@ class DrawerWindow extends StatelessWidget {
     List<Widget> listViewItems = [
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('Demos'),
+        child: Text(AppLocalizations.of(context).demosTitle),
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 0,
-        title: Text('Firebase Crashlytics'),
+        title: Text(AppLocalizations.of(context).firebaseCrashlyticsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 0) {
             _pageController.jumpToPage(
@@ -258,7 +264,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 1,
-        title: Text('Mapbox Map'),
+        title: Text(AppLocalizations.of(context).mapboxMapTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 1) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Mapbox'));
@@ -268,7 +274,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 2,
-        title: Text('Camera'),
+        title: Text(AppLocalizations.of(context).cameraTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 2) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Camera'));
@@ -278,7 +284,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 3,
-        title: Text('Basic Widgets'),
+        title: Text(AppLocalizations.of(context).basicWidgetsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 3) {
             _pageController
@@ -289,7 +295,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 4,
-        title: Text('GPS'),
+        title: Text(AppLocalizations.of(context).gpsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 4) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('GPS'));
@@ -299,7 +305,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 5,
-        title: Text('Firestore'),
+        title: Text(AppLocalizations.of(context).firestoreTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 5) {
             _pageController
@@ -310,7 +316,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 6,
-        title: Text('Cloud Functions'),
+        title: Text(AppLocalizations.of(context).cloudFunctionsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 6) {
             _pageController
@@ -321,7 +327,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 7,
-        title: Text('Google Maps'),
+        title: Text(AppLocalizations.of(context).googleMapsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 7) {
             _pageController
@@ -332,7 +338,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 8,
-        title: Text('Basic Effects'),
+        title: Text(AppLocalizations.of(context).basicEffectsTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 8) {
             _pageController
@@ -343,7 +349,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 9,
-        title: Text('Rive'),
+        title: Text(AppLocalizations.of(context).riveTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 9) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Rive'));
@@ -353,10 +359,21 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 10,
-        title: Text('License'),
+        title: Text(AppLocalizations.of(context).licenseTitle),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 10) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('License'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 11,
+        title: Text(AppLocalizations.of(context).languagesTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 11) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Languages'));
           }
           Navigator.pop(context);
         },
@@ -366,7 +383,7 @@ class DrawerWindow extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text('Accounts'),
+        child: Text(AppLocalizations.of(context).accountTitle),
       ),
     ];
 
@@ -397,7 +414,7 @@ class DrawerWindow extends StatelessWidget {
 
       listViewItems.add(
         ListTile(
-          title: Text('Log out'),
+          title: Text(AppLocalizations.of(context).logOut),
           onTap: () {
             _auth.signOut();
             authProvider.setUserLoginStatus = false;
@@ -430,7 +447,7 @@ class DrawerWindow extends StatelessWidget {
 
       listViewItems.add(
         ListTile(
-          title: Text('Log in'),
+          title: Text(AppLocalizations.of(context).firebaseAuthLogIn),
           onTap: () {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('FirebaseAuthLogin'));
@@ -440,7 +457,7 @@ class DrawerWindow extends StatelessWidget {
       );
       listViewItems.add(
         ListTile(
-          title: Text('Register'),
+          title: Text(AppLocalizations.of(context).firebaseAuthRegister),
           onTap: () {
             _pageController.jumpToPage(
                 _pageNavigator.getPageIndex('FirebaseAuthRegister'));
