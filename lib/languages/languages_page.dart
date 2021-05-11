@@ -21,8 +21,8 @@ class _LanguagesPageState extends State<LanguagesPage> {
         _pageNavigator.getPageIndex('Languages');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     final CurrentLocale _currentLocale = Provider.of<CurrentLocale>(context);
-    Map availableLocalesLS = _currentLocale.getAvailableLocaleSL;
-    Map reversedAvailableLocaleSL = _currentLocale.getReversedAvailableLocaleLS;
+    Map availableLocalesSL = _currentLocale.getAvailableLocaleSL;
+    Map reversedAvailableLocaleLS = _currentLocale.getReversedAvailableLocaleLS;
     _selectedLocale = _currentLocale.getCurrentLocale;
 
     return Container(
@@ -42,13 +42,13 @@ class _LanguagesPageState extends State<LanguagesPage> {
           },
           items: [
             DropdownMenuItem(
-              value: reversedAvailableLocaleSL[availableLocalesLS["en"]],
-              child: Text(availableLocalesLS["en"]),
+              value: reversedAvailableLocaleLS[availableLocalesSL["en"]],
+              child: Text(availableLocalesSL["en"]),
             ),
             DropdownMenuItem(
-              value: reversedAvailableLocaleSL[availableLocalesLS["it"]],
-              child: Text(availableLocalesLS["it"]),
-            )
+              value: reversedAvailableLocaleLS[availableLocalesSL["it"]],
+              child: Text(availableLocalesSL["it"]),
+            ),
           ],
         ),
       ),
