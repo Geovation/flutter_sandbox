@@ -17,6 +17,7 @@
   "licenseTitle": "Licenza",
   "accountTitle": "Account",
   "demosTitle": "Demo",
+  "fcmTitle": "FCM",
 
   "logOut": "Disconnettersi",
 
@@ -85,6 +86,5 @@
   "riveBouncing": "Rimbalzare",
   "riveWipers": "Tergicristalli",
   "riveBroken": "Rotta"
-
 
 }

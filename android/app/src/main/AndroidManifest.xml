@@ -12,6 +12,10 @@
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyAbOGOC9O1lXpkgctocBG2fJz0ylDQA85g"/>
 
+       <meta-data
+           android:name="com.google.firebase.messaging.default_notification_channel_id"
+           android:value="flutter_sandbox_channel" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

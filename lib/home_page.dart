@@ -7,6 +7,7 @@ import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
+import 'package:flutter_sandbox/firebase_cloud_messaging/firebase_cloud_messaging_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
@@ -111,6 +112,9 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).languagesTitle;
             break;
           case 12:
+            _title = AppLocalizations.of(context).fcmTitle;
+            break;
+          case 12:
             _title = AppLocalizations.of(context).loginTitle;
             break;
           case 13:
@@ -136,6 +140,7 @@ class _HomePageState extends State<HomePage> {
       RivePage(),
       SandboxLicensePage(),
       LanguagesPage(),
+      FcmPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -374,6 +379,16 @@ class DrawerWindow extends StatelessWidget {
           if (_pageNavigator.getCurrentPageIndex != 11) {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('Languages'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 12,
+        title: Text(AppLocalizations.of(context).fcmTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 12) {
+            _pageController.jumpToPage(_pageNavigator.getPageIndex('FCM'));
           }
           Navigator.pop(context);
         },

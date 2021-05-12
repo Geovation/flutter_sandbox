@@ -2,9 +2,12 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
@@ -30,21 +33,143 @@ import 'home_page.dart';
 
 List<CameraDescription> cameraList;
 
+var flutterLocalNotificationsPlugin;
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.data}');
+}
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+  'flutter_sandbox_channel', // id
+  'High Importance Notifications', // title
+  'This channel is used for important notifications.', // description
+  importance: Importance.max,
+);
+
+Function selectNotification;
+Function onDidReceiveLocalNotification;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   if (!kIsWeb) {
     cameraList = await availableCameras();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
   }
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true, // Required to display a heads up notification
+    badge: true,
+    sound: true,
+  );
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _pageController = PageController(initialPage: 0);
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectNotification = (String payload) async {
+      _pageController.jumpToPage(12);
+    };
+
+    onDidReceiveLocalNotification =
+        (int id, String title, String body, String payload) async {
+      // display a dialog with the notification details, tap ok to go to another page
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(body),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () async {
+                Navigator.of(context, rootNavigator: true).pop();
+                _pageController.jumpToPage(12);
+              },
+            )
+          ],
+        ),
+      );
+    };
+
+    if (!kIsWeb) {
+      const AndroidInitializationSettings initializationSettingsAndroid =
+          AndroidInitializationSettings('launch_background');
+      final IOSInitializationSettings initializationSettingsIOS =
+          IOSInitializationSettings(
+              onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+      final InitializationSettings initializationSettings =
+          InitializationSettings(
+              android: initializationSettingsAndroid,
+              iOS: initializationSettingsIOS);
+
+      Future<void> initiateFlutterLocalNotificationPlugin() async {
+        await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+            onSelectNotification: selectNotification);
+      }
+
+      initiateFlutterLocalNotificationPlugin();
+    }
+
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage message) {
+      if (message != null) {
+        if (message.data["isDemo"] == "true") {
+          _pageController.jumpToPage(12); // update number to FCM page index
+        }
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                icon: 'launch_background',
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.data["isDemo"] == "true") {
+        _pageController.jumpToPage(12); // update number to FCM page index
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _pageController = PageController(initialPage: 0);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
