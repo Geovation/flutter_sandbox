@@ -14,7 +14,6 @@ class FcmPage extends StatefulWidget {
 class _FcmPageState extends State<FcmPage> {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   NotificationSettings settings;
-  RemoteMessage initialMessage;
   String _token = "";
 
   Future<void> requestPermissions() async {
@@ -26,6 +25,7 @@ class _FcmPageState extends State<FcmPage> {
       provisional: false,
       sound: true,
     );
+    print('User granted permission: ${settings.authorizationStatus}');
   }
 
   Future<void> getToken() async {

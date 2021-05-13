@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    selectNotification = (String payload) async {
+    selectNotification = (String payload) {
       _pageController.jumpToPage(12);
     };
 
