@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
+import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
         _pageNavigator.getPageIndex('Languages');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     final CurrentLocale _currentLocale = Provider.of<CurrentLocale>(context);
+    final LanguageTitle _languageTitle = Provider.of<LanguageTitle>(context);
     Map availableLocalesSL = _currentLocale.getAvailableLocaleSL;
     Map reversedAvailableLocaleLS = _currentLocale.getReversedAvailableLocaleLS;
     _selectedLocale = _currentLocale.getCurrentLocale;
@@ -38,6 +40,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
             setState(() {
               _selectedLocale = newValue;
               _currentLocale.setCurrentLocale = newValue;
+              _languageTitle.setLanguageTitle = newValue;
             });
           },
           items: [

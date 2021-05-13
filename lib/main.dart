@@ -22,6 +22,7 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/home_page.dart';
+import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
@@ -176,6 +177,7 @@ class _MyAppState extends State<MyApp> {
             create: (_) => PageNavigatorCustom(0, 0, _pageController)),
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => CurrentLocale('en')),
+        ChangeNotifierProvider(create: (_) => LanguageTitle()),
       ],
       builder: (context, child) {
         return MaterialApp(
