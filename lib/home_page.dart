@@ -13,6 +13,7 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
+import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/languages/languages_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -66,8 +67,8 @@ class _HomePageState extends State<HomePage> {
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.pageController;
-
     currentPageIndex = _pageNavigator.getCurrentPageIndex;
+    final LanguageTitle _languageTitle = Provider.of<LanguageTitle>(context);
 
     void _onPageChanged(int pageIndex) {
       setState(() {
@@ -125,6 +126,11 @@ class _HomePageState extends State<HomePage> {
             break;
         }
       });
+    }
+
+    if (_languageTitle.getLanguageTitle != null) {
+      // updates the language page title when app language is toggled
+      _onPageChanged(currentPageIndex);
     }
 
     List<Widget> _screens = [
