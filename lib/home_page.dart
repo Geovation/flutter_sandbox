@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
 
     if (_languageTitle.getLanguageTitle != null) {
       // updates the language page title when app language is toggled
-      _onPageChanged(11);
+      _onPageChanged(currentPageIndex);
     }
 
     List<Widget> _screens = [

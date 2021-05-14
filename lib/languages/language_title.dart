@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class LanguageTitle extends ChangeNotifier {
-  String languageTitle = "Language";
+  String languageTitle;
 
   get getLanguageTitle {
     return languageTitle;
