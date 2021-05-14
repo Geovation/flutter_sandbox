@@ -26,6 +26,7 @@ import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import 'basic_widget/basic_widget_page.dart';
@@ -70,7 +71,39 @@ Future<void> main() async {
     sound: true,
   );
 
-  runApp(MyApp());
+  runApp(InitApp());
+}
+
+class InitApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      // Replace the 3 second delay with your initialization code:
+      future: Future.delayed(Duration(seconds: 3)),
+      builder: (context, AsyncSnapshot snapshot) {
+        // Show splash screen while waiting for app resources to load:
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(debugShowCheckedModeBanner: false, home: Splash());
+        } else {
+          // Loading is done, return the app:
+          return MyApp();
+        }
+      },
+    );
+  }
+}
+
+class Splash extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Size deviceSize = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Center(
+        child: Lottie.asset('assets/lottie/loading.json',
+            width: deviceSize.width * 0.6, fit: BoxFit.fill),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
