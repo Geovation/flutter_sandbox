@@ -47,9 +47,14 @@ class _HomePageState extends State<HomePage> {
       'The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n' +
       'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.';
 
+  String licenseCCBy4 =
+      "CC BY 4.0\n\nmernaz zare on LottieFiles: https://lottiefiles.com/60190-loader-89";
+
   Stream<LicenseEntry> licenses() async* {
     yield FlutterLicense(['rocket_reload_run7.riv, truck_run7.riv'],
         [LicenseParagraph(licenseMIT, 0)]);
+
+    yield FlutterLicense(['loader-89'], [LicenseParagraph(licenseCCBy4, 0)]);
   }
 
   void addLicenses() {
