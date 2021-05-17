@@ -68,6 +68,13 @@ class InitApp extends StatelessWidget {
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
           ?.createNotificationChannel(channel);
+    } else {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+      String token = await messaging.getToken(
+        vapidKey:
+            "BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc",
+      );
     }
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -119,13 +126,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _pageController = PageController(initialPage: 0);
+  final fcmDemoPage = 12;
 
   @override
   void initState() {
     super.initState();
 
     selectNotification = (String payload) {
-      _pageController.jumpToPage(12);
+      _pageController.jumpToPage(fcmDemoPage);
     };
 
     onDidReceiveLocalNotification =
@@ -142,7 +150,7 @@ class _MyAppState extends State<MyApp> {
               child: Text('Ok'),
               onPressed: () async {
                 Navigator.of(context, rootNavigator: true).pop();
-                _pageController.jumpToPage(12);
+                _pageController.jumpToPage(fcmDemoPage);
               },
             )
           ],
@@ -174,7 +182,8 @@ class _MyAppState extends State<MyApp> {
         .then((RemoteMessage message) {
       if (message != null) {
         if (message.data["isDemo"] == "true") {
-          _pageController.jumpToPage(12); // update number to FCM page index
+          _pageController
+              .jumpToPage(fcmDemoPage); // update number to FCM page index
         }
       }
     });
@@ -200,7 +209,8 @@ class _MyAppState extends State<MyApp> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       if (message.data["isDemo"] == "true") {
-        _pageController.jumpToPage(12); // update number to FCM page index
+        _pageController
+            .jumpToPage(fcmDemoPage); // update number to FCM page index
       }
     });
   }

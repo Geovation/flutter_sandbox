@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,15 @@ class _FcmPageState extends State<FcmPage> {
   }
 
   Future<void> getToken() async {
-    String token = await messaging.getToken();
+    String token;
+    if (kIsWeb) {
+      token = await messaging.getToken(
+        vapidKey:
+            "BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc",
+      );
+    } else {
+      token = await messaging.getToken();
+    }
     print(token);
     setState(() {
       _token = token;
