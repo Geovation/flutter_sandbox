@@ -34,7 +34,7 @@ class _FcmPageState extends State<FcmPage> {
     if (kIsWeb) {
       token = await messaging.getToken(
         vapidKey:
-            "BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc",
+            'BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc',
       );
     } else {
       token = await messaging.getToken();

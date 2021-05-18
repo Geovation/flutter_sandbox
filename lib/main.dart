@@ -70,10 +70,10 @@ class InitApp extends StatelessWidget {
           ?.createNotificationChannel(channel);
     } else {
       FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+      // Use the returned token to send messages to users from your custom server
       String token = await messaging.getToken(
         vapidKey:
-            "BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc",
+            'BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc',
       );
     }
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
