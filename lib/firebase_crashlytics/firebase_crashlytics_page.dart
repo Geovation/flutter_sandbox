@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,13 @@ import 'package:provider/provider.dart';
 
 class FirebaseCrashlyticsPage extends StatelessWidget {
   static const id = 'firebase_crashlytics_page';
+
+  FirebaseCrashlyticsPage({
+    Key key,
+    @required this.analytics,
+  }) : super(key: key);
+
+  final FirebaseAnalytics analytics;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +38,9 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
         } else {
           FirebaseCrashlytics.instance.setUserIdentifier("");
         }
+        analytics.logEvent(
+            name: "firebase_crashlytics_page",
+            parameters: {"isCrashPressed": true});
         FirebaseCrashlytics.instance.crash();
       }
     };

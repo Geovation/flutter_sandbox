@@ -1,4 +1,5 @@
 import 'package:date_format/date_format.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/constants.dart';
@@ -8,6 +9,14 @@ import 'package:provider/provider.dart';
 
 class BasicWidgetsPage extends StatefulWidget {
   static const id = 'basic_widget_page';
+
+  BasicWidgetsPage({
+    Key key,
+    @required this.analytics,
+  }) : super(key: key);
+
+  final FirebaseAnalytics analytics;
+
   @override
   _BasicWidgetsPageState createState() => _BasicWidgetsPageState();
 }
@@ -345,6 +354,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     MediaQueryData deviceData = MediaQuery.of(context);
+    widget.analytics.logEvent(name: "basic_widget_page");
 
     final List<Tab> basicWidgetTabs = <Tab>[
       Tab(text: AppLocalizations.of(context).basicWidgetsSliderTitle),

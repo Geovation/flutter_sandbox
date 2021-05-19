@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _title = 'Firebase Crashlytics';
   int currentPageIndex;
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
 
   String licenseMIT = 'MIT License\n\n' +
       'Copyright (c) 2020 Rive\n\n' +
@@ -64,11 +66,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     addLicenses();
+
     super.initState();
+  }
+
+  Future<void> _setAnalyticsCollectionEnabled() async {
+    await analytics.setAnalyticsCollectionEnabled(true);
   }
 
   @override
   Widget build(BuildContext context) {
+    _setAnalyticsCollectionEnabled();
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.pageController;
@@ -139,10 +147,14 @@ class _HomePageState extends State<HomePage> {
     }
 
     List<Widget> _screens = [
-      FirebaseCrashlyticsPage(),
+      FirebaseCrashlyticsPage(
+        analytics: analytics,
+      ),
       MapboxMapPage(),
       CameraPage(cameras: widget.cameraList),
-      BasicWidgetsPage(),
+      BasicWidgetsPage(
+        analytics: analytics,
+      ),
       GPSPage(),
       FirestorePage(),
       FirebaseFunctionsPage(),
@@ -153,8 +165,12 @@ class _HomePageState extends State<HomePage> {
       LanguagesPage(),
       FcmPage(),
       // always add new screen above this comment so that auth remains the last two items.
-      FirebaseAuthLoginPage(),
-      FirebaseAuthRegistrationPage(),
+      FirebaseAuthLoginPage(
+        analytics: analytics,
+      ),
+      FirebaseAuthRegistrationPage(
+        analytics: analytics,
+      ),
     ];
 
     return Scaffold(

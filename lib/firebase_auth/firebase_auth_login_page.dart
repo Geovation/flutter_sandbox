@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,6 +10,12 @@ import 'package:provider/provider.dart';
 
 class FirebaseAuthLoginPage extends StatefulWidget {
   static const id = 'firebase_auth_login_page';
+  FirebaseAuthLoginPage({
+    Key key,
+    @required this.analytics,
+  }) : super(key: key);
+
+  final FirebaseAnalytics analytics;
   @override
   _FirebaseAuthLoginPageState createState() => _FirebaseAuthLoginPageState();
 }
@@ -116,6 +123,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
                         if (user != null) {
+                          await widget.analytics.logLogin();
                           authProvider.setUserLoginStatus = true;
                           _pageController
                               .jumpToPage(_pageNavigator.getFromIndex);
