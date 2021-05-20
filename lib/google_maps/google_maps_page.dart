@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,7 +10,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class GoogleMapsPage extends StatefulWidget {
-  static const id = "google_maps_page";
+  static const id = 'google_maps_page';
   @override
   _GoogleMapsPageState createState() => _GoogleMapsPageState();
 }
@@ -78,10 +79,12 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'google_maps_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("Google Maps");
+        _pageNavigator.getPageIndex('Google Maps');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     return Scaffold(

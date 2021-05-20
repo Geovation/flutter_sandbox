@@ -50,9 +50,10 @@ dependencies:
   parallax_image: ^0.3.1+1
   getwidget: ^1.2.4
   rive: ^0.7.3
-  firebase_messaging: ^9.1.4
+  firebase_messaging: ^10.0.0
   flutter_local_notifications: ^5.0.0+4
   lottie: ^0.7.0+1
+  firebase_analytics: ^8.1.0
 
 dev_dependencies:
   flutter_test:

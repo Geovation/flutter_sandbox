@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
@@ -16,6 +17,8 @@ class _LanguagesPageState extends State<LanguagesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'languages_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =

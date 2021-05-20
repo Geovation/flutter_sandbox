@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/basic_effects/rive_refresh_view.dart';
@@ -30,6 +31,8 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'basic_effects_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =

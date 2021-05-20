@@ -1,4 +1,5 @@
 import 'package:date_format/date_format.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/constants.dart';
@@ -338,6 +339,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'basic_widget_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =

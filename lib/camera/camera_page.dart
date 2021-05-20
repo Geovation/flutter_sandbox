@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -64,9 +65,11 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'camera_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
-    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("Camera");
+    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex('Camera');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     MediaQueryData deviceData = MediaQuery.of(context);
 

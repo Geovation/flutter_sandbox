@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,8 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'crashlytics_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
@@ -28,7 +31,13 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
         if (_auth.currentUser != null) {
           FirebaseCrashlytics.instance.setUserIdentifier(_auth.currentUser.uid);
         } else {
-          FirebaseCrashlytics.instance.setUserIdentifier("");
+          FirebaseCrashlytics.instance.setUserIdentifier('');
+          analytics.logEvent(
+            name: 'crashlytics_page',
+            parameters: {
+              'isCrashPressed': true,
+            },
+          );
         }
         FirebaseCrashlytics.instance.crash();
       }

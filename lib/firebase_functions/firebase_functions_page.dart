@@ -1,4 +1,5 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -12,7 +13,7 @@ class FirebaseFunctionsPage extends StatefulWidget {
 
 class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
   FirebaseFunctions functions;
-  String cloudFunctionData = "";
+  String cloudFunctionData = '';
 
   Future<String> showErrorAlertDialog({
     @required BuildContext context,
@@ -50,16 +51,18 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'cloud_functions_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("Cloud Functions");
+        _pageNavigator.getPageIndex('Cloud Functions');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
     Future<void> getGeoJSON() async {
       setState(() {
         cloudFunctionData =
-            "-----${AppLocalizations.of(context).loadingCAPS}-----";
+            '-----${AppLocalizations.of(context).loadingCAPS}-----';
       });
       HttpsCallable callable = functions.httpsCallable('getGeoJSON');
       try {
@@ -69,7 +72,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
         });
       } catch (error) {
         setState(() {
-          cloudFunctionData = "";
+          cloudFunctionData = '';
         });
         await showErrorAlertDialog(
           context: context,

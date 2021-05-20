@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -75,6 +76,7 @@ class InitApp extends StatelessWidget {
         vapidKey:
             'BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc',
       );
+      print(token);
     }
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -125,6 +127,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
   final _pageController = PageController(initialPage: 0);
   final fcmDemoPage = 12;
 
@@ -224,6 +227,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => CurrentLocale('en')),
         ChangeNotifierProvider(create: (_) => LanguageTitle()),
+        Provider<FirebaseAnalytics>.value(value: analytics),
       ],
       builder: (context, child) {
         return MaterialApp(

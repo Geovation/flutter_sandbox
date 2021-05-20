@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -49,6 +50,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.getPageController;
@@ -116,6 +118,7 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: email, password: password);
                         if (user != null) {
+                          analytics.logLogin();
                           authProvider.setUserLoginStatus = true;
                           _pageController
                               .jumpToPage(_pageNavigator.getFromIndex);

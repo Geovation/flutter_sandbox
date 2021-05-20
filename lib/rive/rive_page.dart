@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 class RivePage extends StatefulWidget {
-  static const id = "rive_page";
+  static const id = 'rive_page';
   @override
   _RivePageState createState() => _RivePageState();
 }
@@ -109,6 +110,8 @@ class _RivePageState extends State<RivePage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'rive_page');
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
     final PageNavigatorCustom _pageNavigator =

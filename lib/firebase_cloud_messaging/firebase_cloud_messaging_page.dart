@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class FcmPage extends StatefulWidget {
   const FcmPage({Key key}) : super(key: key);
-  static const id = "fcm_page";
+  static const id = 'fcm_page';
 
   @override
   _FcmPageState createState() => _FcmPageState();
@@ -53,9 +54,11 @@ class _FcmPageState extends State<FcmPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logEvent(name: 'fcm_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
-    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("FCM");
+    _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex('FCM');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +79,7 @@ class _FcmPageState extends State<FcmPage> {
           onPressed: () async {
             await getToken();
           },
-          child: Text("Get Token"),
+          child: Text('Get Token'),
         ),
       ],
     );
