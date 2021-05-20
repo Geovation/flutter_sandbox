@@ -11,6 +11,7 @@ import 'package:flutter_sandbox/firebase_cloud_messaging/firebase_cloud_messagin
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
+import 'package:flutter_sandbox/firebase_storage/firebase_storage_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
@@ -120,10 +121,13 @@ class _HomePageState extends State<HomePage> {
           case 12:
             _title = AppLocalizations.of(context).fcmTitle;
             break;
-          case 12:
+          case 13:
+            _title = AppLocalizations.of(context).cloudStorageTitle;
+            break;
+          case 14:
             _title = AppLocalizations.of(context).loginTitle;
             break;
-          case 13:
+          case 15:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -152,6 +156,7 @@ class _HomePageState extends State<HomePage> {
       SandboxLicensePage(),
       LanguagesPage(),
       FcmPage(),
+      FirebaseStoragePage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -400,6 +405,17 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 12) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('FCM'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 13,
+        title: Text(AppLocalizations.of(context).cloudStorageTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 13) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Cloud Storage'));
           }
           Navigator.pop(context);
         },

@@ -9,6 +9,8 @@
         android:icon="@mipmap/ic_launcher">
        android:name="androidx.multidex.MultiDexApplication" >android:name="androidx.multidex.MultiDexApplication" >
 
+       android:requestLegacyExternalStorage="true"
+
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyAbOGOC9O1lXpkgctocBG2fJz0ylDQA85g"/>
 
