@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,6 +79,15 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
   }
 
   Future<void> handleUploadType(UploadType type) async {
+    final PageNavigatorCustom _pageNavigator =
+        context.read<PageNavigatorCustom>();
+
+    if (!context.read<Auth>().getUserLoginStatus) {
+      _pageNavigator.getPageController
+          .jumpToPage(_pageNavigator.getPageIndex("FirebaseAuthLogin"));
+      return;
+    }
+
     switch (type) {
       case UploadType.string:
         setState(() {
@@ -110,7 +120,6 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
 
   Future<void> _downloadBytes(firebase_storage.Reference ref) async {
     final bytes = await ref.getData();
-    // Download...
     await saveAsBytes(bytes, 'some-image.jpg');
   }
 
@@ -274,8 +283,7 @@ class UploadTaskListTile extends StatelessWidget {
                   'canceled') {
             subtitle = const Text('Upload canceled.');
           } else {
-            // ignore: avoid_print
-            print(asyncSnapshot.error);
+            // print(asyncSnapshot.error);
             subtitle = const Text('Something went wrong.');
           }
         } else if (snapshot != null) {
