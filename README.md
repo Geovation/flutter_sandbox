@@ -46,7 +46,7 @@ To provide compile-time variables use `--dart-define` during `flutter run` or `f
 #### Run Unit Test
 ##### Android Studio
 1. Right-click on pageNavigatorCustom_test.dart file
-2. Press Run button to run the test.
+2. Press the Run `tests in pageNavigatorCustom_test.dart` option.
 
 ##### Visual Studio Code
 1. Open the pageNavigatorCustom_test.dart file
