@@ -124,6 +124,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
             Container(
               width: _width,
               child: Slider.adaptive(
+                key: Key('continuous_slider'),
                 activeColor: Theme.of(context).accentColor,
                 inactiveColor: kSliderInActiveColor,
                 value: currentSliderValueContinuous,
@@ -141,6 +142,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
             Container(
               width: _width,
               child: Slider.adaptive(
+                key: Key('discrete_slider'),
                 activeColor: Theme.of(context).accentColor,
                 inactiveColor: kSliderInActiveColor,
                 value: currentSliderValueDiscrete,
