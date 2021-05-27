@@ -40,11 +40,11 @@ void main() {
       },
     ));
 
-    final discreteSlider = find.byKey(Key('continuous_slider'));
-    final continuousSlider = find.byKey(ValueKey('discrete_slider'));
+    final continuousSlider = find.byKey(Key('continuous_slider'));
+    final discreteSlider = find.byKey(ValueKey('discrete_slider'));
 
-    await tester.drag(discreteSlider, Offset(100.0, 0.0));
     await tester.drag(continuousSlider, Offset(100.0, 0.0));
+    await tester.drag(discreteSlider, Offset(100.0, 0.0));
     await tester.pumpAndSettle();
 
     expect(find.text('0.0'), findsNothing);
