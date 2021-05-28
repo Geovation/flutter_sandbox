@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "803321733289",
+    "firebase_url": "https://geovation-sandbox-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "geovation-sandbox",
     "storage_bucket": "geovation-sandbox.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "803321733289-vc5gfpvlof8961u93bi5nekdq14ml2hc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.geovation.flutter_sandbox",
+            "certificate_hash": "3ea74fde46894a90f616d2eff44c943cf730d3df"
+          }
+        },
         {
           "client_id": "803321733289-bu10ggqde558meoanm8djc2njfv9kkt2.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +38,13 @@
             {
               "client_id": "803321733289-bu10ggqde558meoanm8djc2njfv9kkt2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "803321733289-7gtnj1tprgemrv8f7888jgee1mfcg67h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uk.geovation.sandbox"
+              }
             }
           ]
         }

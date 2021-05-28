@@ -57,6 +57,8 @@ dependencies:
   firebase_storage: ^8.1.0
   image_picker: ^0.7.5+2
   flutter_speed_dial: ^3.0.5
+  google_sign_in: ^5.0.4
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:

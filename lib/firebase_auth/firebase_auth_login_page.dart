@@ -5,6 +5,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:flutter_sandbox/services/authentication.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
@@ -145,6 +148,21 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                         messageText: AppLocalizations.of(context)
                             .firebaseAuthEmptyFieldError,
                       );
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SignInButton(
+                  Buttons.Google,
+                  onPressed: () async {
+                    User user = await Authentication.socialGoogleSignIn(
+                        context: context);
+                    if (user != null) {
+                      analytics.logLogin();
+                      authProvider.setUserLoginStatus = true;
+                      _pageController.jumpToPage(_pageNavigator.getFromIndex);
                     }
                   },
                 ),
