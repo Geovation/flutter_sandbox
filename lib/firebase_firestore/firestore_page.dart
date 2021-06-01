@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
-import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +43,7 @@ class _FirestorePageState extends State<FirestorePage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     analytics.logEvent(name: 'firestore_page');
     final PageNavigatorCustom _pageNavigator =
@@ -98,10 +99,12 @@ class _FirestorePageState extends State<FirestorePage> {
             children: [
               Text(
                 AppLocalizations.of(context).firestoreEditingMode,
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
               Switch.adaptive(
-                activeColor: kPrimary,
+                activeColor: Theme.of(context).primaryColor,
                 value: isInEditingMode,
                 onChanged: (bool newValue) {
                   setState(() {
@@ -115,7 +118,9 @@ class _FirestorePageState extends State<FirestorePage> {
             onPressed: () {
               saveNote();
             },
-            child: Text(AppLocalizations.of(context).firestoreSave),
+            child: Text(
+              AppLocalizations.of(context).firestoreSave,
+            ),
           ),
         ],
       );
@@ -126,7 +131,9 @@ class _FirestorePageState extends State<FirestorePage> {
       child: Column(
         children: [
           Card(
-            color: Colors.teal.shade50,
+            color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                ? Colors.teal.shade100
+                : Colors.teal.shade900,
             child: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height / 2,

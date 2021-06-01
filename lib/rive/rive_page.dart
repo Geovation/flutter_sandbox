@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:provider/provider.dart';
@@ -110,6 +111,7 @@ class _RivePageState extends State<RivePage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     analytics.logEvent(name: 'rive_page');
     final _width = MediaQuery.of(context).size.width;
@@ -145,12 +147,22 @@ class _RivePageState extends State<RivePage> {
               margin: EdgeInsets.all(20.0),
               child: ToggleButtons(
                 direction: isLandscape ? Axis.vertical : Axis.horizontal,
-                color: Colors.blueGrey,
+                color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.blueGrey.shade400
+                    : Colors.blueGrey.shade100,
                 selectedColor: Colors.deepOrange,
                 selectedBorderColor: Colors.deepOrangeAccent,
-                borderColor: Colors.blueGrey,
-                hoverColor: Colors.orange.shade100,
-                splashColor: Colors.orange.shade100,
+                borderColor:
+                    (appSettings.getCurrentThemeMode == ThemeMode.light)
+                        ? Colors.blueGrey.shade400
+                        : Colors.blueGrey.shade100,
+                hoverColor: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade100
+                    : Colors.orange.shade50,
+                splashColor:
+                    (appSettings.getCurrentThemeMode == ThemeMode.light)
+                        ? Colors.orange.shade100
+                        : Colors.orange.shade50,
                 borderRadius: BorderRadius.circular(15),
                 children: [
                   paddedTextForToggleButton(

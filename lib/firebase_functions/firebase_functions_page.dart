@@ -2,6 +2,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -51,6 +52,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     analytics.logEvent(name: 'cloud_functions_page');
     final PageNavigatorCustom _pageNavigator =
@@ -90,7 +92,9 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              color: Colors.blue.shade50,
+              color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                  ? Colors.blue.shade50
+                  : Colors.blue.shade900,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Text(

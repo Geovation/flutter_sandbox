@@ -71,10 +71,10 @@ class _GPSPageState extends State<GPSPage> {
       children: [
         DropdownButton<LocationAccuracy>(
           value: _selectedLocationAccuracy,
-          style: const TextStyle(color: Colors.deepPurple),
+          style: TextStyle(color: Theme.of(context).accentColor),
           underline: Container(
             height: 2,
-            color: Colors.deepPurpleAccent,
+            color: Theme.of(context).accentColor,
           ),
           onChanged: (LocationAccuracy newValue) {
             setState(() {

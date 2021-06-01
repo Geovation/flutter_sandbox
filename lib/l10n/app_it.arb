@@ -19,6 +19,7 @@
   "demosTitle": "Demo",
   "fcmTitle": "FCM",
   "cloudStorageTitle": "Cloud Storage",
+  "darkModeTitle": "Modalità scura",
 
 
   "logOut": "Disconnettersi",

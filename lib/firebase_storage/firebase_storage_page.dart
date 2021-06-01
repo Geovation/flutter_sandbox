@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -159,6 +160,7 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
@@ -191,9 +193,18 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
               Icons.text_fields,
               color: Colors.grey.shade900,
             ),
-            backgroundColor: Colors.orange.shade200,
+            backgroundColor:
+                (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade200
+                    : Colors.orange.shade900,
+            labelBackgroundColor:
+                (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade200
+                    : Colors.orange.shade900,
             label: 'Upload string',
-            labelStyle: TextStyle(fontSize: 18.0),
+            labelStyle: TextStyle(
+              fontSize: 18.0,
+            ),
             onTap: () => handleUploadType(UploadType.string),
           ),
           SpeedDialChild(
@@ -201,7 +212,14 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
               Icons.file_copy,
               color: Colors.grey.shade900,
             ),
-            backgroundColor: Colors.orange.shade200,
+            backgroundColor:
+                (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade200
+                    : Colors.orange.shade900,
+            labelBackgroundColor:
+                (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade200
+                    : Colors.orange.shade900,
             label: 'Upload local file',
             labelStyle: TextStyle(fontSize: 18.0),
             onTap: () => handleUploadType(UploadType.file),
@@ -212,7 +230,14 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
                 Icons.remove_circle,
                 color: Colors.grey.shade800,
               ),
-              backgroundColor: Colors.orange.shade200,
+              backgroundColor:
+                  (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.orange.shade200
+                      : Colors.orange.shade900,
+              labelBackgroundColor:
+                  (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.orange.shade200
+                      : Colors.orange.shade900,
               label: 'Clear list',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () => handleUploadType(UploadType.clear),

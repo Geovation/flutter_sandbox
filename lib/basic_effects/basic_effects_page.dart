@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/rive_refresh_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/components/shimmer/gf_shimmer.dart';
@@ -214,10 +215,13 @@ class BuildCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       child: Card(
-        color: Colors.orange.shade400,
+        color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+            ? Colors.orange.shade400
+            : Colors.orange.shade900,
         elevation: 5,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: AspectRatio(

@@ -55,7 +55,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.red.shade100,
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(10),
             ),
             width: deviceData.orientation == Orientation.portrait

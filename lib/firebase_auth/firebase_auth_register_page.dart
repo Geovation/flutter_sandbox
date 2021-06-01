@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -53,6 +54,7 @@ class _FirebaseAuthRegistrationPageState
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
@@ -66,7 +68,9 @@ class _FirebaseAuthRegistrationPageState
         bodyWidget = Center(
           child: RoundedButton(
             title: AppLocalizations.of(context).firebaseAuthSignOut,
-            colour: Colors.deepOrangeAccent,
+            colour: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                ? Colors.deepOrangeAccent
+                : Colors.deepOrangeAccent.shade700,
             onPressed: () {
               _auth.signOut();
               authProvider.setUserLoginStatus = false;
@@ -111,7 +115,9 @@ class _FirebaseAuthRegistrationPageState
                 ),
                 RoundedButton(
                   title: AppLocalizations.of(context).firebaseAuthRegister,
-                  colour: Colors.deepOrangeAccent,
+                  colour: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.deepOrangeAccent
+                      : Colors.deepOrangeAccent.shade700,
                   onPressed: () async {
                     setState(() {
                       showSpinner = true;

@@ -9,15 +9,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
-import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
+import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_signed_in_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
 import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
@@ -227,6 +226,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => CurrentLocale('en')),
         ChangeNotifierProvider(create: (_) => LanguageTitle()),
+        ChangeNotifierProvider(create: (_) => AppSettings()),
         Provider<FirebaseAnalytics>.value(value: analytics),
       ],
       builder: (context, child) {
@@ -238,9 +238,9 @@ class _MyAppState extends State<MyApp> {
           locale: Locale(Provider.of<CurrentLocale>(context).getCurrentLocale),
           theme: ThemeData.light().copyWith(
             colorScheme: ColorScheme(
-                primary: kPrimary,
+                primary: Colors.orange,
                 primaryVariant: Colors.orange.shade300,
-                secondary: kSecondary,
+                secondary: Colors.deepOrangeAccent,
                 secondaryVariant: Colors.deepOrangeAccent.shade400,
                 surface: Colors.white,
                 background: Colors.white,
@@ -259,15 +259,36 @@ class _MyAppState extends State<MyApp> {
             bottomAppBarColor: Color(0xFFFF5252),
             buttonColor: Color(0xFFFF5252),
           ),
+          darkTheme: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme(
+                primary: Colors.orange.shade900,
+                primaryVariant: Colors.orange.shade700,
+                secondary: Colors.red.shade800,
+                secondaryVariant: Colors.deepOrangeAccent.shade700,
+                surface: Colors.grey.shade900,
+                background: Colors.grey.shade800,
+                error: Colors.redAccent,
+                onPrimary: Colors.black,
+                onSecondary: Colors.white,
+                onSurface: Colors.grey,
+                onBackground: Colors.grey,
+                onError: Colors.white,
+                brightness: Brightness.dark),
+            primaryColorDark: Color(0xFFF57C00),
+            primaryColorLight: Color(0xFFFFE0B2),
+            primaryColor: Colors.orange.shade900,
+            accentColor: Color(0xFFFF5252),
+            dividerColor: Color(0xFFBDBDBD),
+            bottomAppBarColor: Color(0xFFFF5252),
+            buttonColor: Color(0xFFFF5252),
+          ),
+          themeMode: Provider.of<AppSettings>(context).getCurrentThemeMode,
           initialRoute: HomePage.id,
           routes: {
             MapboxMapPage.id: (context) => MapboxMapPage(),
-            FirebaseAuthLandingPage.id: (context) => FirebaseAuthLandingPage(),
             FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
             FirebaseAuthRegistrationPage.id: (context) =>
                 FirebaseAuthRegistrationPage(),
-            FirebaseAuthSignedInPage.id: (context) =>
-                FirebaseAuthSignedInPage(),
             FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
             CameraPage.id: (context) => CameraPage(cameras: cameraList),
             BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
@@ -278,6 +299,7 @@ class _MyAppState extends State<MyApp> {
             BasicEffectsPage.id: (context) => BasicEffectsPage(),
             RivePage.id: (context) => RivePage(),
             SandboxLicensePage.id: (context) => SandboxLicensePage(),
+            DarkModeScreen.id: (context) => DarkModeScreen(),
           },
         );
       },

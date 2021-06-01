@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
+import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_cloud_messaging/firebase_cloud_messaging_page.dart';
@@ -125,9 +127,12 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).cloudStorageTitle;
             break;
           case 14:
-            _title = AppLocalizations.of(context).loginTitle;
+            _title = AppLocalizations.of(context).darkModeTitle;
             break;
           case 15:
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 16:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -157,6 +162,7 @@ class _HomePageState extends State<HomePage> {
       LanguagesPage(),
       FcmPage(),
       FirebaseStoragePage(),
+      DarkModeScreen(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -261,6 +267,7 @@ class DrawerWindow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     final PageController _pageController = _pageNavigator.getPageController;
@@ -420,6 +427,17 @@ class DrawerWindow extends StatelessWidget {
           Navigator.pop(context);
         },
       ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 14,
+        title: Text(AppLocalizations.of(context).darkModeTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 14) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Dark Mode'));
+          }
+          Navigator.pop(context);
+        },
+      ),
       Divider(
         thickness: 2,
       ),
@@ -433,7 +451,11 @@ class DrawerWindow extends StatelessWidget {
       listViewItems.insert(
         0,
         DrawerHeader(
-          decoration: BoxDecoration(color: Colors.orangeAccent),
+          decoration: BoxDecoration(
+            color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                ? Colors.redAccent.shade400
+                : Colors.redAccent.shade700,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -468,7 +490,11 @@ class DrawerWindow extends StatelessWidget {
       listViewItems.insert(
         0,
         DrawerHeader(
-          decoration: BoxDecoration(color: Colors.grey),
+          decoration: BoxDecoration(
+            color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                ? Colors.grey.shade400
+                : Colors.grey.shade700,
+          ),
           child: Column(
             children: [
               CircleAvatar(
