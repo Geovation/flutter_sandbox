@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "803321733289-v2drj6e6s3t8paucis4hrmjant3e1u4b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.geovation.flutter_sandbox",
+            "certificate_hash": "8f8d676c2d27c6e908a5d80e800ead90dc842b39"
+          }
+        },
+        {
           "client_id": "803321733289-vc5gfpvlof8961u93bi5nekdq14ml2hc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

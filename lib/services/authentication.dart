@@ -64,8 +64,6 @@ class Authentication {
           );
         }
       }
-
-      return user;
     }
     return user;
   }
