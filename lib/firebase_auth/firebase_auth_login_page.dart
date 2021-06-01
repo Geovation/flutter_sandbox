@@ -161,7 +161,9 @@ class _FirebaseAuthLoginPageState extends State<FirebaseAuthLoginPage> {
                   height: 10,
                 ),
                 SignInButton(
-                  Buttons.Google,
+                  (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Buttons.Google
+                      : Buttons.GoogleDark,
                   onPressed: () async {
                     User user = await Authentication.socialGoogleSignIn(
                         context: context);
