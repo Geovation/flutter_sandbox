@@ -330,12 +330,16 @@ class ShimmerListItem extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
+    final AppSettings appSettings = Provider.of<AppSettings>(context);
+
     return index != -1
         ? Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.orange.shade50,
+                color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                    ? Colors.orange.shade50
+                    : Colors.orange.shade900, // Colors.orange.shade50,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(

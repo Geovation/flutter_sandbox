@@ -2,7 +2,6 @@ import 'package:date_format/date_format.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_sandbox/constants.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -126,7 +125,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               child: Slider.adaptive(
                 key: Key('continuous_slider'),
                 activeColor: Theme.of(context).accentColor,
-                inactiveColor: kSliderInActiveColor,
+                inactiveColor: Colors.red.shade100,
                 value: currentSliderValueContinuous,
                 onChanged: (double value) {
                   setState(() {
@@ -144,7 +143,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               child: Slider.adaptive(
                 key: Key('discrete_slider'),
                 activeColor: Theme.of(context).accentColor,
-                inactiveColor: kSliderInActiveColor,
+                inactiveColor: Colors.red.shade100,
                 value: currentSliderValueDiscrete,
                 min: 0,
                 max: 100,
