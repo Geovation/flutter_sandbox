@@ -1,0 +1,25 @@
+name: Deploy to Firebase Hosting Preview on PR
+on:
+  pull_request:
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build web
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GEOVATION_SANDBOX }}'
+          expires: 30d
+          projectId: geovation-sandbox
+        env:
+          FIREBASE_CLI_PREVIEWS: hostingchannels
