@@ -339,7 +339,7 @@ class ShimmerListItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: (appSettings.getCurrentThemeMode == ThemeMode.light)
                     ? Colors.orange.shade50
-                    : Colors.orange.shade900, // Colors.orange.shade50,
+                    : Colors.orange.shade900,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
