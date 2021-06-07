@@ -276,7 +276,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 Semantics(
                   checked: true,
                   label: localizations.basicWidgetsWakeUp,
-                  value: checkBoxValues[0],
+                  value: checkBoxValues[0].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
                     title: Text(localizations.basicWidgetsWakeUp),
@@ -297,7 +297,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 Semantics(
                   checked: true,
                   label: localizations.basicWidgetsPutOnTheSuit,
-                  value: checkBoxValues[1],
+                  value: checkBoxValues[1].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
                     title: Text(localizations.basicWidgetsPutOnTheSuit),
@@ -314,7 +314,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 Semantics(
                   checked: true,
                   label: localizations.basicWidgetsBetheHero,
-                  value: checkBoxValues[2],
+                  value: checkBoxValues[2].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
                     title: Text(localizations.basicWidgetsBetheHero),
