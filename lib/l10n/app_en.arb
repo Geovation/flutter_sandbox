@@ -87,6 +87,43 @@
   "riveIdle": "Idle",
   "riveBouncing": "Bouncing",
   "riveWipers": "Wipers",
-  "riveBroken": "Broken"
+  "riveBroken": "Broken",
 
+  "fcmGetToken": "Get Token",
+
+  "semCameraPgRearCameraToggleButton": "Button for rear camera view",
+  "semCameraPgFrontCameraToggleButton": "Button for front camera view",
+  "semCameraPgStillCameraToggleButton": "Button for changing camera mode to taking still pictures",
+  "semCameraPgVideoCameraToggleButton": "Button for changing camera mode to taking videos",
+  "semCameraPgTakeStillCameraButton": "Button for taking still picture",
+  "semCameraPgTakeVideoCameraButton": "Button for taking videos",
+  "semCameraPgStopVideoCameraButton": "Button for stopping video capture",
+  "semCameraPgFrontCameraSelected": "Front camera selected",
+  "semCameraPgRearCameraSelected": "Rear camera selected",
+  "semCameraPgLensDirectionToggle": "Toggle between front and rear camera",
+  "semCameraPgStillCameraModeSelected": "Picture capture mode selected",
+  "semCameraPgVideoCameraModeSelected": "Video capture mode selected",
+  "semCameraPgCameraModeToggle": "Toggle between picture and video capture mode",
+
+  "semBasicWidgetPgContinuousSliderLabel": "Continuous slider for demo",
+  "semBasicWidgetPgContinuousSlider": "Continuous slider value is ",
+  "semBasicWidgetPgDiscreteSliderLabel": "Discrete slider for demo",
+  "semBasicWidgetPgDiscreteSlider": "Discrete slider value is ",
+  "semBasicWidgetPgTrashButton": "Press to delete item",
+
+  "semFirestorePgEditSwitchButton": "Switch button to Enable or disable editing mode",
+  "semFirestorePgSaveButton": "Save note",
+
+  "semFunctionsPgSaveButton": "Fetch geoJSON ",
+
+  "semGoogleMapsPgToThePoolButton": "View the pool location on map",
+
+  "semRivePgCarAnimation": "Car animation window",
+  "semRivePgCarAnimationToggleButton": "Car animation toggle button between idle, bouncing, wipers and broken",
+
+  "semFirestoreStoragePgFABButton": "Add to upload task",
+
+  "semDarkModePgSwitch": "Switch for toggling between dark mode and light mode",
+  "semDarkModePgDarkModeOn": "Dark mode selected",
+  "semDarkModePgDarkModeOff": "Light mode selected"
 }

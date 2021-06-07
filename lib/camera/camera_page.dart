@@ -72,6 +72,7 @@ class _CameraPageState extends State<CameraPage> {
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex('Camera');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     MediaQueryData deviceData = MediaQuery.of(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     Function takePicture = () async {
       try {
@@ -140,24 +141,27 @@ class _CameraPageState extends State<CameraPage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Spacer(),
-        Container(
-          padding: EdgeInsets.all(10),
-          height: deviceData.size.height * 0.7,
-          width: deviceData.size.width * 0.9,
-          child: FutureBuilder(
-              future: _initializeControllerFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Center(
-                    child: SizedBox(
-                        height: deviceData.size.height * 0.7,
-                        width: deviceData.size.width * 0.9,
-                        child: CameraPreview(_controller)),
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
+        ExcludeSemantics(
+          excluding: true,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            height: deviceData.size.height * 0.7,
+            width: deviceData.size.width * 0.9,
+            child: FutureBuilder(
+                future: _initializeControllerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Center(
+                      child: SizedBox(
+                          height: deviceData.size.height * 0.7,
+                          width: deviceData.size.width * 0.9,
+                          child: CameraPreview(_controller)),
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }),
+          ),
         ),
         Spacer(),
         Align(
@@ -172,79 +176,116 @@ class _CameraPageState extends State<CameraPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ToggleButtons(
-                    color: Colors.grey.shade100,
-                    fillColor: Colors.orange.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    children: <Widget>[
-                      Icon(Icons.camera_rear_rounded),
-                      Icon(Icons.camera_front_rounded),
-                    ],
-                    onPressed: (int index) {
-                      setState(() {
-                        for (int buttonIndex = 0;
-                            buttonIndex < isSelectedLensDirection.length;
-                            buttonIndex++) {
-                          if (buttonIndex == index) {
-                            isSelectedLensDirection[buttonIndex] = true;
-                            _controller = CameraController(
-                              widget.cameras[index],
-                              ResolutionPreset.veryHigh,
-                            );
-                            _initializeControllerFuture =
-                                _controller.initialize();
-                          } else {
-                            isSelectedLensDirection[buttonIndex] = false;
+                  Semantics(
+                    toggled: true,
+                    value: isSelectedLensDirection[0]
+                        ? localizations.semCameraPgRearCameraSelected
+                        : localizations.semCameraPgFrontCameraSelected,
+                    label: localizations.semCameraPgLensDirectionToggle,
+                    child: ToggleButtons(
+                      color: Colors.grey.shade100,
+                      fillColor: Colors.orange.shade100,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      children: <Widget>[
+                        Icon(
+                          Icons.camera_rear_rounded,
+                          semanticLabel:
+                              localizations.semCameraPgRearCameraToggleButton,
+                        ),
+                        Icon(
+                          Icons.camera_front_rounded,
+                          semanticLabel:
+                              localizations.semCameraPgFrontCameraToggleButton,
+                        ),
+                      ],
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int buttonIndex = 0;
+                              buttonIndex < isSelectedLensDirection.length;
+                              buttonIndex++) {
+                            if (buttonIndex == index) {
+                              isSelectedLensDirection[buttonIndex] = true;
+                              _controller = CameraController(
+                                widget.cameras[index],
+                                ResolutionPreset.veryHigh,
+                              );
+                              _initializeControllerFuture =
+                                  _controller.initialize();
+                            } else {
+                              isSelectedLensDirection[buttonIndex] = false;
+                            }
                           }
-                        }
-                      });
-                    },
-                    isSelected: isSelectedLensDirection,
+                        });
+                      },
+                      isSelected: isSelectedLensDirection,
+                    ),
                   ),
-                  ToggleButtons(
-                    color: Colors.grey.shade100,
-                    fillColor: Colors.red.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    children: <Widget>[
-                      Icon(Icons.camera_alt),
-                      Icon(Icons.videocam),
-                    ],
-                    onPressed: (int index) {
-                      setState(() {
-                        for (int buttonIndex = 0;
-                            buttonIndex < isSelectedCameraMode.length;
-                            buttonIndex++) {
-                          if (buttonIndex == index) {
-                            isSelectedCameraMode[buttonIndex] = true;
-                          } else {
-                            isSelectedCameraMode[buttonIndex] = false;
+                  Semantics(
+                    toggled: true,
+                    value: isSelectedCameraMode[0]
+                        ? localizations.semCameraPgStillCameraModeSelected
+                        : localizations.semCameraPgVideoCameraModeSelected,
+                    label: localizations.semCameraPgCameraModeToggle,
+                    child: ToggleButtons(
+                      color: Colors.grey.shade100,
+                      fillColor: Colors.red.shade100,
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      children: <Widget>[
+                        Icon(
+                          Icons.camera_alt,
+                          semanticLabel:
+                              localizations.semCameraPgStillCameraToggleButton,
+                        ),
+                        Icon(
+                          Icons.videocam,
+                          semanticLabel:
+                              localizations.semCameraPgVideoCameraToggleButton,
+                        ),
+                      ],
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int buttonIndex = 0;
+                              buttonIndex < isSelectedCameraMode.length;
+                              buttonIndex++) {
+                            if (buttonIndex == index) {
+                              isSelectedCameraMode[buttonIndex] = true;
+                            } else {
+                              isSelectedCameraMode[buttonIndex] = false;
+                            }
                           }
-                        }
-                        if (index == 0) {
-                          isTakePicture = true;
-                        } else {
-                          isTakePicture = false;
-                        }
-                      });
-                    },
-                    isSelected: isSelectedCameraMode,
+                          if (index == 0) {
+                            isTakePicture = true;
+                          } else {
+                            isTakePicture = false;
+                          }
+                        });
+                      },
+                      isSelected: isSelectedCameraMode,
+                    ),
                   ),
-                  MaterialButton(
-                    onPressed: isTakePicture ? takePicture : recordVideo,
-                    color: Colors.grey.shade800,
-                    child: isTakePicture
-                        ? Icon(
-                            Icons.circle,
-                            size: 60,
-                            color: Colors.white,
-                          )
-                        : Icon(
-                            Icons.circle,
-                            size: 60,
-                            color: Colors.redAccent,
-                          ),
-                    padding: EdgeInsets.all(1),
-                    shape: CircleBorder(),
+                  Semantics(
+                    button: true,
+                    child: MaterialButton(
+                      onPressed: isTakePicture ? takePicture : recordVideo,
+                      color: Colors.grey.shade800,
+                      child: isTakePicture
+                          ? Icon(
+                              Icons.circle,
+                              size: 60,
+                              color: Colors.white,
+                              semanticLabel: localizations
+                                  .semCameraPgTakeStillCameraButton,
+                            )
+                          : Icon(
+                              Icons.circle,
+                              size: 60,
+                              color: Colors.redAccent,
+                              semanticLabel: localizations
+                                  .semCameraPgTakeVideoCameraButton,
+                            ),
+                      padding: EdgeInsets.all(1),
+                      shape: CircleBorder(),
+                    ),
                   ),
                   MaterialButton(
                     onPressed: isRecording ? stopRecording : null,
@@ -254,6 +295,8 @@ class _CameraPageState extends State<CameraPage> {
                             Icons.stop,
                             size: 40,
                             color: Colors.black,
+                            semanticLabel:
+                                localizations.semCameraPgStopVideoCameraButton,
                           )
                         : null,
                     padding: EdgeInsets.all(1),
@@ -312,8 +355,16 @@ class _CameraPageState extends State<CameraPage> {
                         fillColor: Colors.orange.shade100,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         children: <Widget>[
-                          Icon(Icons.camera_rear_rounded),
-                          Icon(Icons.camera_front_rounded),
+                          Icon(
+                            Icons.camera_rear_rounded,
+                            semanticLabel:
+                                localizations.semCameraPgRearCameraToggleButton,
+                          ),
+                          Icon(
+                            Icons.camera_front_rounded,
+                            semanticLabel: localizations
+                                .semCameraPgFrontCameraToggleButton,
+                          ),
                         ],
                         onPressed: (int index) {
                           setState(() {
@@ -342,8 +393,16 @@ class _CameraPageState extends State<CameraPage> {
                         fillColor: Colors.red.shade100,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         children: <Widget>[
-                          Icon(Icons.camera_alt),
-                          Icon(Icons.videocam),
+                          Icon(
+                            Icons.camera_alt,
+                            semanticLabel: localizations
+                                .semCameraPgStillCameraToggleButton,
+                          ),
+                          Icon(
+                            Icons.videocam,
+                            semanticLabel: localizations
+                                .semCameraPgVideoCameraToggleButton,
+                          ),
                         ],
                         onPressed: (int index) {
                           setState(() {
@@ -378,11 +437,15 @@ class _CameraPageState extends State<CameraPage> {
                                 Icons.circle,
                                 size: 60,
                                 color: Colors.white,
+                                semanticLabel: localizations
+                                    .semCameraPgTakeStillCameraButton,
                               )
                             : Icon(
                                 Icons.circle,
                                 size: 60,
                                 color: Colors.redAccent,
+                                semanticLabel: localizations
+                                    .semCameraPgTakeVideoCameraButton,
                               ),
                         padding: EdgeInsets.all(1),
                         shape: CircleBorder(),
@@ -395,6 +458,8 @@ class _CameraPageState extends State<CameraPage> {
                                 Icons.stop,
                                 size: 40,
                                 color: Colors.black,
+                                semanticLabel: localizations
+                                    .semCameraPgStopVideoCameraButton,
                               ),
                               padding: EdgeInsets.all(1),
                               shape: CircleBorder(),
@@ -430,7 +495,7 @@ class _CameraPageState extends State<CameraPage> {
     } else {
       bodyWidget = Container(
         child: Center(
-          child: Text(AppLocalizations.of(context).cameraNotSupportedText),
+          child: Text(localizations.cameraNotSupportedText),
         ),
       );
     }

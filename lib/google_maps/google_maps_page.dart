@@ -80,6 +80,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
   @override
   Widget build(BuildContext context) {
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
     analytics.logEvent(name: 'google_maps_page');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
@@ -102,8 +103,9 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToThePool,
-        label: Text(AppLocalizations.of(context).googleMapsToThePool),
+        label: Text(localizations.googleMapsToThePool),
         icon: Icon(Icons.pool),
+        tooltip: localizations.semGoogleMapsPgToThePoolButton,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );

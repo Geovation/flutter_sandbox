@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
@@ -166,69 +167,36 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex('Cloud Storage');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
+
     return Scaffold(
-      floatingActionButton: SpeedDial(
-        marginEnd: 18,
-        marginBottom: 20,
-        icon: Icons.add,
-        activeIcon: Icons.remove,
-        buttonSize: 56.0,
-        visible: true,
-        closeManually: false,
-        renderOverlay: false,
-        curve: Curves.bounceIn,
-        overlayColor: Colors.white,
-        overlayOpacity: 0.5,
-        onOpen: () => print('OPENING DIAL'),
-        onClose: () => print('DIAL CLOSED'),
-        tooltip: 'Speed Dial',
-        heroTag: 'speed-dial-hero-tag',
-        backgroundColor: Colors.redAccent.shade200,
-        foregroundColor: Colors.white,
-        elevation: 8.0,
-        shape: CircleBorder(),
-        children: [
-          SpeedDialChild(
-            child: Icon(
-              Icons.text_fields,
-              color: Colors.grey.shade900,
-            ),
-            backgroundColor:
-                (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.orange.shade200
-                    : Colors.orange.shade900,
-            labelBackgroundColor:
-                (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.orange.shade200
-                    : Colors.orange.shade900,
-            label: 'Upload string',
-            labelStyle: TextStyle(
-              fontSize: 18.0,
-            ),
-            onTap: () => handleUploadType(UploadType.string),
-          ),
-          SpeedDialChild(
-            child: Icon(
-              Icons.file_copy,
-              color: Colors.grey.shade900,
-            ),
-            backgroundColor:
-                (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.orange.shade200
-                    : Colors.orange.shade900,
-            labelBackgroundColor:
-                (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.orange.shade200
-                    : Colors.orange.shade900,
-            label: 'Upload local file',
-            labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => handleUploadType(UploadType.file),
-          ),
-          if (_uploadTasks.isNotEmpty)
+      floatingActionButton: Semantics(
+        label: localizations.semFirestoreStoragePgFABButton,
+        child: SpeedDial(
+          marginEnd: 18,
+          marginBottom: 20,
+          icon: Icons.add,
+          activeIcon: Icons.remove,
+          buttonSize: 56.0,
+          visible: true,
+          closeManually: false,
+          renderOverlay: false,
+          curve: Curves.bounceIn,
+          overlayColor: Colors.white,
+          overlayOpacity: 0.5,
+          onOpen: () => print('OPENING DIAL'),
+          onClose: () => print('DIAL CLOSED'),
+          tooltip: 'Speed Dial',
+          heroTag: 'speed-dial-hero-tag',
+          backgroundColor: Colors.redAccent.shade200,
+          foregroundColor: Colors.white,
+          elevation: 8.0,
+          shape: CircleBorder(),
+          children: [
             SpeedDialChild(
               child: Icon(
-                Icons.remove_circle,
-                color: Colors.grey.shade800,
+                Icons.text_fields,
+                color: Colors.grey.shade900,
               ),
               backgroundColor:
                   (appSettings.getCurrentThemeMode == ThemeMode.light)
@@ -238,11 +206,49 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
                   (appSettings.getCurrentThemeMode == ThemeMode.light)
                       ? Colors.orange.shade200
                       : Colors.orange.shade900,
-              label: 'Clear list',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => handleUploadType(UploadType.clear),
+              label: 'Upload string',
+              labelStyle: TextStyle(
+                fontSize: 18.0,
+              ),
+              onTap: () => handleUploadType(UploadType.string),
             ),
-        ],
+            SpeedDialChild(
+              child: Icon(
+                Icons.file_copy,
+                color: Colors.grey.shade900,
+              ),
+              backgroundColor:
+                  (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.orange.shade200
+                      : Colors.orange.shade900,
+              labelBackgroundColor:
+                  (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.orange.shade200
+                      : Colors.orange.shade900,
+              label: 'Upload local file',
+              labelStyle: TextStyle(fontSize: 18.0),
+              onTap: () => handleUploadType(UploadType.file),
+            ),
+            if (_uploadTasks.isNotEmpty)
+              SpeedDialChild(
+                child: Icon(
+                  Icons.remove_circle,
+                  color: Colors.grey.shade800,
+                ),
+                backgroundColor:
+                    (appSettings.getCurrentThemeMode == ThemeMode.light)
+                        ? Colors.orange.shade200
+                        : Colors.orange.shade900,
+                labelBackgroundColor:
+                    (appSettings.getCurrentThemeMode == ThemeMode.light)
+                        ? Colors.orange.shade200
+                        : Colors.orange.shade900,
+                label: 'Clear list',
+                labelStyle: TextStyle(fontSize: 18.0),
+                onTap: () => handleUploadType(UploadType.clear),
+              ),
+          ],
+        ),
       ),
       body: _uploadTasks.isEmpty
           ? const Center(child: Text("Press the '+' button to add a new file."))

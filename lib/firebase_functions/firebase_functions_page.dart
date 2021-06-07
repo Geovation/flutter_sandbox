@@ -53,6 +53,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
   @override
   Widget build(BuildContext context) {
     final AppSettings appSettings = Provider.of<AppSettings>(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     analytics.logEvent(name: 'cloud_functions_page');
     final PageNavigatorCustom _pageNavigator =
@@ -63,8 +64,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
 
     Future<void> getGeoJSON() async {
       setState(() {
-        cloudFunctionData =
-            '-----${AppLocalizations.of(context).loadingCAPS}-----';
+        cloudFunctionData = '-----${localizations.loadingCAPS}-----';
       });
       HttpsCallable callable = functions.httpsCallable('getGeoJSON');
       try {
@@ -111,7 +111,10 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
             onPressed: () {
               getGeoJSON();
             },
-            child: Text(AppLocalizations.of(context).functionsFetchGeoJSON),
+            child: Text(
+              localizations.functionsFetchGeoJSON,
+              semanticsLabel: localizations.semFunctionsPgSaveButton,
+            ),
           ),
         ),
       ],

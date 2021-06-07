@@ -39,11 +39,12 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex('Basic Effects');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     final List<Tab> basicEffectTabs = <Tab>[
-      Tab(text: AppLocalizations.of(context).basicEffectsParallaxTitle),
-      Tab(text: AppLocalizations.of(context).basicEffectsShimmerTitle),
-      Tab(text: AppLocalizations.of(context).basicEffectsRiveRefreshTitle),
+      Tab(text: localizations.basicEffectsParallaxTitle),
+      Tab(text: localizations.basicEffectsShimmerTitle),
+      Tab(text: localizations.basicEffectsRiveRefreshTitle),
     ];
 
     return Scaffold(
@@ -331,6 +332,7 @@ class ShimmerListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppSettings appSettings = Provider.of<AppSettings>(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     return index != -1
         ? Padding(
@@ -360,14 +362,14 @@ class ShimmerListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${AppLocalizations.of(context).basicEffectsIndexNumberOf} $index',
+                            '${localizations.basicEffectsIndexNumberOf} $index',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           Text(
-                              '${AppLocalizations.of(context).basicEffectsIndex} $index ${AppLocalizations.of(context).basicEffectsIndexDescription}'),
+                              '${localizations.basicEffectsIndex} $index ${localizations.basicEffectsIndexDescription}'),
                         ],
                       ),
                     ),

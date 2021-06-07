@@ -88,6 +88,44 @@
   "riveIdle": "Inattiva",
   "riveBouncing": "Rimbalzare",
   "riveWipers": "Tergicristalli",
-  "riveBroken": "Rotta"
+  "riveBroken": "Rotta",
+
+  "fcmGetToken": "Ottieni token",
+
+  "semCameraPgRearCameraToggleButton": "Pulsante per la visualizzazione della telecamera posteriore",
+  "semCameraPgFrontCameraToggleButton": "Pulsante per la visualizzazione della fotocamera frontale",
+  "semCameraPgStillCameraToggleButton": "Pulsante per cambiare la modalità della fotocamera per scattare foto",
+  "semCameraPgVideoCameraToggleButton": "Pulsante per cambiare la modalità della fotocamera per registrare video",
+  "semCameraPgTakeStillCameraButton": "Pulsante per scattare foto",
+  "semCameraPgTakeVideoCameraButton": "Pulsante per fare video",
+  "semCameraPgStopVideoCameraButton": "Pulsante per interrompere l'acquisizione video",
+  "semCameraPgFrontCameraSelected": "Fotocamera anteriore selezionata",
+  "semCameraPgRearCameraSelected": "Fotocamera posteriore selezionata",
+  "semCameraPgLensDirectionToggle": "Passa dalla fotocamera anteriore a quella posteriore",
+  "semCameraPgStillCameraModeSelected": "Modalità di acquisizione dell'immagine selezionata",
+  "semCameraPgVideoCameraModeSelected": "Modalità di acquisizione video selezionata",
+  "semCameraPgCameraModeToggle": "Passa dalla modalità di acquisizione di immagini a quella di video",
+
+  "semBasicWidgetPgContinuousSliderLabel": "Slider continuo per demo",
+  "semBasicWidgetPgContinuousSlider": "Il valore del dispositivo di scorrimento continuo è ",
+  "semBasicWidgetPgDiscreteSliderLabel": "Slider discreto per demo",
+  "semBasicWidgetPgDiscreteSlider": "Il valore del dispositivo di scorrimento discreto è ",
+  "semBasicWidgetPgTrashButton": "Premi per eliminare l'elemento",
+
+  "semFirestorePgEditSwitchButton": "Pulsante Passa a Abilita o disabilita la modalità di modifica",
+  "semFirestorePgSaveButton": "Salva nota",
+
+  "semFunctionsPgSaveButton": "Recupera geoJSON ",
+
+  "semGoogleMapsPgToThePoolButton": "Visualizza la posizione della piscina sulla mappa",
+
+  "semRivePgCarAnimation": "Finestra di animazione dell'auto",
+  "semRivePgCarAnimationToggleButton": "Pulsante di attivazione/disattivazione dell'animazione dell'auto tra inattivo, rimbalzante, tergicristalli e rotto",
+
+  "semFirestoreStoragePgFABButton": "Aggiungi per caricare l'attività",
+
+  "semDarkModePgSwitch": "Passa per alternare tra modalità oscura e modalità luce",
+  "semDarkModePgDarkModeOn": "Modalità scura selezionata",
+  "semDarkModePgDarkModeOff": "Modalità luce selezionata"
 
 }

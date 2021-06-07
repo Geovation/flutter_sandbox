@@ -64,6 +64,7 @@ class _GPSPageState extends State<GPSPage> {
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("GPS");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +92,9 @@ class _GPSPageState extends State<GPSPage> {
           ].map<DropdownMenuItem<LocationAccuracy>>((LocationAccuracy value) {
             return DropdownMenuItem<LocationAccuracy>(
               value: value,
-              child: Text(value.toString()),
+              child: Text(
+                value.toString(),
+              ),
             );
           }).toList(),
         ),
@@ -102,7 +105,7 @@ class _GPSPageState extends State<GPSPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${AppLocalizations.of(context).gpsLatitude} : ',
+              '${localizations.gpsLatitude} : ',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -122,7 +125,7 @@ class _GPSPageState extends State<GPSPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${AppLocalizations.of(context).gpsLongitude} : ',
+              '${localizations.gpsLongitude} : ',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -148,7 +151,7 @@ class _GPSPageState extends State<GPSPage> {
               _currentPos = positionValue;
             });
           },
-          child: Text(AppLocalizations.of(context).gpsLocateMe),
+          child: Text(localizations.gpsLocateMe),
         ),
       ],
     );

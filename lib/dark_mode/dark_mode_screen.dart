@@ -1,10 +1,10 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
+import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
-
-import '../pageNavigatorCustom.dart';
 
 class DarkModeScreen extends StatefulWidget {
   static const id = 'dark_mode_screen';
@@ -28,6 +28,7 @@ class _DarkModeScreenState extends State<DarkModeScreen> {
         _pageNavigator.getPageIndex('Dark Mode');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     isDarkModeOn = (appSettings.getCurrentThemeMode == ThemeMode.dark);
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     return Center(
       child: Container(
@@ -40,19 +41,25 @@ class _DarkModeScreenState extends State<DarkModeScreen> {
           borderRadius: BorderRadius.circular(40),
         ),
         child: Center(
-          child: Switch(
-              value: isDarkModeOn,
-              activeColor: Colors.orangeAccent.shade700,
-              onChanged: (bool newValue) {
-                setState(() {
-                  isDarkModeOn = newValue;
-                });
-                if (isDarkModeOn) {
-                  appSettings.setThemeMode = ThemeMode.dark;
-                } else {
-                  appSettings.setThemeMode = ThemeMode.light;
-                }
-              }),
+          child: Semantics(
+            label: localizations.semDarkModePgSwitch,
+            value: isDarkModeOn
+                ? localizations.semDarkModePgDarkModeOn
+                : localizations.semDarkModePgDarkModeOff,
+            child: Switch(
+                value: isDarkModeOn,
+                activeColor: Colors.orangeAccent.shade700,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    isDarkModeOn = newValue;
+                  });
+                  if (isDarkModeOn) {
+                    appSettings.setThemeMode = ThemeMode.dark;
+                  } else {
+                    appSettings.setThemeMode = ThemeMode.light;
+                  }
+                }),
+          ),
         ),
       ),
     );

@@ -120,6 +120,7 @@ class _RivePageState extends State<RivePage> {
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex('Rive');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     Widget paddedTextForToggleButton(String text) {
       return Padding(
@@ -138,72 +139,77 @@ class _RivePageState extends State<RivePage> {
             Container(
               width: isLandscape ? _width * 0.5 : _width,
               height: isLandscape ? _height : _height * 0.6,
-              child: Rive(
-                artboard: _artboard,
-                fit: BoxFit.contain,
+              child: Semantics(
+                label: localizations.semRivePgCarAnimation,
+                container: true,
+                child: Rive(
+                  artboard: _artboard,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             Container(
               margin: EdgeInsets.all(20.0),
-              child: ToggleButtons(
-                direction: isLandscape ? Axis.vertical : Axis.horizontal,
-                color: (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.blueGrey.shade400
-                    : Colors.blueGrey.shade100,
-                selectedColor: Colors.deepOrange,
-                selectedBorderColor: Colors.deepOrangeAccent,
-                borderColor:
-                    (appSettings.getCurrentThemeMode == ThemeMode.light)
-                        ? Colors.blueGrey.shade400
-                        : Colors.blueGrey.shade100,
-                hoverColor: (appSettings.getCurrentThemeMode == ThemeMode.light)
-                    ? Colors.orange.shade100
-                    : Colors.orange.shade50,
-                splashColor:
-                    (appSettings.getCurrentThemeMode == ThemeMode.light)
-                        ? Colors.orange.shade100
-                        : Colors.orange.shade50,
-                borderRadius: BorderRadius.circular(15),
-                children: [
-                  paddedTextForToggleButton(
-                      AppLocalizations.of(context).riveIdle),
-                  paddedTextForToggleButton(
-                      AppLocalizations.of(context).riveBouncing),
-                  paddedTextForToggleButton(
-                      AppLocalizations.of(context).riveWipers),
-                  paddedTextForToggleButton(
-                      AppLocalizations.of(context).riveBroken),
-                ],
-                isSelected: animationToggles,
-                onPressed: (int index) {
-                  setState(() {
-                    animationToggles[animationToggles.indexOf(true)] = false;
-                    animationToggles[index] = true;
-                  });
+              child: Semantics(
+                toggled: true,
+                label: localizations.semRivePgCarAnimationToggleButton,
+                child: ToggleButtons(
+                  direction: isLandscape ? Axis.vertical : Axis.horizontal,
+                  color: (appSettings.getCurrentThemeMode == ThemeMode.light)
+                      ? Colors.blueGrey.shade400
+                      : Colors.blueGrey.shade100,
+                  selectedColor: Colors.deepOrange,
+                  selectedBorderColor: Colors.deepOrangeAccent,
+                  borderColor:
+                      (appSettings.getCurrentThemeMode == ThemeMode.light)
+                          ? Colors.blueGrey.shade400
+                          : Colors.blueGrey.shade100,
+                  hoverColor:
+                      (appSettings.getCurrentThemeMode == ThemeMode.light)
+                          ? Colors.orange.shade100
+                          : Colors.orange.shade50,
+                  splashColor:
+                      (appSettings.getCurrentThemeMode == ThemeMode.light)
+                          ? Colors.orange.shade100
+                          : Colors.orange.shade50,
+                  borderRadius: BorderRadius.circular(15),
+                  children: [
+                    paddedTextForToggleButton(localizations.riveIdle),
+                    paddedTextForToggleButton(localizations.riveBouncing),
+                    paddedTextForToggleButton(localizations.riveWipers),
+                    paddedTextForToggleButton(localizations.riveBroken),
+                  ],
+                  isSelected: animationToggles,
+                  onPressed: (int index) {
+                    setState(() {
+                      animationToggles[animationToggles.indexOf(true)] = false;
+                      animationToggles[index] = true;
+                    });
 
-                  switch (index) {
-                    case 0:
-                      _wipersChange(false);
-                      _bouncingChange(false);
-                      _brokenChange(false);
-                      break;
-                    case 1:
-                      _wipersChange(false);
-                      _bouncingChange(true);
-                      _brokenChange(false);
-                      break;
-                    case 2:
-                      _wipersChange(true);
-                      _bouncingChange(false);
-                      _brokenChange(false);
-                      break;
-                    case 3:
-                      _wipersChange(false);
-                      _bouncingChange(false);
-                      _brokenChange(true);
-                      break;
-                  }
-                },
+                    switch (index) {
+                      case 0:
+                        _wipersChange(false);
+                        _bouncingChange(false);
+                        _brokenChange(false);
+                        break;
+                      case 1:
+                        _wipersChange(false);
+                        _bouncingChange(true);
+                        _brokenChange(false);
+                        break;
+                      case 2:
+                        _wipersChange(true);
+                        _bouncingChange(false);
+                        _brokenChange(false);
+                        break;
+                      case 3:
+                        _wipersChange(false);
+                        _bouncingChange(false);
+                        _brokenChange(true);
+                        break;
+                    }
+                  },
+                ),
               ),
             )
           ],

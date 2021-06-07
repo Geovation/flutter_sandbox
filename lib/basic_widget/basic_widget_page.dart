@@ -82,7 +82,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _tabController.addListener(_setActiveTabIndex);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _data = generateItems(8, context);
+      _data = generateItems(8, context, AppLocalizations.of(context));
     });
 
     super.initState();
@@ -113,7 +113,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     super.dispose();
   }
 
-  Widget onSelectedWindow(int index) {
+  Widget onSelectedWindow(int index, AppLocalizations localizations) {
     Widget indexedWidget;
     switch (index) {
       case 0:
@@ -122,41 +122,57 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           children: [
             Container(
               width: _width,
-              child: Slider.adaptive(
-                key: Key('continuous_slider'),
-                activeColor: Theme.of(context).accentColor,
-                inactiveColor: Colors.red.shade100,
-                value: currentSliderValueContinuous,
-                onChanged: (double value) {
-                  setState(() {
-                    currentSliderValueContinuous = value;
-                  });
-                },
+              child: Semantics(
+                slider: true,
+                label: localizations.semBasicWidgetPgContinuousSliderLabel,
+                value: currentSliderValueContinuous.toString(),
+                child: Slider.adaptive(
+                  key: Key('continuous_slider'),
+                  activeColor: Theme.of(context).accentColor,
+                  inactiveColor: Colors.red.shade100,
+                  value: currentSliderValueContinuous,
+                  onChanged: (double value) {
+                    setState(() {
+                      currentSliderValueContinuous = value;
+                    });
+                  },
+                ),
               ),
             ),
-            Text(currentSliderValueContinuous.toStringAsFixed(1)),
+            Text(
+              currentSliderValueContinuous.toStringAsFixed(1),
+              semanticsLabel:
+                  '${localizations.semBasicWidgetPgContinuousSlider} ${currentSliderValueContinuous.toStringAsFixed(1)}',
+            ),
             SizedBox(
               height: 3,
             ),
             Container(
               width: _width,
-              child: Slider.adaptive(
-                key: Key('discrete_slider'),
-                activeColor: Theme.of(context).accentColor,
-                inactiveColor: Colors.red.shade100,
-                value: currentSliderValueDiscrete,
-                min: 0,
-                max: 100,
-                divisions: 5,
-                label: currentSliderValueDiscrete.round().toString(),
-                onChanged: (double value) {
-                  setState(() {
-                    currentSliderValueDiscrete = value;
-                  });
-                },
+              child: Semantics(
+                slider: true,
+                label: localizations.semBasicWidgetPgDiscreteSliderLabel,
+                value: currentSliderValueDiscrete.toString(),
+                child: Slider.adaptive(
+                  key: Key('discrete_slider'),
+                  activeColor: Theme.of(context).accentColor,
+                  inactiveColor: Colors.red.shade100,
+                  value: currentSliderValueDiscrete,
+                  min: 0,
+                  max: 100,
+                  divisions: 5,
+                  label: currentSliderValueDiscrete.round().toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      currentSliderValueDiscrete = value;
+                    });
+                  },
+                ),
               ),
             ),
-            Text(currentSliderValueDiscrete.round().toString()),
+            Text(currentSliderValueDiscrete.round().toString(),
+                semanticsLabel:
+                    '${localizations.semBasicWidgetPgDiscreteSlider} ${currentSliderValueDiscrete.round().toString()}'),
           ],
         );
         break;
@@ -171,7 +187,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               Column(
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).basicWidgetsChooseDate,
+                    localizations.basicWidgetsChooseDate,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
@@ -210,7 +226,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               Column(
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).basicWidgetsChooseTime,
+                    localizations.basicWidgetsChooseTime,
                     style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
@@ -257,40 +273,60 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
             width: _width,
             child: ListView(
               children: [
-                CheckboxListTile(
-                  activeColor: Theme.of(context).primaryColor,
-                  title: Text(AppLocalizations.of(context).basicWidgetsWakeUp),
+                Semantics(
+                  checked: true,
+                  label: localizations.basicWidgetsWakeUp,
                   value: checkBoxValues[0],
-                  onChanged: (bool value) {
-                    setState(() {
-                      checkBoxValues[0] = value;
-                    });
-                  },
-                  secondary: Icon(Icons.alarm),
+                  child: CheckboxListTile(
+                    activeColor: Theme.of(context).primaryColor,
+                    title: Text(localizations.basicWidgetsWakeUp),
+                    value: checkBoxValues[0],
+                    onChanged: (bool value) {
+                      setState(() {
+                        checkBoxValues[0] = value;
+                      });
+                    },
+                    secondary: ExcludeSemantics(
+                      excluding: true,
+                      child: Icon(
+                        Icons.alarm,
+                      ),
+                    ),
+                  ),
                 ),
-                CheckboxListTile(
-                  activeColor: Theme.of(context).primaryColor,
-                  title: Text(
-                      AppLocalizations.of(context).basicWidgetsPutOnTheSuit),
+                Semantics(
+                  checked: true,
+                  label: localizations.basicWidgetsPutOnTheSuit,
                   value: checkBoxValues[1],
-                  onChanged: (bool value) {
-                    setState(() {
-                      checkBoxValues[1] = value;
-                    });
-                  },
-                  secondary: Icon(Icons.work),
+                  child: CheckboxListTile(
+                    activeColor: Theme.of(context).primaryColor,
+                    title: Text(localizations.basicWidgetsPutOnTheSuit),
+                    value: checkBoxValues[1],
+                    onChanged: (bool value) {
+                      setState(() {
+                        checkBoxValues[1] = value;
+                      });
+                    },
+                    secondary: ExcludeSemantics(
+                        excluding: true, child: Icon(Icons.work)),
+                  ),
                 ),
-                CheckboxListTile(
-                  activeColor: Theme.of(context).primaryColor,
-                  title:
-                      Text(AppLocalizations.of(context).basicWidgetsBetheHero),
+                Semantics(
+                  checked: true,
+                  label: localizations.basicWidgetsBetheHero,
                   value: checkBoxValues[2],
-                  onChanged: (bool value) {
-                    setState(() {
-                      checkBoxValues[2] = value;
-                    });
-                  },
-                  secondary: Icon(Icons.engineering),
+                  child: CheckboxListTile(
+                    activeColor: Theme.of(context).primaryColor,
+                    title: Text(localizations.basicWidgetsBetheHero),
+                    value: checkBoxValues[2],
+                    onChanged: (bool value) {
+                      setState(() {
+                        checkBoxValues[2] = value;
+                      });
+                    },
+                    secondary: ExcludeSemantics(
+                        excluding: true, child: Icon(Icons.engineering)),
+                  ),
                 ),
               ],
             ),
@@ -314,9 +350,13 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 },
                 body: ListTile(
                     title: Text(item.expandedValue),
-                    subtitle: Text(AppLocalizations.of(context)
-                        .basicWidgetsExpansionPanelText),
-                    trailing: const Icon(Icons.delete),
+                    subtitle:
+                        Text(localizations.basicWidgetsExpansionPanelText),
+                    trailing: Icon(
+                      Icons.delete,
+                      semanticLabel:
+                          '${localizations.semBasicWidgetPgTrashButton}',
+                    ),
                     onTap: () {
                       setState(() {
                         _data.removeWhere(
@@ -332,8 +372,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
       default:
         indexedWidget = Center(
-          child: Text(AppLocalizations.of(context)
-              .basicWidgetsExpansionPanelDefaultText),
+          child: Text(localizations.basicWidgetsExpansionPanelDefaultText),
         );
         break;
     }
@@ -349,14 +388,15 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _pageNavigator.setCurrentPageIndex =
         _pageNavigator.getPageIndex('Basic Widgets');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     MediaQueryData deviceData = MediaQuery.of(context);
 
     final List<Tab> basicWidgetTabs = <Tab>[
-      Tab(text: AppLocalizations.of(context).basicWidgetsSliderTitle),
-      Tab(text: AppLocalizations.of(context).basicWidgetsDatePickerTitle),
-      Tab(text: AppLocalizations.of(context).basicWidgetsCheckboxTitle),
-      Tab(text: AppLocalizations.of(context).basicWidgetsExpansionListTitle),
+      Tab(text: localizations.basicWidgetsSliderTitle),
+      Tab(text: localizations.basicWidgetsDatePickerTitle),
+      Tab(text: localizations.basicWidgetsCheckboxTitle),
+      Tab(text: localizations.basicWidgetsExpansionListTitle),
     ];
 
     _height = deviceData.size.height;
@@ -377,10 +417,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          onSelectedWindow(0),
-          onSelectedWindow(1),
-          onSelectedWindow(2),
-          onSelectedWindow(3),
+          onSelectedWindow(0, localizations),
+          onSelectedWindow(1, localizations),
+          onSelectedWindow(2, localizations),
+          onSelectedWindow(3, localizations),
         ],
       ),
       floatingActionButton: Visibility(
@@ -409,12 +449,12 @@ class Item {
   bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems, BuildContext context) {
+List<Item> generateItems(
+    int numberOfItems, BuildContext context, AppLocalizations localizations) {
   return List<Item>.generate(numberOfItems, (int index) {
     return Item(
-      headerValue: '${AppLocalizations.of(context).basicWidgetsPanel} $index',
-      expandedValue:
-          '${AppLocalizations.of(context).basicWidgetsThisIsItemNumber} $index',
+      headerValue: '${localizations.basicWidgetsPanel} $index',
+      expandedValue: '${localizations.basicWidgetsThisIsItemNumber} $index',
     );
   });
 }

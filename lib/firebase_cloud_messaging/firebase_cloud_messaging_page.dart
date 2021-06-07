@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -60,6 +61,8 @@ class _FcmPageState extends State<FcmPage> {
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex('FCM');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
+    final AppLocalizations localizations = AppLocalizations.of(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -75,11 +78,15 @@ class _FcmPageState extends State<FcmPage> {
                 ),
               )),
         ),
-        ElevatedButton(
-          onPressed: () async {
-            await getToken();
-          },
-          child: Text('Get Token'),
+        Semantics(
+          button: true,
+          label: localizations.fcmGetToken,
+          child: ElevatedButton(
+            onPressed: () async {
+              await getToken();
+            },
+            child: Text('${localizations.fcmGetToken}'),
+          ),
         ),
       ],
     );

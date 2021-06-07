@@ -44,6 +44,7 @@ class _FirestorePageState extends State<FirestorePage> {
   @override
   Widget build(BuildContext context) {
     final AppSettings appSettings = Provider.of<AppSettings>(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
     analytics.logEvent(name: 'firestore_page');
     final PageNavigatorCustom _pageNavigator =
@@ -98,28 +99,36 @@ class _FirestorePageState extends State<FirestorePage> {
           Row(
             children: [
               Text(
-                AppLocalizations.of(context).firestoreEditingMode,
+                localizations.firestoreEditingMode,
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              Switch.adaptive(
-                activeColor: Theme.of(context).primaryColor,
-                value: isInEditingMode,
-                onChanged: (bool newValue) {
-                  setState(() {
-                    isInEditingMode = newValue;
-                  });
-                },
+              Semantics(
+                checked: isInEditingMode,
+                label: '${localizations.semFirestorePgEditSwitchButton}',
+                child: Switch.adaptive(
+                  activeColor: Theme.of(context).primaryColor,
+                  value: isInEditingMode,
+                  onChanged: (bool newValue) {
+                    setState(() {
+                      isInEditingMode = newValue;
+                    });
+                  },
+                ),
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              saveNote();
-            },
-            child: Text(
-              AppLocalizations.of(context).firestoreSave,
+          Semantics(
+            button: true,
+            label: localizations.semFirestorePgSaveButton,
+            child: ElevatedButton(
+              onPressed: () {
+                saveNote();
+              },
+              child: Text(
+                localizations.firestoreSave,
+              ),
             ),
           ),
         ],
@@ -139,17 +148,20 @@ class _FirestorePageState extends State<FirestorePage> {
                 height: MediaQuery.of(context).size.height / 2,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 5.0),
-                  child: TextField(
-                    controller: _editingController,
-                    maxLines: null,
-                    expands: true,
-                    maxLength: 1000,
-                    readOnly: !isInEditingMode,
-                    decoration: new InputDecoration(
-                      border: InputBorder.none,
-                      hintText:
-                          AppLocalizations.of(context).firestoreEnterAShortNote,
-                      contentPadding: EdgeInsets.all(10.0),
+                  child: Semantics(
+                    textField: true,
+                    label: localizations.firestoreEnterAShortNote,
+                    child: TextField(
+                      controller: _editingController,
+                      maxLines: null,
+                      expands: true,
+                      maxLength: 1000,
+                      readOnly: !isInEditingMode,
+                      decoration: new InputDecoration(
+                        border: InputBorder.none,
+                        hintText: localizations.firestoreEnterAShortNote,
+                        contentPadding: EdgeInsets.all(10.0),
+                      ),
                     ),
                   ),
                 ),

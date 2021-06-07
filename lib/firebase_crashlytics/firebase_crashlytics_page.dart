@@ -20,6 +20,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
         _pageNavigator.getPageIndex('Firebase Crashlytics');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     MediaQueryData deviceData = MediaQuery.of(context);
+    final AppLocalizations localizations = AppLocalizations.of(context);
 
     FirebaseCrashlytics fci = FirebaseCrashlytics.instance;
     String message = AppLocalizations.of(context).firebaseCrashlyticsMessage;
@@ -44,7 +45,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
     };
 
     if (kIsWeb) {
-      message = AppLocalizations.of(context).firebaseCrashlyticsWebMessage;
+      message = localizations.firebaseCrashlyticsWebMessage;
       onPressCrash = null;
     }
 
@@ -79,7 +80,7 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
           child: ElevatedButton.icon(
             onPressed: onPressCrash,
             icon: Icon(Icons.error_rounded),
-            label: Text(AppLocalizations.of(context).firebaseCrashlyticsButton),
+            label: Text(localizations.firebaseCrashlyticsButton),
           ),
         ),
       ],
