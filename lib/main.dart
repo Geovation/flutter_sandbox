@@ -15,6 +15,7 @@ import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
 import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
+import 'package:flutter_sandbox/draggable/draggable_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
@@ -300,6 +301,7 @@ class _MyAppState extends State<MyApp> {
             RivePage.id: (context) => RivePage(),
             SandboxLicensePage.id: (context) => SandboxLicensePage(),
             DarkModeScreen.id: (context) => DarkModeScreen(),
+            DraggablePage.id: (context) => DraggablePage(),
           },
         );
       },

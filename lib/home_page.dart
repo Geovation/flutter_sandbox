@@ -7,6 +7,7 @@ import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
+import 'package:flutter_sandbox/draggable/draggable_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
 import 'package:flutter_sandbox/firebase_cloud_messaging/firebase_cloud_messaging_page.dart';
@@ -130,9 +131,12 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).darkModeTitle;
             break;
           case 15:
-            _title = AppLocalizations.of(context).loginTitle;
+            _title = AppLocalizations.of(context).draggableTitle;
             break;
           case 16:
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 17:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -163,6 +167,7 @@ class _HomePageState extends State<HomePage> {
       FcmPage(),
       FirebaseStoragePage(),
       DarkModeScreen(),
+      DraggablePage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -434,6 +439,17 @@ class DrawerWindow extends StatelessWidget {
           if (_pageNavigator.getCurrentPageIndex != 14) {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('Dark Mode'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 15,
+        title: Text(AppLocalizations.of(context).draggableTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 15) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Draggable'));
           }
           Navigator.pop(context);
         },
