@@ -82,7 +82,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     _tabController.addListener(_setActiveTabIndex);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _data = generateItems(8, context, AppLocalizations.of(context));
+      _data = generateItems(8, AppLocalizations.of(context));
     });
 
     super.initState();
@@ -449,8 +449,7 @@ class Item {
   bool isExpanded;
 }
 
-List<Item> generateItems(
-    int numberOfItems, BuildContext context, AppLocalizations localizations) {
+List<Item> generateItems(int numberOfItems, AppLocalizations localizations) {
   return List<Item>.generate(numberOfItems, (int index) {
     return Item(
       headerValue: '${localizations.basicWidgetsPanel} $index',
