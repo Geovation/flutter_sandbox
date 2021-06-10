@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
 class DraggablePage extends StatefulWidget {
@@ -15,10 +16,27 @@ class DraggablePage extends StatefulWidget {
 }
 
 class _DraggablePageState extends State<DraggablePage> {
+  AudioPlayer playerCorrectSFX;
+  AudioPlayer playerWrongSFX;
   TextStyle containerTextStyle = TextStyle(color: Colors.white, fontSize: 20);
   Random randomGen = Random();
   int currentRandomNumber = 1;
   int currentScore = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    playerCorrectSFX = AudioPlayer();
+    playerWrongSFX = AudioPlayer();
+  }
+
+  @override
+  void dispose() {
+    playerCorrectSFX.dispose();
+    playerWrongSFX.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     currentRandomNumber = randomGen.nextInt(100);
@@ -117,16 +135,21 @@ class _DraggablePageState extends State<DraggablePage> {
                 onWillAccept: (data) {
                   return true;
                 },
-                onAccept: (data) {
+                onAccept: (data) async {
                   setState(() {
                     currentRandomNumber = randomGen.nextInt(100);
                   });
                   if (data % 2 != 0) {
-                    scaffoldMessengerContext.showSnackBar(correctTextSnackBar);
+                    await playerCorrectSFX
+                        .setAsset('assets/audio/correctSFX.wav');
+                    playerCorrectSFX.play();
                     setState(() {
                       currentScore++;
                     });
+                    scaffoldMessengerContext.showSnackBar(correctTextSnackBar);
                   } else {
+                    await playerWrongSFX.setAsset('assets/audio/wrongSFX.wav');
+                    playerWrongSFX.play();
                     scaffoldMessengerContext.showSnackBar(wrongTextSnackBar);
                   }
                 },
@@ -152,16 +175,21 @@ class _DraggablePageState extends State<DraggablePage> {
                 onWillAccept: (data) {
                   return true;
                 },
-                onAccept: (data) {
+                onAccept: (data) async {
                   setState(() {
                     currentRandomNumber = randomGen.nextInt(100);
                   });
                   if (data % 2 == 0) {
+                    await playerCorrectSFX
+                        .setAsset('assets/audio/correctSFX.wav');
+                    playerCorrectSFX.play();
                     setState(() {
                       currentScore++;
                     });
                     scaffoldMessengerContext.showSnackBar(correctTextSnackBar);
                   } else {
+                    await playerWrongSFX.setAsset('assets/audio/wrongSFX.wav');
+                    playerWrongSFX.play();
                     scaffoldMessengerContext.showSnackBar(wrongTextSnackBar);
                   }
                 },
