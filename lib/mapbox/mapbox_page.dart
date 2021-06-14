@@ -124,7 +124,7 @@ class _MapboxMapState extends State<MapboxMapPage> {
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("Mapbox");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
-    Widget bodyWidget = MapboxMap(
+    return MapboxMap(
       accessToken: ACCESS_TOKEN_MAPBOX,
       onMapCreated: _onMapCreated,
       initialCameraPosition:
@@ -132,6 +132,5 @@ class _MapboxMapState extends State<MapboxMapPage> {
       onStyleLoadedCallback: onStyleLoadedCallback,
       trackCameraPosition: true,
     );
-    return bodyWidget;
   }
 }
