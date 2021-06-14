@@ -4,10 +4,8 @@ import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +24,8 @@ class _MapboxMapState extends State<MapboxMapPage> {
   MapboxMapController mapController;
 
   void _onMapCreated(MapboxMapController controller) {
-    mapController = controller;
+    this.mapController = controller;
+    mapController.setSymbolIconAllowOverlap(true);
   }
 
   void onStyleLoadedCallback() {
@@ -125,21 +124,14 @@ class _MapboxMapState extends State<MapboxMapPage> {
     _pageNavigator.setCurrentPageIndex = _pageNavigator.getPageIndex("Mapbox");
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
 
-    Widget bodyWidget;
-    if (kIsWeb) {
-      bodyWidget = Center(
-        child: Text(AppLocalizations.of(context).mapboxNotSupported),
-      );
-    } else {
-      bodyWidget = MapboxMap(
-        accessToken: ACCESS_TOKEN_MAPBOX,
-        onMapCreated: _onMapCreated,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
-        onStyleLoadedCallback: onStyleLoadedCallback,
-        trackCameraPosition: true,
-      );
-    }
+    Widget bodyWidget = MapboxMap(
+      accessToken: ACCESS_TOKEN_MAPBOX,
+      onMapCreated: _onMapCreated,
+      initialCameraPosition:
+          CameraPosition(target: LatLng(51.52659, -0.12977), zoom: 12.0),
+      onStyleLoadedCallback: onStyleLoadedCallback,
+      trackCameraPosition: true,
+    );
     return bodyWidget;
   }
 }
