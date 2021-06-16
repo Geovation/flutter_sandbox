@@ -19,9 +19,6 @@ class SembastDatabase {
   // only from within the SembastDatabase class itself.
   SembastDatabase._();
 
-  // Sembast database object
-  Database _database;
-
   // Database object accessor
   Future<Database> get database async {
     // If completer is null, AppDatabaseClass is newly instantiated, so database is not yet opened
