@@ -21,6 +21,7 @@
   "cloudStorageTitle": "Cloud Storage",
   "darkModeTitle": "Dark Mode",
   "draggableTitle": "Draggable",
+  "databaseTitle": "Database",
 
   "logOut": "Log out",
 
@@ -96,6 +97,10 @@
   "draggableEven": "Even",
 
   "fcmGetToken": "Get Token",
+
+  "dbName": "Name",
+  "dbAge": "Age",
+  "dbRole": "Role",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",

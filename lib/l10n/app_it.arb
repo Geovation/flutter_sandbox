@@ -21,7 +21,7 @@
   "cloudStorageTitle": "Cloud Storage",
   "darkModeTitle": "Modalità scura",
   "draggableTitle": "Trascinabile",
-
+  "databaseTitle": "Database",
 
   "logOut": "Disconnettersi",
 
@@ -97,6 +97,10 @@
   "draggableEven": "Pari",
 
   "fcmGetToken": "Ottieni token",
+
+  "dbName": "Nome",
+  "dbAge": "Età",
+  "dbRole": "Ruolo",
 
   "semCameraPgRearCameraToggleButton": "Pulsante per la visualizzazione della telecamera posteriore",
   "semCameraPgFrontCameraToggleButton": "Pulsante per la visualizzazione della fotocamera frontale",
