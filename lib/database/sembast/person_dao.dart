@@ -11,14 +11,13 @@ class PersonDao extends ChangeNotifier {
   // A Store with int keys and Map<String, dynamic> values.
   // This Store acts like a persistent map, values of which are Fruit objects converted to Map
   final _personStore = intMapStoreFactory.store(PERSON_STORE_NAME);
-  var factory = databaseFactoryWeb;
 
   // Private getter to shorten the amount of code needed to get the
   // singleton instance of an opened database.
 
   Future<Database> get _db async => (!kIsWeb)
       ? await SembastDatabase.instance.database
-      : await factory.openDatabase('sembastWeb');
+      : await databaseFactoryWeb.openDatabase('sembastWeb');
 
   List<Person> _persons = [];
 
