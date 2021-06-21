@@ -21,7 +21,7 @@ class SembastDatabase {
 
   // Database object accessor
   Future<Database> get database async {
-    // If completer is null, AppDatabaseClass is newly instantiated, so database is not yet opened
+    // If completer is null, SembastDatabase class is newly instantiated, so database is not yet opened
     if (_dbOpenCompleter == null) {
       _dbOpenCompleter = Completer();
       // Calling _openDatabase will also complete the completer with database instance

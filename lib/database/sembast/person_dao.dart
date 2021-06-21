@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/database/sembast/model/person.dart';
 import 'package:flutter_sandbox/database/sembast/sembast_database.dart';
 import 'package:sembast/sembast.dart';
@@ -9,7 +7,7 @@ import 'package:sembast_web/sembast_web.dart';
 class PersonDao extends ChangeNotifier {
   static const String PERSON_STORE_NAME = 'persons';
   // A Store with int keys and Map<String, dynamic> values.
-  // This Store acts like a persistent map, values of which are Fruit objects converted to Map
+  // This Store acts like a persistent map, values of which are Person objects converted to Map
   final _personStore = intMapStoreFactory.store(PERSON_STORE_NAME);
 
   // Private getter to shorten the amount of code needed to get the
@@ -59,7 +57,6 @@ class PersonDao extends ChangeNotifier {
     );
 
     // Making a List<Person> out of List<RecordSnapshot>
-
     List<Person> persons = recordSnapshots.map((snapshot) {
       final person = Person.fromMap(snapshot.value);
       // An ID is a key of a record from the database.
