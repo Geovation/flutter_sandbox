@@ -7,7 +7,7 @@ import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
 class DatabasePage extends StatefulWidget {
-  static const id = "database_page";
+  static const id = 'database_page';
   const DatabasePage({Key key}) : super(key: key);
 
   @override
@@ -29,57 +29,70 @@ class _DatabasePageState extends State<DatabasePage>
         DataRow(
           selected: false,
           key: Key(sembastPersonList[i].id.toString()),
-          onSelectChanged: (bool selected) {
-            if (selected) {
-              personDao.delete(sembastPersonList[i]);
-            }
-          },
           cells: <DataCell>[
             DataCell(
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: localizations.dbName),
-                  initialValue: '${sembastPersonList[i].name}',
-                  keyboardType: TextInputType.name,
-                  onFieldSubmitted: (updatedName) {
-                    personDao.update(Person(
-                        id: sembastPersonList[i].id,
-                        name: updatedName,
-                        age: sembastPersonList[i].age,
-                        role: sembastPersonList[i].role));
-                  },
-                ),
-                showEditIcon: true),
+              TextFormField(
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: localizations.dbName),
+                initialValue: '${sembastPersonList[i].name}',
+                keyboardType: TextInputType.name,
+                onFieldSubmitted: (updatedName) {
+                  personDao.update(
+                    Person(
+                      id: sembastPersonList[i].id,
+                      name: updatedName,
+                      age: sembastPersonList[i].age,
+                      role: sembastPersonList[i].role,
+                    ),
+                  );
+                },
+              ),
+            ),
             DataCell(
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: localizations.dbAge),
-                  initialValue: '${sembastPersonList[i].age}',
-                  keyboardType: TextInputType.number,
-                  onFieldSubmitted: (updatedAge) {
-                    personDao.update(Person(
-                        id: sembastPersonList[i].id,
-                        name: sembastPersonList[i].name,
-                        age: int.parse(updatedAge),
-                        role: sembastPersonList[i].role));
-                  },
-                ),
-                showEditIcon: true),
+              TextFormField(
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: localizations.dbAge),
+                initialValue: '${sembastPersonList[i].age}',
+                keyboardType: TextInputType.number,
+                onFieldSubmitted: (updatedAge) {
+                  personDao.update(
+                    Person(
+                      id: sembastPersonList[i].id,
+                      name: sembastPersonList[i].name,
+                      age: int.parse(updatedAge),
+                      role: sembastPersonList[i].role,
+                    ),
+                  );
+                },
+              ),
+            ),
             DataCell(
-                TextFormField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none, hintText: localizations.dbRole),
-                  initialValue: '${sembastPersonList[i].role}',
-                  keyboardType: TextInputType.text,
-                  onFieldSubmitted: (updatedRole) {
-                    personDao.update(Person(
-                        id: sembastPersonList[i].id,
-                        name: sembastPersonList[i].name,
-                        age: sembastPersonList[i].age,
-                        role: updatedRole));
-                  },
-                ),
-                showEditIcon: true),
+              TextFormField(
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: localizations.dbRole),
+                initialValue: '${sembastPersonList[i].role}',
+                keyboardType: TextInputType.text,
+                onFieldSubmitted: (updatedRole) {
+                  personDao.update(
+                    Person(
+                      id: sembastPersonList[i].id,
+                      name: sembastPersonList[i].name,
+                      age: sembastPersonList[i].age,
+                      role: updatedRole,
+                    ),
+                  );
+                },
+              ),
+            ),
+            DataCell(
+              Icon(
+                Icons.delete,
+                size: 18.0,
+              ),
+              onTap: () {
+                personDao.delete(sembastPersonList[i]);
+              },
+            ),
           ],
         ),
       );
@@ -127,6 +140,9 @@ class _DatabasePageState extends State<DatabasePage>
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
+                DataColumn(
+                  label: Text(''),
+                ),
               ],
               rows: sembastDataRow,
             ),
@@ -143,11 +159,11 @@ class _DatabasePageState extends State<DatabasePage>
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =
-        _pageNavigator.getPageIndex("Database");
+        _pageNavigator.getPageIndex('Database');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     final AppLocalizations localizations = AppLocalizations.of(context);
     final List<Tab> databaseTabs = <Tab>[
-      Tab(text: "Sembast"),
+      Tab(text: 'Sembast'),
     ];
     PersonDao personDao = Provider.of<PersonDao>(context);
     addData(personDao, localizations);
