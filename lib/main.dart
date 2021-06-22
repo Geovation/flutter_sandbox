@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -15,7 +16,8 @@ import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
 import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
-import 'package:flutter_sandbox/database/sembast/person_dao.dart';
+import 'package:flutter_sandbox/database/objectbox/person_dao_objectbox.dart';
+import 'package:flutter_sandbox/database/sembast/person_dao_sembast_db.dart';
 import 'package:flutter_sandbox/draggable/draggable_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -30,12 +32,14 @@ import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'basic_widget/basic_widget_page.dart';
 import 'home_page.dart';
 
 List<CameraDescription> cameraList;
+Directory appDir;
 
 var flutterLocalNotificationsPlugin;
 
@@ -62,6 +66,7 @@ class InitApp extends StatelessWidget {
   Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
+    appDir = await getApplicationDocumentsDirectory();
     if (!kIsWeb) {
       cameraList = await availableCameras();
       flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -230,7 +235,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => LanguageTitle()),
         ChangeNotifierProvider(create: (_) => AppSettings()),
         Provider<FirebaseAnalytics>.value(value: analytics),
-        ChangeNotifierProvider(create: (_) => PersonDao()),
+        ChangeNotifierProvider(create: (_) => PersonDaoSembastDB()),
+        ChangeNotifierProvider(
+          create: (_) => PersonDaoObjectboxDB(appDir),
+        )
       ],
       builder: (context, child) {
         return MaterialApp(

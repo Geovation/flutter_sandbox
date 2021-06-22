@@ -4,7 +4,7 @@ import 'package:flutter_sandbox/database/sembast/sembast_database.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast_web/sembast_web.dart';
 
-class PersonDao extends ChangeNotifier {
+class PersonDaoSembastDB extends ChangeNotifier {
   static const String PERSON_STORE_NAME = 'persons';
   // A Store with int keys and Map<String, dynamic> values.
   // This Store acts like a persistent map, values of which are Person objects converted to Map
@@ -17,14 +17,14 @@ class PersonDao extends ChangeNotifier {
       ? await SembastDatabase.instance.database
       : await databaseFactoryWeb.openDatabase('sembastWeb');
 
-  List<Person> _persons = [];
+  List<PersonSembast> _persons = [];
 
-  Future insert(Person person) async {
+  Future insert(PersonSembast person) async {
     await _personStore.add(await _db, person.toMap());
     await getAllSortedByName();
   }
 
-  Future update(Person person) async {
+  Future update(PersonSembast person) async {
     // For filtering by key (ID), RegEx, greater than, and many other criteria,
     // we use a Finder.
     final finder = Finder(filter: Filter.byKey(person.id));
@@ -36,7 +36,7 @@ class PersonDao extends ChangeNotifier {
     await getAllSortedByName();
   }
 
-  Future delete(Person person) async {
+  Future delete(PersonSembast person) async {
     final finder = Finder(filter: Filter.byKey(person.id));
     await _personStore.delete(
       await _db,
@@ -45,7 +45,7 @@ class PersonDao extends ChangeNotifier {
     await getAllSortedByName();
   }
 
-  Future<List<Person>> getAllSortedByName() async {
+  Future<List<PersonSembast>> getAllSortedByName() async {
     // Finder object can also sort data.
     final finder = Finder(sortOrders: [
       SortOrder('name'),
@@ -57,8 +57,8 @@ class PersonDao extends ChangeNotifier {
     );
 
     // Making a List<Person> out of List<RecordSnapshot>
-    List<Person> persons = recordSnapshots.map((snapshot) {
-      final person = Person.fromMap(snapshot.value);
+    List<PersonSembast> persons = recordSnapshots.map((snapshot) {
+      final person = PersonSembast.fromMap(snapshot.value);
       // An ID is a key of a record from the database.
       person.id = snapshot.key;
       return person;
@@ -73,7 +73,7 @@ class PersonDao extends ChangeNotifier {
     return _persons.length;
   }
 
-  List<Person> get getPersonsList {
+  List<PersonSembast> get getPersonsList {
     return _persons;
   }
 }

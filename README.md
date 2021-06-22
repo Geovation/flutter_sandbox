@@ -38,6 +38,16 @@ Then, specify your API key in the application manifest `android/app/src/main/res
 
 Modify `web/index.html` to specify your API key for Web.
 
+## Commands that needs to be run from terminal
+### For Flutter Native Splash run the following to generate relevant files
+`flutter pub run flutter_native_splash:create`
+### For Flutter Launcher Icons run the following to generate relevant files when flutter icons configurations were saved in (pubspec.yaml) or (flutter_launcher_icons.yaml)
+`flutter pub run flutter_launcher_icons:main`
+### For Flutter Launcher Icons run the following to generate relevant files when flutter icons configurations were saved in another file with different name than (pubspec.yaml) or (flutter_launcher_icons.yaml)
+`flutter pub run flutter_launcher_icons:main -f <your config file name here>`
+### For Objectbox db run the following to generate relevant files
+`flutter pub run build_runner build`
+
 ## Compile-time variables
 To provide compile-time variables use `--dart-define` during `flutter run` or `flutter build`. To pass multiple key-value pairs just use `--dart-define` multiple times.
 `flutter run --dart-define=ACCESS_TOKEN_MAPBOX --dart-define=VARIABLE=VARIABLE_VALUE`
