@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/google_ml_kit/barcode_scanner_view.dart';
@@ -60,22 +61,26 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage>
       Tab(text: localizations.googMLKitBarcodeScanner),
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 55,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.grey.shade50,
-          isScrollable: true,
-          tabs: googleMLKitTabs,
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          onSelectedWindow(0, localizations),
-        ],
-      ),
-    );
+    return (kIsWeb)
+        ? Center(
+            child: Text("ML Kit not yet supported on this platform."),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 55,
+              bottom: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.grey.shade50,
+                isScrollable: true,
+                tabs: googleMLKitTabs,
+              ),
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                onSelectedWindow(0, localizations),
+              ],
+            ),
+          );
   }
 }
