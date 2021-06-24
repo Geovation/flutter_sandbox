@@ -11,28 +11,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
-import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
-import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
-import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/database/sembast/person_dao.dart';
-import 'package:flutter_sandbox/draggable/draggable_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
-import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
-import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
-import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
-import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
-import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
-import 'package:flutter_sandbox/rive/rive_page.dart';
-import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-import 'basic_widget/basic_widget_page.dart';
 import 'home_page.dart';
 
 List<CameraDescription> cameraList;
@@ -286,25 +272,26 @@ class _MyAppState extends State<MyApp> {
             buttonColor: Color(0xFFFF5252),
           ),
           themeMode: Provider.of<AppSettings>(context).getCurrentThemeMode,
-          initialRoute: HomePage.id,
-          routes: {
-            MapboxMapPage.id: (context) => MapboxMapPage(),
-            FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
-            FirebaseAuthRegistrationPage.id: (context) =>
-                FirebaseAuthRegistrationPage(),
-            FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
-            CameraPage.id: (context) => CameraPage(cameras: cameraList),
-            BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
-            GPSPage.id: (context) => GPSPage(),
-            HomePage.id: (context) => HomePage(cameraList: cameraList),
-            FirestorePage.id: (context) => FirestorePage(),
-            GoogleMapsPage.id: (context) => GoogleMapsPage(),
-            BasicEffectsPage.id: (context) => BasicEffectsPage(),
-            RivePage.id: (context) => RivePage(),
-            SandboxLicensePage.id: (context) => SandboxLicensePage(),
-            DarkModeScreen.id: (context) => DarkModeScreen(),
-            DraggablePage.id: (context) => DraggablePage(),
-          },
+          home: HomePage(cameraList: cameraList),
+          // initialRoute: HomePage.id,
+          // routes: {
+          //   MapboxMapPage.id: (context) => MapboxMapPage(),
+          //   FirebaseAuthLoginPage.id: (context) => FirebaseAuthLoginPage(),
+          //   FirebaseAuthRegistrationPage.id: (context) =>
+          //       FirebaseAuthRegistrationPage(),
+          //   FirebaseCrashlyticsPage.id: (context) => FirebaseCrashlyticsPage(),
+          //   CameraPage.id: (context) => CameraPage(cameras: cameraList),
+          //   BasicWidgetsPage.id: (context) => BasicWidgetsPage(),
+          //   GPSPage.id: (context) => GPSPage(),
+          //   HomePage.id: (context) => HomePage(cameraList: cameraList),
+          //   FirestorePage.id: (context) => FirestorePage(),
+          //   GoogleMapsPage.id: (context) => GoogleMapsPage(),
+          //   BasicEffectsPage.id: (context) => BasicEffectsPage(),
+          //   RivePage.id: (context) => RivePage(),
+          //   SandboxLicensePage.id: (context) => SandboxLicensePage(),
+          //   DarkModeScreen.id: (context) => DarkModeScreen(),
+          //   DraggablePage.id: (context) => DraggablePage(),
+          // },
         );
       },
     );

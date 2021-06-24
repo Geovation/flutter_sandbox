@@ -17,6 +17,7 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
 import 'package:flutter_sandbox/firebase_storage/firebase_storage_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
+import 'package:flutter_sandbox/google_ml_kit/google_ml_kit_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/languages/languages_page.dart';
@@ -138,9 +139,12 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).databaseTitle;
             break;
           case 17:
-            _title = AppLocalizations.of(context).loginTitle;
+            _title = AppLocalizations.of(context).googleMLKitTitle;
             break;
           case 18:
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 19:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -173,6 +177,7 @@ class _HomePageState extends State<HomePage> {
       DarkModeScreen(),
       DraggablePage(),
       DatabasePage(),
+      GoogleMLKitPage(cameras: widget.cameraList),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -465,6 +470,17 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 16) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Database'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 17,
+        title: Text(AppLocalizations.of(context).googleMLKitTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 17) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Google ML Kit'));
           }
           Navigator.pop(context);
         },

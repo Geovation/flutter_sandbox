@@ -22,6 +22,7 @@
   "darkModeTitle": "Modalità scura",
   "draggableTitle": "Trascinabile",
   "databaseTitle": "Database",
+  "googleMLKitTitle": "Google ML Kit",
 
   "logOut": "Disconnettersi",
 
@@ -101,6 +102,8 @@
   "dbName": "Nome",
   "dbAge": "Età",
   "dbRole": "Ruolo",
+
+  "googMLKitBarcodeScanner": "Barcode Scanner",
 
   "semCameraPgRearCameraToggleButton": "Pulsante per la visualizzazione della telecamera posteriore",
   "semCameraPgFrontCameraToggleButton": "Pulsante per la visualizzazione della fotocamera frontale",

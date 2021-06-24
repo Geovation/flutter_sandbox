@@ -22,6 +22,7 @@
   "darkModeTitle": "Dark Mode",
   "draggableTitle": "Draggable",
   "databaseTitle": "Database",
+  "googleMLKitTitle": "Google ML Kit",
 
   "logOut": "Log out",
 
@@ -101,6 +102,8 @@
   "dbName": "Name",
   "dbAge": "Age",
   "dbRole": "Role",
+
+  "googMLKitBarcodeScanner": "Barcode Scanner",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",
