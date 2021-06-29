@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Person {
+class PersonSembast {
   // Id will be gotten from the database.
   // It's automatically generated & unique for every stored Person.
   int id;
@@ -9,7 +9,7 @@ class Person {
   final int age;
   final String role;
 
-  Person({
+  PersonSembast({
     this.id,
     @required this.name,
     @required this.age,
@@ -24,8 +24,8 @@ class Person {
     };
   }
 
-  static Person fromMap(Map<String, dynamic> map) {
-    return Person(
+  static PersonSembast fromMap(Map<String, dynamic> map) {
+    return PersonSembast(
       name: map['name'],
       age: map['age'],
       role: map['role'],

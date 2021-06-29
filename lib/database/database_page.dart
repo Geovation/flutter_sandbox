@@ -1,8 +1,8 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_sandbox/database/sembast/model/person.dart';
-import 'package:flutter_sandbox/database/sembast/person_dao.dart';
+import 'package:flutter_sandbox/database/sembast/model/person_sembast.dart';
+import 'package:flutter_sandbox/database/sembast/person_dao_sembast.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +18,42 @@ class _DatabasePageState extends State<DatabasePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  List<DataRow> sembastDataRow = [];
-  List<Person> sembastPersonList = [];
+  final List<Tab> databaseTabs = <Tab>[
+    Tab(text: 'Sembast'),
+    Tab(text: 'Sqlite (Moor)'),
+  ];
 
-  void addData(PersonDao personDao, AppLocalizations localizations) async {
+  List<DataRow> sembastDataRow = [];
+  List<PersonSembast> sembastPersonList = [];
+  List<DataRow> moorDataRow = [];
+  List<PersonSembast> moorPersonList = [];
+
+  PersonDaoSembast _personDaoSembast;
+
+  Function fabOnPressed = () {};
+
+  void _setActiveTabIndex() {
+    setState(() {
+      switch (_tabController.index) {
+        case 0:
+          fabOnPressed = () {
+            addPersonSembastDB(_personDaoSembast);
+          };
+          break;
+        case 1:
+          fabOnPressed = () {};
+          break;
+      }
+    });
+  }
+
+  void addPersonSembastDB(PersonDaoSembast personDaoSembast) {
+    PersonSembast insertPerson = PersonSembast(name: '', age: 0, role: '');
+    personDaoSembast.insert(insertPerson);
+  }
+
+  void addDataSembast(
+      PersonDaoSembast personDao, AppLocalizations localizations) async {
     sembastPersonList = await personDao.getAllSortedByName();
     sembastDataRow.clear();
     for (int i = 0; i < personDao.getPersonsCount; i++) {
@@ -38,7 +70,7 @@ class _DatabasePageState extends State<DatabasePage>
                 keyboardType: TextInputType.name,
                 onFieldSubmitted: (updatedName) {
                   personDao.update(
-                    Person(
+                    PersonSembast(
                       id: sembastPersonList[i].id,
                       name: updatedName,
                       age: sembastPersonList[i].age,
@@ -56,7 +88,7 @@ class _DatabasePageState extends State<DatabasePage>
                 keyboardType: TextInputType.number,
                 onFieldSubmitted: (updatedAge) {
                   personDao.update(
-                    Person(
+                    PersonSembast(
                       id: sembastPersonList[i].id,
                       name: sembastPersonList[i].name,
                       age: int.parse(updatedAge),
@@ -74,7 +106,7 @@ class _DatabasePageState extends State<DatabasePage>
                 keyboardType: TextInputType.text,
                 onFieldSubmitted: (updatedRole) {
                   personDao.update(
-                    Person(
+                    PersonSembast(
                       id: sembastPersonList[i].id,
                       name: sembastPersonList[i].name,
                       age: sembastPersonList[i].age,
@@ -101,7 +133,9 @@ class _DatabasePageState extends State<DatabasePage>
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: 1);
+    _tabController = TabController(vsync: this, length: databaseTabs.length);
+    _tabController.addListener(_setActiveTabIndex);
+    _setActiveTabIndex();
 
     super.initState();
   }
@@ -148,6 +182,41 @@ class _DatabasePageState extends State<DatabasePage>
             ),
           ),
         );
+        break;
+      case 1:
+        indexedWidget = SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: DataTable(
+              showCheckboxColumn: false,
+              columns: <DataColumn>[
+                DataColumn(
+                  label: Text(
+                    localizations.dbName,
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    localizations.dbAge,
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    localizations.dbRole,
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(''),
+                ),
+              ],
+              rows: moorDataRow,
+            ),
+          ),
+        );
+        break;
     }
     return indexedWidget;
   }
@@ -162,11 +231,9 @@ class _DatabasePageState extends State<DatabasePage>
         _pageNavigator.getPageIndex('Database');
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     final AppLocalizations localizations = AppLocalizations.of(context);
-    final List<Tab> databaseTabs = <Tab>[
-      Tab(text: 'Sembast'),
-    ];
-    PersonDao personDao = Provider.of<PersonDao>(context);
-    addData(personDao, localizations);
+
+    _personDaoSembast = Provider.of<PersonDaoSembast>(context);
+    addDataSembast(_personDaoSembast, localizations);
 
     return Scaffold(
       appBar: AppBar(
@@ -182,14 +249,13 @@ class _DatabasePageState extends State<DatabasePage>
         controller: _tabController,
         children: [
           onSelectedWindow(0, localizations),
+          onSelectedWindow(1, localizations),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Person insertPerson = Person(name: '', age: 0, role: '');
-            personDao.insert(insertPerson);
-          }),
+        child: Icon(Icons.add),
+        onPressed: fabOnPressed,
+      ),
     );
   }
 }
