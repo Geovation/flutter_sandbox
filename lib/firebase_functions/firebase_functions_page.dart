@@ -46,8 +46,8 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
 
   @override
   void initState() {
-    functions = FirebaseFunctions.instance;
     super.initState();
+    functions = FirebaseFunctions.instance;
   }
 
   @override

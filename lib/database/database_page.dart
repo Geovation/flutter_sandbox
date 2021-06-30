@@ -68,168 +68,14 @@ class _DatabasePageState extends State<DatabasePage>
   void addDataSembast(
       PersonDaoSembast personDao, AppLocalizations localizations) async {
     sembastPersonList = await personDao.getAllSortedByName();
-    sembastDataRow.clear();
-    for (int i = 0; i < personDao.getPersonsCount; i++) {
-      sembastDataRow.add(
-        DataRow(
-          selected: false,
-          key: Key(sembastPersonList[i].id.toString()),
-          cells: <DataCell>[
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbName),
-                initialValue: '${sembastPersonList[i].name}',
-                keyboardType: TextInputType.name,
-                onFieldSubmitted: (updatedName) {
-                  personDao.update(
-                    PersonSembast(
-                      id: sembastPersonList[i].id,
-                      name: updatedName,
-                      age: sembastPersonList[i].age,
-                      role: sembastPersonList[i].role,
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbAge),
-                initialValue: '${sembastPersonList[i].age}',
-                keyboardType: TextInputType.number,
-                onFieldSubmitted: (updatedAge) {
-                  personDao.update(
-                    PersonSembast(
-                      id: sembastPersonList[i].id,
-                      name: sembastPersonList[i].name,
-                      age: int.parse(updatedAge),
-                      role: sembastPersonList[i].role,
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbRole),
-                initialValue: '${sembastPersonList[i].role}',
-                keyboardType: TextInputType.text,
-                onFieldSubmitted: (updatedRole) {
-                  personDao.update(
-                    PersonSembast(
-                      id: sembastPersonList[i].id,
-                      name: sembastPersonList[i].name,
-                      age: sembastPersonList[i].age,
-                      role: updatedRole,
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              Icon(
-                Icons.delete,
-                size: 18.0,
-              ),
-              onTap: () {
-                personDao.delete(sembastPersonList[i]);
-              },
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  void addDataMoor(
-      PersonDaoMoor personDao, AppLocalizations localizations) async {
-    moorPersonList = await personDao.getAllPersons();
-    moorDataRow.clear();
-    for (int i = 0; i < moorPersonList.length; i++) {
-      moorDataRow.add(
-        DataRow(
-          selected: false,
-          key: Key(moorPersonList[i].id.toString()),
-          cells: <DataCell>[
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbName),
-                initialValue: '${moorPersonList[i].name}',
-                keyboardType: TextInputType.name,
-                onFieldSubmitted: (updatedName) {
-                  personDao.updatePerson(
-                    PersonsMoorCompanion(
-                      id: Value(moorPersonList[i].id),
-                      name: Value(updatedName),
-                      age: Value(moorPersonList[i].age),
-                      role: Value(moorPersonList[i].role),
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbAge),
-                initialValue: '${moorPersonList[i].age}',
-                keyboardType: TextInputType.number,
-                onFieldSubmitted: (updatedAge) {
-                  personDao.updatePerson(
-                    PersonsMoorCompanion(
-                      id: Value(moorPersonList[i].id),
-                      name: Value(moorPersonList[i].name),
-                      age: Value(int.parse(updatedAge)),
-                      role: Value(moorPersonList[i].role),
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              TextFormField(
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: localizations.dbRole),
-                initialValue: '${moorPersonList[i].role}',
-                keyboardType: TextInputType.text,
-                onFieldSubmitted: (updatedRole) {
-                  personDao.updatePerson(
-                    PersonsMoorCompanion(
-                      id: Value(moorPersonList[i].id),
-                      name: Value(moorPersonList[i].name),
-                      age: Value(moorPersonList[i].age),
-                      role: Value(updatedRole),
-                    ),
-                  );
-                },
-              ),
-            ),
-            DataCell(
-              Icon(
-                Icons.delete,
-                size: 18.0,
-              ),
-              onTap: () {
-                personDao.deletePerson(moorPersonList[i]);
-              },
-            ),
-          ],
-        ),
-      );
-    }
   }
 
   @override
   void initState() {
+    super.initState();
     _tabController = TabController(vsync: this, length: databaseTabs.length);
     _tabController.addListener(_setActiveTabIndex);
     _setActiveTabIndex();
-
-    super.initState();
   }
 
   @override
@@ -245,33 +91,111 @@ class _DatabasePageState extends State<DatabasePage>
         indexedWidget = SizedBox(
           width: double.infinity,
           child: SingleChildScrollView(
-            child: DataTable(
-              showCheckboxColumn: false,
-              columns: <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    localizations.dbName,
-                    style: TextStyle(fontStyle: FontStyle.italic),
+            child: Consumer<PersonDaoSembast>(
+                builder: (context, personDaoSembast, child) {
+              addDataSembast(personDaoSembast, localizations);
+              return DataTable(
+                showCheckboxColumn: false,
+                columns: <DataColumn>[
+                  DataColumn(
+                    label: Text(
+                      localizations.dbName,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      localizations.dbAge,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      localizations.dbRole,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(''),
+                  ),
+                ],
+                rows: List<DataRow>.generate(
+                  sembastPersonList.length,
+                  (index) => DataRow(
+                    selected: false,
+                    key: Key(sembastPersonList[index].id.toString()),
+                    cells: <DataCell>[
+                      DataCell(
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: localizations.dbName),
+                          initialValue: '${sembastPersonList[index].name}',
+                          keyboardType: TextInputType.name,
+                          onFieldSubmitted: (updatedName) {
+                            personDaoSembast.update(
+                              PersonSembast(
+                                id: sembastPersonList[index].id,
+                                name: updatedName,
+                                age: sembastPersonList[index].age,
+                                role: sembastPersonList[index].role,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      DataCell(
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: localizations.dbAge),
+                          initialValue: '${sembastPersonList[index].age}',
+                          keyboardType: TextInputType.number,
+                          onFieldSubmitted: (updatedAge) {
+                            personDaoSembast.update(
+                              PersonSembast(
+                                id: sembastPersonList[index].id,
+                                name: sembastPersonList[index].name,
+                                age: int.parse(updatedAge),
+                                role: sembastPersonList[index].role,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      DataCell(
+                        TextFormField(
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: localizations.dbRole),
+                          initialValue: '${sembastPersonList[index].role}',
+                          keyboardType: TextInputType.text,
+                          onFieldSubmitted: (updatedRole) {
+                            personDaoSembast.update(
+                              PersonSembast(
+                                id: sembastPersonList[index].id,
+                                name: sembastPersonList[index].name,
+                                age: sembastPersonList[index].age,
+                                role: updatedRole,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      DataCell(
+                        Icon(
+                          Icons.delete,
+                          size: 18.0,
+                        ),
+                        onTap: () {
+                          personDaoSembast.delete(sembastPersonList[index]);
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                DataColumn(
-                  label: Text(
-                    localizations.dbAge,
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    localizations.dbRole,
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(''),
-                ),
-              ],
-              rows: sembastDataRow,
-            ),
+              );
+            }),
           ),
         );
         break;
@@ -283,33 +207,117 @@ class _DatabasePageState extends State<DatabasePage>
             : SizedBox(
                 width: double.infinity,
                 child: SingleChildScrollView(
-                  child: DataTable(
-                    showCheckboxColumn: false,
-                    columns: <DataColumn>[
-                      DataColumn(
-                        label: Text(
-                          localizations.dbName,
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          localizations.dbAge,
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(
-                          localizations.dbRole,
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
-                      ),
-                      DataColumn(
-                        label: Text(''),
-                      ),
-                    ],
-                    rows: moorDataRow,
-                  ),
+                  child: Consumer<PersonDaoMoor>(
+                      builder: (context, personDaoMoor, child) {
+                    return StreamBuilder(
+                      stream: personDaoMoor.watchAllTasks(),
+                      builder: (context,
+                          AsyncSnapshot<List<PersonsMoorData>> snapshot) {
+                        final persons = snapshot.data ?? [];
+                        return DataTable(
+                          showCheckboxColumn: false,
+                          columns: <DataColumn>[
+                            DataColumn(
+                              label: Text(
+                                localizations.dbName,
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                localizations.dbAge,
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(
+                                localizations.dbRole,
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                            DataColumn(
+                              label: Text(''),
+                            ),
+                          ],
+                          rows: List<DataRow>.generate(
+                            persons.length,
+                            (index) => DataRow(
+                              selected: false,
+                              key: Key(persons[index].id.toString()),
+                              cells: <DataCell>[
+                                DataCell(
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: localizations.dbName),
+                                    initialValue: '${persons[index].name}',
+                                    keyboardType: TextInputType.name,
+                                    onFieldSubmitted: (updatedName) {
+                                      personDaoMoor.updatePerson(
+                                        PersonsMoorCompanion(
+                                          id: Value(persons[index].id),
+                                          name: Value(updatedName),
+                                          age: Value(persons[index].age),
+                                          role: Value(persons[index].role),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: localizations.dbAge),
+                                    initialValue: '${persons[index].age}',
+                                    keyboardType: TextInputType.number,
+                                    onFieldSubmitted: (updatedAge) {
+                                      personDaoMoor.updatePerson(
+                                        PersonsMoorCompanion(
+                                          id: Value(persons[index].id),
+                                          name: Value(persons[index].name),
+                                          age: Value(int.parse(updatedAge)),
+                                          role: Value(persons[index].role),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: localizations.dbRole),
+                                    initialValue: '${persons[index].role}',
+                                    keyboardType: TextInputType.text,
+                                    onFieldSubmitted: (updatedRole) {
+                                      personDaoMoor.updatePerson(
+                                        PersonsMoorCompanion(
+                                          id: Value(persons[index].id),
+                                          name: Value(persons[index].name),
+                                          age: Value(persons[index].age),
+                                          role: Value(updatedRole),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                DataCell(
+                                  Icon(
+                                    Icons.delete,
+                                    size: 18.0,
+                                  ),
+                                  onTap: () {
+                                    personDaoMoor.deletePerson(persons[index]);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ),
               );
         break;
@@ -329,11 +337,9 @@ class _DatabasePageState extends State<DatabasePage>
     final AppLocalizations localizations = AppLocalizations.of(context);
 
     _personDaoSembast = Provider.of<PersonDaoSembast>(context);
-    addDataSembast(_personDaoSembast, localizations);
 
     if (!kIsWeb) {
       _personDaoMoor = Provider.of<PersonDaoMoor>(context);
-      addDataMoor(_personDaoMoor, localizations);
     }
 
     return Scaffold(

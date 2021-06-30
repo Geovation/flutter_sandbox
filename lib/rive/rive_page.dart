@@ -35,8 +35,8 @@ class _RivePageState extends State<RivePage> {
 
   @override
   void initState() {
-    _loadRiveFile();
     super.initState();
+    _loadRiveFile();
   }
 
   @override

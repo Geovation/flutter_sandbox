@@ -26,10 +26,9 @@ class _FirestorePageState extends State<FirestorePage> {
 
   @override
   void initState() {
+    super.initState();
     firestore = FirebaseFirestore.instance;
     _editingController = TextEditingController();
-
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getUserDoc();
     });

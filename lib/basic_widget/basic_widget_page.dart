@@ -73,6 +73,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
   @override
   void initState() {
+    super.initState();
     _dateController.text = DateFormat.yMd().format(DateTime.now());
 
     _timeController.text = formatDate(
@@ -84,8 +85,6 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _data = generateItems(8, AppLocalizations.of(context));
     });
-
-    super.initState();
   }
 
   void _setActiveTabIndex() {
