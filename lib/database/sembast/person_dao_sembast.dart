@@ -1,8 +1,38 @@
+import 'dart:async';
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_sandbox/database/sembast/model/person_sembast.dart';
 import 'package:flutter_sandbox/database/sembast/sembast_database.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast_web/sembast_web.dart';
+
+PersonSembast snapshotToPerson(RecordSnapshot snapshot) {
+  return PersonSembast.fromMap(snapshot.value as Map, id: snapshot.key as int);
+}
+
+class DbPersonsSembast extends ListBase<PersonSembast> {
+  List<RecordSnapshot<int, Map<String, Object>>> list;
+  List<PersonSembast> _cacheNotes;
+
+  DbPersonsSembast(this.list) {
+    _cacheNotes = List.generate(list.length, (index) => null);
+  }
+
+  @override
+  PersonSembast operator [](int index) {
+    return _cacheNotes[index] ??= snapshotToPerson(list[index]);
+  }
+
+  @override
+  int get length => list.length;
+
+  @override
+  void operator []=(int index, PersonSembast value) => throw 'read-only';
+
+  @override
+  set length(int newLength) => throw 'read-only';
+}
 
 class PersonDaoSembast extends ChangeNotifier {
   static const String PERSON_STORE_NAME = 'persons';
@@ -67,6 +97,20 @@ class PersonDaoSembast extends ChangeNotifier {
     _persons = persons;
     notifyListeners();
     return persons;
+  }
+
+  var personsTransformer = StreamTransformer<
+      List<RecordSnapshot<int, Map<String, Object>>>,
+      List<PersonSembast>>.fromHandlers(handleData: (snapshotList, sink) {
+    sink.add(DbPersonsSembast(snapshotList));
+  });
+
+  Stream<List<PersonSembast>> watch() async* {
+    yield* _personStore
+        .query(finder: Finder(sortOrders: [SortOrder('name')]))
+        .onSnapshots(await _db)
+        .transform(personsTransformer)
+        .asBroadcastStream();
   }
 
   int get getPersonsCount {

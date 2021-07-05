@@ -24,8 +24,9 @@ class PersonSembast {
     };
   }
 
-  static PersonSembast fromMap(Map<String, dynamic> map) {
+  static PersonSembast fromMap(Map<String, dynamic> map, {int id}) {
     return PersonSembast(
+      id: id,
       name: map['name'],
       age: map['age'],
       role: map['role'],

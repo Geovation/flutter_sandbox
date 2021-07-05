@@ -34,7 +34,8 @@ class PersonDaoMoor extends DatabaseAccessor<AppMoorDatabase>
   PersonDaoMoor(this.db) : super(db);
 
   Future<List<PersonsMoorData>> getAllPersons() => select(personsMoor).get();
-  Stream<List<PersonsMoorData>> watchAllTasks() => select(personsMoor).watch();
+  Stream<List<PersonsMoorData>> watchAllPersons() =>
+      select(personsMoor).watch();
   Future insertPerson(Insertable<PersonsMoorData> person) =>
       into(personsMoor).insert(person);
   Future updatePerson(Insertable<PersonsMoorData> person) =>
