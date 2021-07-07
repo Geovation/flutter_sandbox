@@ -22,8 +22,9 @@ class PageNavigatorCustom extends ChangeNotifier {
     "Dark Mode": 14,
     "Draggable": 15,
     "Database": 16,
-    "FirebaseAuthLogin": 17,
-    "FirebaseAuthRegister": 18,
+    "Charts": 17,
+    "FirebaseAuthLogin": 18,
+    "FirebaseAuthRegister": 19,
   };
   int fromIndex;
 

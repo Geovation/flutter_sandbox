@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
 import 'package:flutter_sandbox/camera/camera_page.dart';
+import 'package:flutter_sandbox/charts/charts_page.dart';
 import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/database/database_page.dart';
 import 'package:flutter_sandbox/draggable/draggable_page.dart';
@@ -138,6 +139,9 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).databaseTitle;
             break;
           case 17:
+            _title = AppLocalizations.of(context).chartsTitle;
+            break;
+          case 17:
             _title = AppLocalizations.of(context).loginTitle;
             break;
           case 18:
@@ -173,6 +177,7 @@ class _HomePageState extends State<HomePage> {
       DarkModeScreen(),
       DraggablePage(),
       DatabasePage(),
+      ChartsPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -465,6 +470,16 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 16) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Database'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 17,
+        title: Text(AppLocalizations.of(context).chartsTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 17) {
+            _pageController.jumpToPage(_pageNavigator.getPageIndex('Charts'));
           }
           Navigator.pop(context);
         },

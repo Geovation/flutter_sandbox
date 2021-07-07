@@ -63,6 +63,7 @@ dependencies:
   sembast: ^3.1.0+2
   sembast_web: ^2.0.0+2
   moor_flutter: ^4.0.0
+  fl_chart: ^0.36.2
 
 dev_dependencies:
   flutter_test:
