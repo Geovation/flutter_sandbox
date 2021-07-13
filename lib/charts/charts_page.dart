@@ -17,7 +17,7 @@ class ChartsPage extends StatefulWidget {
 class _ChartsPageState extends State<ChartsPage> {
   int simplePieChartTouchedIndex = -1;
 
-  LineChartData simpleLineChart(Orientation orientation) {
+  LineChartData simpleLineChart(Orientation orientation, Size deviceSize) {
     final lineChartBarData1 = LineChartBarData(
       spots: [
         FlSpot(1, 1),
@@ -112,7 +112,9 @@ class _ChartsPageState extends State<ChartsPage> {
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
-          margin: (orientation == Orientation.landscape) ? 5 : 7,
+          margin: (orientation == Orientation.landscape)
+              ? deviceSize.height * 0.01
+              : deviceSize.height * 0.02,
           getTitles: (value) {
             switch (value.toInt()) {
               case 2:
@@ -176,6 +178,7 @@ class _ChartsPageState extends State<ChartsPage> {
 
   Widget simpleLineChartWidget(Size deviceSize, Orientation orientation) {
     return Container(
+      width: deviceSize.width * 0.5,
       child: Column(
         children: [
           Align(
@@ -195,7 +198,7 @@ class _ChartsPageState extends State<ChartsPage> {
             ),
           ),
           SizedBox(
-            height: deviceSize.height * 0.05,
+            height: deviceSize.height * 0.02,
           ),
           SizedBox(
             width: (orientation == Orientation.landscape)
@@ -208,7 +211,7 @@ class _ChartsPageState extends State<ChartsPage> {
               aspectRatio: 3 / 2,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: LineChart(simpleLineChart(orientation)),
+                child: LineChart(simpleLineChart(orientation, deviceSize)),
               ),
             ),
           )
@@ -281,6 +284,7 @@ class _ChartsPageState extends State<ChartsPage> {
 
   Widget simplePieChartWidget(Size deviceSize, Orientation orientation) {
     return Container(
+      width: deviceSize.width * 0.5,
       child: Column(
         children: [
           Align(
@@ -422,6 +426,7 @@ class _ChartsPageState extends State<ChartsPage> {
     ];
 
     return Container(
+      width: deviceSize.width * 0.5,
       child: Column(
         children: [
           Align(
@@ -549,6 +554,7 @@ class _ChartsPageState extends State<ChartsPage> {
       )
     ];
     return Container(
+      width: deviceSize.width * 0.5,
       child: Column(
         children: [
           Align(
@@ -673,6 +679,7 @@ class _ChartsPageState extends State<ChartsPage> {
       ),
     ];
     return Container(
+      width: deviceSize.width * 0.5,
       child: Column(
         children: [
           Align(
@@ -810,15 +817,18 @@ class _ChartsPageState extends State<ChartsPage> {
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     Size deviceSize = MediaQuery.of(context).size;
     Orientation orientation = MediaQuery.of(context).orientation;
-    return GridView.count(
-      crossAxisCount: (orientation == Orientation.landscape) ? 2 : 1,
-      children: [
-        simpleLineChartWidget(deviceSize, orientation),
-        simplePieChartWidget(deviceSize, orientation),
-        simpleBarChartWidget(deviceSize, orientation),
-        simpleRadarChartWidget(deviceSize, orientation),
-        simpleScatterPlotWidget(deviceSize, orientation),
-      ],
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+          (deviceSize.width * 0.05), 20, (deviceSize.width * 0.05), 20),
+      child: ListView(
+        children: [
+          simpleLineChartWidget(deviceSize, orientation),
+          simplePieChartWidget(deviceSize, orientation),
+          simpleBarChartWidget(deviceSize, orientation),
+          simpleRadarChartWidget(deviceSize, orientation),
+          simpleScatterPlotWidget(deviceSize, orientation),
+        ],
+      ),
     );
   }
 }
