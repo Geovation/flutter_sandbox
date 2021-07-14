@@ -23,6 +23,7 @@
   "draggableTitle": "Draggable",
   "databaseTitle": "Database",
   "chartsTitle": "Charts",
+  "dialogTitle": "Dialog",
 
   "logOut": "Log out",
 
@@ -102,6 +103,22 @@
   "dbName": "Name",
   "dbAge": "Age",
   "dbRole": "Role",
+
+  "dpYouWillBeSuccessful": "You will be successful!",
+  "dpOopsie": "Oopsie",
+  "dpAvoidErrorsInFuture": "Avoid errors in your future",
+  "dpYouJustWentSideways": "You just went sideways!",
+  "dpEnterYourPhoneNumber": "Enter Phone Number",
+  "dpPleaseInputAtLeast5Digits": "Please input at least 5 digits",
+  "dpPhoneNumber": "Phone number",
+  "dpHasNotBeenSaved": "has not been saved!",
+  "dpWhichButtonWillYouPress": "Which button will you press?",
+  "dpYes": "Yes",
+  "dpNo": "No",
+  "dpSelectYourPath": "Select your path",
+  "dpTinkerer": "Tinkerer",
+  "dpDreamer": "Dreamer",
+  "dpBuilder": "Builder",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",

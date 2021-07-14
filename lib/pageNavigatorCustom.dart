@@ -23,8 +23,9 @@ class PageNavigatorCustom extends ChangeNotifier {
     "Draggable": 15,
     "Database": 16,
     "Charts": 17,
-    "FirebaseAuthLogin": 18,
-    "FirebaseAuthRegister": 19,
+    "Dialog": 18,
+    "FirebaseAuthLogin": 19,
+    "FirebaseAuthRegister": 20,
   };
   int fromIndex;
 

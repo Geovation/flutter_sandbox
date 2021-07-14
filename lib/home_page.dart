@@ -9,6 +9,7 @@ import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/charts/charts_page.dart';
 import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/database/database_page.dart';
+import 'package:flutter_sandbox/dialog/dialog_page.dart';
 import 'package:flutter_sandbox/draggable/draggable_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
 import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
@@ -141,10 +142,13 @@ class _HomePageState extends State<HomePage> {
           case 17:
             _title = AppLocalizations.of(context).chartsTitle;
             break;
-          case 17:
+          case 18:
+            _title = AppLocalizations.of(context).dialogTitle;
+            break;
+          case 19:
             _title = AppLocalizations.of(context).loginTitle;
             break;
-          case 18:
+          case 20:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -178,6 +182,7 @@ class _HomePageState extends State<HomePage> {
       DraggablePage(),
       DatabasePage(),
       ChartsPage(),
+      DialogPage(),
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -480,6 +485,16 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 17) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Charts'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 18,
+        title: Text(AppLocalizations.of(context).dialogTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 18) {
+            _pageController.jumpToPage(_pageNavigator.getPageIndex('Dialog'));
           }
           Navigator.pop(context);
         },
