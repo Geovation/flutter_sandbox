@@ -22,22 +22,7 @@ class _DialogPageState extends State<DialogPage> {
   Widget getAlertDialog(BuildContext context, AppLocalizations localizations) {
     Widget alert = Container();
 
-    if (Platform.isIOS) {
-      alert = CupertinoAlertDialog(
-        title: Text('Cupertino Alert'),
-        content: Text(localizations.dpWhichButtonWillYouPress),
-        actions: [
-          CupertinoDialogAction(
-            child: Text(localizations.dpYes),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          CupertinoDialogAction(
-            child: Text(localizations.dpNo),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
-      );
-    } else {
+    if (kIsWeb || Platform.isAndroid) {
       alert = AlertDialog(
         title: Text('Material Alert'),
         content: Text(localizations.dpWhichButtonWillYouPress),
@@ -50,6 +35,21 @@ class _DialogPageState extends State<DialogPage> {
             onPressed: () => Navigator.of(context).pop(),
             child: Text(localizations.dpNo),
           ),
+        ],
+      );
+    } else {
+      alert = CupertinoAlertDialog(
+        title: Text('Cupertino Alert'),
+        content: Text(localizations.dpWhichButtonWillYouPress),
+        actions: [
+          CupertinoDialogAction(
+            child: Text(localizations.dpYes),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          CupertinoDialogAction(
+            child: Text(localizations.dpNo),
+            onPressed: () => Navigator.of(context).pop(),
+          )
         ],
       );
     }
