@@ -16,6 +16,7 @@ class DarkModeScreen extends StatefulWidget {
 
 class _DarkModeScreenState extends State<DarkModeScreen> {
   bool isDarkModeOn = false;
+
   @override
   Widget build(BuildContext context) {
     final AppSettings appSettings = Provider.of<AppSettings>(context);
@@ -53,6 +54,7 @@ class _DarkModeScreenState extends State<DarkModeScreen> {
                   setState(() {
                     isDarkModeOn = newValue;
                   });
+                  appSettings.saveDarkModePref(isDarkModeOn);
                   if (isDarkModeOn) {
                     appSettings.setThemeMode = ThemeMode.dark;
                   } else {

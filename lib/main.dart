@@ -32,6 +32,7 @@ import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'basic_widget/basic_widget_page.dart';
 import 'home_page.dart';
@@ -54,6 +55,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 
 Function selectNotification;
 Function onDidReceiveLocalNotification;
+ThemeMode currentThemeModeInitialRead;
 
 void main() {
   runApp(InitApp());
@@ -62,7 +64,17 @@ void main() {
 class InitApp extends StatelessWidget {
   Future<void> _init() async {
     WidgetsFlutterBinding.ensureInitialized();
+
     await Firebase.initializeApp();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    bool isDarkModeOn = prefs.getBool('isDarkModeOn');
+
+    if (isDarkModeOn) {
+      currentThemeModeInitialRead = ThemeMode.dark;
+    } else if (isDarkModeOn == false) {
+      currentThemeModeInitialRead = ThemeMode.light;
+    }
     if (!kIsWeb) {
       cameraList = await availableCameras();
       flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -132,6 +144,7 @@ class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = FirebaseAnalytics();
   final _pageController = PageController(initialPage: 0);
   final fcmDemoPage = 12;
+  bool isFirstRun = true;
 
   @override
   void initState() {
@@ -229,7 +242,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => Auth()),
         ChangeNotifierProvider(create: (_) => CurrentLocale('en')),
         ChangeNotifierProvider(create: (_) => LanguageTitle()),
-        ChangeNotifierProvider(create: (_) => AppSettings()),
+        ChangeNotifierProvider(
+            create: (_) => AppSettings(currentThemeModeInitialRead)),
         Provider<FirebaseAnalytics>.value(value: analytics),
         ChangeNotifierProvider(create: (_) => PersonDaoSembast()),
         Provider(create: (_) => AppMoorDatabase().personDaoMoor),
