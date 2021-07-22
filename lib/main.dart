@@ -144,7 +144,6 @@ class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = FirebaseAnalytics();
   final _pageController = PageController(initialPage: 0);
   final fcmDemoPage = 12;
-  bool isFirstRun = true;
 
   @override
   void initState() {
