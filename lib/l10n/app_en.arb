@@ -24,6 +24,7 @@
   "databaseTitle": "Database",
   "chartsTitle": "Charts",
   "dialogTitle": "Dialog",
+  "restApiTitle": "REST API",
 
   "logOut": "Log out",
 

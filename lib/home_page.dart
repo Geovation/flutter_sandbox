@@ -24,6 +24,7 @@ import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/languages/languages_page.dart';
 import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:flutter_sandbox/rest_api/rest_api_page.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
 import 'package:provider/provider.dart';
@@ -146,9 +147,12 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).dialogTitle;
             break;
           case 19:
-            _title = AppLocalizations.of(context).loginTitle;
+            _title = AppLocalizations.of(context).restApiTitle;
             break;
           case 20:
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 21:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -183,6 +187,8 @@ class _HomePageState extends State<HomePage> {
       DatabasePage(),
       ChartsPage(),
       DialogPage(),
+      RestApiPage(),
+
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
       FirebaseAuthRegistrationPage(),
@@ -495,6 +501,16 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 18) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Dialog'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 19,
+        title: Text(AppLocalizations.of(context).restApiTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 19) {
+            _pageController.jumpToPage(_pageNavigator.getPageIndex('Rest API'));
           }
           Navigator.pop(context);
         },

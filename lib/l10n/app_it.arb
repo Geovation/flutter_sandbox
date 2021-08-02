@@ -24,6 +24,8 @@
   "databaseTitle": "Banca dati",
   "chartsTitle": "Grafici",
   "dialogTitle": "Dialogo",
+  "restApiTitle": "REST API",
+
 
   "logOut": "Disconnettersi",
 
