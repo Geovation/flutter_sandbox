@@ -21,8 +21,6 @@ class RestApiPage extends StatefulWidget {
 
 class _RestApiPageState extends State<RestApiPage>
     with SingleTickerProviderStateMixin {
-  double _height;
-  double _width;
   TabController _tabController;
   Future<List<Album>> futureAlbum;
 
@@ -60,11 +58,11 @@ class _RestApiPageState extends State<RestApiPage>
 
     if (response.statusCode == 201) {
       CoolAlert.show(
+        width: double.infinity,
         context: context,
         type: CoolAlertType.success,
         title: 'Fake insertion to server',
-        text: response.body,
-        autoCloseDuration: Duration(seconds: 4),
+        text: response.body.substring(1, 61),
       );
     } else {
       throw Exception('Failed to push new album');
@@ -138,16 +136,9 @@ class _RestApiPageState extends State<RestApiPage>
     _pageNavigator.setFromIndex = _pageNavigator.getCurrentPageIndex;
     final AppLocalizations localizations = AppLocalizations.of(context);
 
-    MediaQueryData deviceData = MediaQuery.of(context);
-
     final List<Tab> basicWidgetTabs = <Tab>[
       Tab(text: 'http'),
     ];
-
-    _height = deviceData.size.height;
-    _width = (deviceData.orientation == Orientation.portrait)
-        ? deviceData.size.width
-        : deviceData.size.width * 0.8;
 
     return Scaffold(
       appBar: AppBar(
