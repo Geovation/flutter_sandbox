@@ -11,22 +11,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
-import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
-import 'package:flutter_sandbox/camera/camera_page.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
-import 'package:flutter_sandbox/dark_mode/dark_mode_screen.dart';
 import 'package:flutter_sandbox/database/moor/moor_database.dart';
 import 'package:flutter_sandbox/database/sembast/person_dao_sembast.dart';
-import 'package:flutter_sandbox/draggable/draggable_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_login_page.dart';
-import 'package:flutter_sandbox/firebase_auth/firebase_auth_register_page.dart';
-import 'package:flutter_sandbox/firebase_crashlytics/firebase_crashlytics_page.dart';
-import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
-import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
-import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/home_page.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
-import 'package:flutter_sandbox/mapbox/mapbox_page.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
@@ -34,10 +23,21 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'basic_effects/basic_effects_page.dart';
 import 'basic_widget/basic_widget_page.dart';
+import 'camera/camera_page.dart';
+import 'dark_mode/dark_mode_screen.dart';
+import 'draggable/draggable_page.dart';
+import 'firebase_auth/firebase_auth_login_page.dart';
+import 'firebase_auth/firebase_auth_register_page.dart';
+import 'firebase_crashlytics/firebase_crashlytics_page.dart';
+import 'firebase_firestore/firestore_page.dart';
+import 'google_maps/google_maps_page.dart';
+import 'gps/gps_page.dart';
 import 'home_page.dart';
+import 'mapbox/mapbox_page.dart';
 
-List<CameraDescription> cameraList;
+List<CameraDescription> cameraList = [];
 
 var flutterLocalNotificationsPlugin;
 
@@ -63,44 +63,52 @@ void main() {
 
 class InitApp extends StatelessWidget {
   Future<void> _init() async {
-    WidgetsFlutterBinding.ensureInitialized();
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
 
-    await Firebase.initializeApp();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+      await Firebase.initializeApp();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool isDarkModeOn = prefs.getBool('isDarkModeOn') ?? false;
 
-    bool isDarkModeOn = prefs.getBool('isDarkModeOn');
+      if (isDarkModeOn) {
+        currentThemeModeInitialRead = ThemeMode.dark;
+      } else if (isDarkModeOn == false) {
+        currentThemeModeInitialRead = ThemeMode.light;
+      }
 
-    if (isDarkModeOn) {
-      currentThemeModeInitialRead = ThemeMode.dark;
-    } else if (isDarkModeOn == false) {
-      currentThemeModeInitialRead = ThemeMode.light;
-    }
-    if (!kIsWeb) {
-      cameraList = await availableCameras();
-      flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+      if (!kIsWeb) {
+        cameraList = await availableCameras();
 
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
-    } else {
-      FirebaseMessaging messaging = FirebaseMessaging.instance;
-      // Use the returned token to send messages to users from your custom server
-      String token = await messaging.getToken(
-        vapidKey:
-            'BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc',
+        flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+        await flutterLocalNotificationsPlugin
+            .resolvePlatformSpecificImplementation<
+                AndroidFlutterLocalNotificationsPlugin>()
+            ?.createNotificationChannel(channel);
+      } else {
+        FirebaseMessaging messaging = FirebaseMessaging.instance;
+        // Use the returned token to send messages to users from your custom server
+        String token = await messaging.getToken(
+          vapidKey:
+              'BJb4oODa08l2HMt49p_WQkO50sDSZfVcaLBgvyS3mivJO74guGHYR1Uww_mlwbF6T1tU4M5Ba5XjSiZUZM2RZzc',
+        );
+        print(token);
+      }
+      FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler);
+
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true, // Required to display a heads up notification
+        badge: true,
+        sound: true,
       );
-      print(token);
+      //return Future.delayed(Duration(seconds: 3));
+    } catch (e) {
+      print("-----ERROR-------");
+      print(e.toString());
+      print("-----ERROR END-------");
     }
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true, // Required to display a heads up notification
-      badge: true,
-      sound: true,
-    );
-    return Future.delayed(Duration(seconds: 3));
   }
 
   @override
@@ -301,6 +309,7 @@ class _MyAppState extends State<MyApp> {
             buttonColor: Color(0xFFFF5252),
           ),
           themeMode: Provider.of<AppSettings>(context).getCurrentThemeMode,
+          // home: HomePage(cameraList: cameraList),
           initialRoute: HomePage.id,
           routes: {
             MapboxMapPage.id: (context) => MapboxMapPage(),

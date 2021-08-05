@@ -49,7 +49,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage>
   @override
   Widget build(BuildContext context) {
     final FirebaseAnalytics analytics = Provider.of<FirebaseAnalytics>(context);
-    analytics.logEvent(name: 'google_ml_kit_page');
+    analytics.logEvent(name: 'page_google_ml_kit');
     final PageNavigatorCustom _pageNavigator =
         Provider.of<PageNavigatorCustom>(context);
     _pageNavigator.setCurrentPageIndex =

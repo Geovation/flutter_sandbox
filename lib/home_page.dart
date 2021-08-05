@@ -19,6 +19,7 @@ import 'package:flutter_sandbox/firebase_firestore/firestore_page.dart';
 import 'package:flutter_sandbox/firebase_functions/firebase_functions_page.dart';
 import 'package:flutter_sandbox/firebase_storage/firebase_storage_page.dart';
 import 'package:flutter_sandbox/google_maps/google_maps_page.dart';
+import 'package:flutter_sandbox/google_ml_kit/google_ml_kit_page.dart';
 import 'package:flutter_sandbox/gps/gps_page.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/languages/languages_page.dart';
@@ -150,9 +151,12 @@ class _HomePageState extends State<HomePage> {
             _title = AppLocalizations.of(context).restApiTitle;
             break;
           case 20:
-            _title = AppLocalizations.of(context).loginTitle;
+            _title = AppLocalizations.of(context).googleMLKitTitle;
             break;
           case 21:
+            _title = AppLocalizations.of(context).loginTitle;
+            break;
+          case 22:
             _title = AppLocalizations.of(context).registerTitle;
             break;
           default:
@@ -188,6 +192,7 @@ class _HomePageState extends State<HomePage> {
       ChartsPage(),
       DialogPage(),
       RestApiPage(),
+      GoogleMLKitPage(cameras: widget.cameraList),
 
       // always add new screen above this comment so that auth remains the last two items.
       FirebaseAuthLoginPage(),
@@ -511,6 +516,17 @@ class DrawerWindow extends StatelessWidget {
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 19) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Rest API'));
+          }
+          Navigator.pop(context);
+        },
+      ),
+      ListTile(
+        selected: _pageNavigator.getCurrentPageIndex == 20,
+        title: Text(AppLocalizations.of(context).googleMLKitTitle),
+        onTap: () {
+          if (_pageNavigator.getCurrentPageIndex != 20) {
+            _pageController
+                .jumpToPage(_pageNavigator.getPageIndex('Google ML Kit'));
           }
           Navigator.pop(context);
         },

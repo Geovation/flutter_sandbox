@@ -25,6 +25,7 @@
   "chartsTitle": "Charts",
   "dialogTitle": "Dialog",
   "restApiTitle": "REST API",
+  "googleMLKitTitle": "Google ML Kit",
 
   "logOut": "Log out",
 
@@ -120,6 +121,8 @@
   "dpTinkerer": "Tinkerer",
   "dpDreamer": "Dreamer",
   "dpBuilder": "Builder",
+
+  "googMLKitBarcodeScanner": "Barcode Scanner",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",

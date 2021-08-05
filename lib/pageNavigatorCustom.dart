@@ -25,8 +25,9 @@ class PageNavigatorCustom extends ChangeNotifier {
     "Charts": 17,
     "Dialog": 18,
     "Rest API": 19,
-    "FirebaseAuthLogin": 20,
-    "FirebaseAuthRegister": 21,
+    "Google ML Kit": 20,
+    "FirebaseAuthLogin": 21,
+    "FirebaseAuthRegister": 22,
   };
   int fromIndex;
 

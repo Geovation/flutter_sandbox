@@ -25,6 +25,7 @@
   "chartsTitle": "Grafici",
   "dialogTitle": "Dialogo",
   "restApiTitle": "REST API",
+  "googleMLKitTitle": "Google ML Kit",
 
 
   "logOut": "Disconnettersi",
@@ -105,6 +106,8 @@
   "dbName": "Nome",
   "dbAge": "Età",
   "dbRole": "Ruolo",
+
+  "googMLKitBarcodeScanner": "Barcode Scanner",
 
   "dpYouWillBeSuccessful": "Avrai successo!",
   "dpOopsie": "Oopsie",
