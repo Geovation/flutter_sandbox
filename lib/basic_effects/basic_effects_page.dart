@@ -5,6 +5,7 @@ import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/rive_refresh_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/components/shimmer/gf_shimmer.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:parallax_image/parallax_image.dart';
 import 'package:provider/provider.dart';
 
@@ -55,6 +56,7 @@ class _BasicEffectsPageState extends State<BasicEffectsPage>
           indicatorColor: Colors.grey.shade50,
           isScrollable: true,
           tabs: basicEffectTabs,
+          labelStyle: GoogleFonts.lato(),
         ),
       ),
       body: TabBarView(
@@ -250,17 +252,19 @@ class BuildCard extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
                           fontSize: titleFontSize,
                           color: titleColor,
-                        ),
+                        )),
                       ),
                       Text(
                         subtitle,
-                        style: TextStyle(
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
                           fontSize: subtitleFontSize,
                           color: subtitleColor,
-                        ),
+                        )),
                       ),
                     ],
                   ),
@@ -363,13 +367,17 @@ class ShimmerListItem extends StatelessWidget {
                         children: [
                           Text(
                             '${localizations.basicEffectsIndexNumberOf} $index',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: GoogleFonts.lato(
+                                textStyle:
+                                    TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           SizedBox(
                             height: 10,
                           ),
                           Text(
-                              '${localizations.basicEffectsIndex} $index ${localizations.basicEffectsIndexDescription}'),
+                            '${localizations.basicEffectsIndex} $index ${localizations.basicEffectsIndexDescription}',
+                            style: GoogleFonts.lato(),
+                          ),
                         ],
                       ),
                     ),

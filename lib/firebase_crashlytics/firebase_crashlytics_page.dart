@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FirebaseCrashlyticsPage extends StatelessWidget {
@@ -68,9 +69,10 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
               padding: const EdgeInsets.all(12.0),
               child: Text(
                 message,
-                style: TextStyle(
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
                   fontSize: 20.0,
-                ),
+                )),
               ),
             ),
           ),
@@ -80,7 +82,10 @@ class FirebaseCrashlyticsPage extends StatelessWidget {
           child: ElevatedButton.icon(
             onPressed: onPressCrash,
             icon: Icon(Icons.error_rounded),
-            label: Text(localizations.firebaseCrashlyticsButton),
+            label: Text(
+              localizations.firebaseCrashlyticsButton,
+              style: GoogleFonts.lato(),
+            ),
           ),
         ),
       ],

@@ -3,6 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -142,6 +143,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               currentSliderValueContinuous.toStringAsFixed(1),
               semanticsLabel:
                   '${localizations.semBasicWidgetPgContinuousSlider} ${currentSliderValueContinuous.toStringAsFixed(1)}',
+              style: GoogleFonts.lato(),
             ),
             SizedBox(
               height: 3,
@@ -170,6 +172,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               ),
             ),
             Text(currentSliderValueDiscrete.round().toString(),
+                style: GoogleFonts.lato(),
                 semanticsLabel:
                     '${localizations.semBasicWidgetPgDiscreteSlider} ${currentSliderValueDiscrete.round().toString()}'),
           ],
@@ -187,10 +190,12 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 children: <Widget>[
                   Text(
                     localizations.basicWidgetsChooseDate,
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5),
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5),
+                    ),
                   ),
                   InkWell(
                     onTap: () {
@@ -226,10 +231,11 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                 children: <Widget>[
                   Text(
                     localizations.basicWidgetsChooseTime,
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5),
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5)),
                   ),
                   InkWell(
                     onTap: () {
@@ -243,7 +249,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                       decoration: BoxDecoration(
                           color: Theme.of(context).backgroundColor),
                       child: TextFormField(
-                        style: TextStyle(fontSize: 40),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(fontSize: 40)),
                         textAlign: TextAlign.center,
                         onSaved: (String val) {
                           _setTime = val;
@@ -278,7 +285,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                   value: checkBoxValues[0].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
-                    title: Text(localizations.basicWidgetsWakeUp),
+                    title: Text(
+                      localizations.basicWidgetsWakeUp,
+                      style: GoogleFonts.lato(),
+                    ),
                     value: checkBoxValues[0],
                     onChanged: (bool value) {
                       setState(() {
@@ -299,7 +309,8 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                   value: checkBoxValues[1].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
-                    title: Text(localizations.basicWidgetsPutOnTheSuit),
+                    title: Text(localizations.basicWidgetsPutOnTheSuit,
+                        style: GoogleFonts.lato()),
                     value: checkBoxValues[1],
                     onChanged: (bool value) {
                       setState(() {
@@ -316,7 +327,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
                   value: checkBoxValues[2].toString(),
                   child: CheckboxListTile(
                     activeColor: Theme.of(context).primaryColor,
-                    title: Text(localizations.basicWidgetsBetheHero),
+                    title: Text(
+                      localizations.basicWidgetsBetheHero,
+                      style: GoogleFonts.lato(),
+                    ),
                     value: checkBoxValues[2],
                     onChanged: (bool value) {
                       setState(() {
@@ -344,13 +358,21 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
               return ExpansionPanel(
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return ListTile(
-                    title: Text(item.headerValue),
+                    title: Text(
+                      item.headerValue,
+                      style: GoogleFonts.lato(),
+                    ),
                   );
                 },
                 body: ListTile(
-                    title: Text(item.expandedValue),
-                    subtitle:
-                        Text(localizations.basicWidgetsExpansionPanelText),
+                    title: Text(
+                      item.expandedValue,
+                      style: GoogleFonts.lato(),
+                    ),
+                    subtitle: Text(
+                      localizations.basicWidgetsExpansionPanelText,
+                      style: GoogleFonts.lato(),
+                    ),
                     trailing: Icon(
                       Icons.delete,
                       semanticLabel:
@@ -371,7 +393,10 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
 
       default:
         indexedWidget = Center(
-          child: Text(localizations.basicWidgetsExpansionPanelDefaultText),
+          child: Text(
+            localizations.basicWidgetsExpansionPanelDefaultText,
+            style: GoogleFonts.lato(),
+          ),
         );
         break;
     }
@@ -411,6 +436,7 @@ class _BasicWidgetsPageState extends State<BasicWidgetsPage>
           indicatorColor: Colors.grey.shade50,
           isScrollable: true,
           tabs: basicWidgetTabs,
+          labelStyle: GoogleFonts.lato(),
         ),
       ),
       body: TabBarView(

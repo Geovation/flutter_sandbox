@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rest_api/album.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -41,8 +42,14 @@ class _RestApiPageState extends State<RestApiPage>
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: ListTile(
-        title: Text(title),
-        trailing: Text('$userId'),
+        title: Text(
+          title,
+          style: GoogleFonts.lato(),
+        ),
+        trailing: Text(
+          '$userId',
+          style: GoogleFonts.lato(),
+        ),
       ),
     );
   }
@@ -110,7 +117,10 @@ class _RestApiPageState extends State<RestApiPage>
                         albums[index].title, albums[index].userId);
                   });
             } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
+              return Text(
+                '${snapshot.error}',
+                style: GoogleFonts.lato(),
+              );
             }
 
             // By default, show a loading spinner.
@@ -148,6 +158,7 @@ class _RestApiPageState extends State<RestApiPage>
           indicatorColor: Colors.grey.shade50,
           isScrollable: true,
           tabs: basicWidgetTabs,
+          labelStyle: GoogleFonts.lato(),
         ),
       ),
       body: TabBarView(

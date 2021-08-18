@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 
@@ -51,11 +52,17 @@ class _DraggablePageState extends State<DraggablePage> {
     AppLocalizations localizations = AppLocalizations.of(context);
     Size deviceDataSize = MediaQuery.of(context).size;
     SnackBar correctTextSnackBar = SnackBar(
-      content: Text("${localizations.draggableCorrect}!"),
+      content: Text(
+        "${localizations.draggableCorrect}!",
+        style: GoogleFonts.lato(),
+      ),
       duration: Duration(milliseconds: 500),
     );
     SnackBar wrongTextSnackBar = SnackBar(
-      content: Text("${localizations.draggableWrong}!"),
+      content: Text(
+        "${localizations.draggableWrong}!",
+        style: GoogleFonts.lato(),
+      ),
       duration: Duration(milliseconds: 500),
     );
     ScaffoldMessengerState scaffoldMessengerContext =
@@ -65,7 +72,7 @@ class _DraggablePageState extends State<DraggablePage> {
       children: [
         Text(
           '$currentScore',
-          style: TextStyle(fontSize: 30),
+          style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 30)),
         ),
         Spacer(
           flex: 1,
@@ -83,7 +90,8 @@ class _DraggablePageState extends State<DraggablePage> {
             child: Center(
               child: Text(
                 '$currentRandomNumber',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(fontSize: 20, color: Colors.white)),
               ),
             ),
           ),
@@ -100,11 +108,12 @@ class _DraggablePageState extends State<DraggablePage> {
               child: Center(
                 child: Text(
                   '$currentRandomNumber',
-                  style: TextStyle(
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                     decoration: TextDecoration.none,
-                  ),
+                  )),
                 ),
               ),
             ),
@@ -130,7 +139,8 @@ class _DraggablePageState extends State<DraggablePage> {
                 builder: (context, List<int> candidateData, rejectedData) {
                   return Center(
                       child: Text(localizations.draggableOdd,
-                          style: containerTextStyle));
+                          style:
+                              GoogleFonts.lato(textStyle: containerTextStyle)));
                 },
                 onWillAccept: (data) {
                   return true;
@@ -170,7 +180,8 @@ class _DraggablePageState extends State<DraggablePage> {
                 builder: (context, List<int> candidateData, rejectedData) {
                   return Center(
                       child: Text(localizations.draggableEven,
-                          style: containerTextStyle));
+                          style:
+                              GoogleFonts.lato(textStyle: containerTextStyle)));
                 },
                 onWillAccept: (data) {
                   return true;

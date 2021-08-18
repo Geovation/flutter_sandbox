@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FirebaseFunctionsPage extends StatefulWidget {
@@ -25,13 +26,22 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
     final Widget gotItButton = TextButton(
       onPressed: () =>
           Navigator.pop(context, AppLocalizations.of(context).gotIt),
-      child: Text(AppLocalizations.of(context).gotIt),
+      child: Text(
+        AppLocalizations.of(context).gotIt,
+        style: GoogleFonts.lato(),
+      ),
     );
 
     // set up the AlertDialog
     final alert = AlertDialog(
-      title: Text(titleText),
-      content: Text(messageText),
+      title: Text(
+        titleText,
+        style: GoogleFonts.lato(),
+      ),
+      content: Text(
+        messageText,
+        style: GoogleFonts.lato(),
+      ),
       actions: [
         gotItButton,
       ],
@@ -99,7 +109,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
                 scrollDirection: Axis.vertical,
                 child: Text(
                   cloudFunctionData,
-                  style: TextStyle(fontSize: 20),
+                  style: GoogleFonts.lato(textStyle: TextStyle(fontSize: 20)),
                 ),
               ),
             ),
@@ -114,6 +124,7 @@ class _FirebaseFunctionsPageState extends State<FirebaseFunctionsPage> {
             child: Text(
               localizations.functionsFetchGeoJSON,
               semanticsLabel: localizations.semFunctionsPgSaveButton,
+              style: GoogleFonts.lato(),
             ),
           ),
         ),

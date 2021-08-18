@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'indicator.dart';
@@ -190,10 +191,12 @@ class _ChartsPageState extends State<ChartsPage> {
               ),
               child: Text(
                 'Line Chart',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade400,
-                    fontSize: (orientation == Orientation.landscape) ? 22 : 32,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: Colors.blueGrey.shade400,
+                        fontSize:
+                            (orientation == Orientation.landscape) ? 22 : 32,
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -296,10 +299,12 @@ class _ChartsPageState extends State<ChartsPage> {
               ),
               child: Text(
                 'Pie Chart',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade400,
-                    fontSize: (orientation == Orientation.landscape) ? 22 : 32,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: Colors.blueGrey.shade400,
+                        fontSize:
+                            (orientation == Orientation.landscape) ? 22 : 32,
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -438,10 +443,12 @@ class _ChartsPageState extends State<ChartsPage> {
               ),
               child: Text(
                 'Bar Chart',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade400,
-                    fontSize: (orientation == Orientation.landscape) ? 22 : 32,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: Colors.blueGrey.shade400,
+                        fontSize:
+                            (orientation == Orientation.landscape) ? 22 : 32,
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -566,10 +573,12 @@ class _ChartsPageState extends State<ChartsPage> {
               ),
               child: Text(
                 'Radar Chart',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade400,
-                    fontSize: (orientation == Orientation.landscape) ? 22 : 32,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: Colors.blueGrey.shade400,
+                        fontSize:
+                            (orientation == Orientation.landscape) ? 22 : 32,
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -691,10 +700,12 @@ class _ChartsPageState extends State<ChartsPage> {
               ),
               child: Text(
                 'Scatter Plot',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade400,
-                    fontSize: (orientation == Orientation.landscape) ? 22 : 32,
-                    fontWeight: FontWeight.bold),
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: Colors.blueGrey.shade400,
+                        fontSize:
+                            (orientation == Orientation.landscape) ? 22 : 32,
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           ),
@@ -754,28 +765,31 @@ class _ChartsPageState extends State<ChartsPage> {
                             10,
                             children: [
                               TextSpan(
-                                text: '${touchedBarSpot.x.toInt()} \n',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                                  text: '${touchedBarSpot.x.toInt()} \n',
+                                  style: GoogleFonts.lato(
+                                    textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
                               TextSpan(
                                 text: 'Y: ',
-                                style: TextStyle(
+                                style: GoogleFonts.lato(
+                                    textStyle: TextStyle(
                                   height: 1.2,
                                   color: Colors.grey[100],
                                   fontStyle: FontStyle.italic,
-                                ),
+                                )),
                               ),
                               TextSpan(
                                 text: touchedBarSpot.y.toInt().toString(),
-                                style: TextStyle(
+                                style: GoogleFonts.lato(
+                                    textStyle: TextStyle(
                                   color: Colors.white,
                                   fontStyle: FontStyle.normal,
                                   fontWeight: FontWeight.bold,
-                                ),
+                                )),
                               ),
                             ],
                           );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sandbox/currentLocale.dart';
 import 'package:flutter_sandbox/languages/language_title.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LanguagesPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LanguagesPageState extends State<LanguagesPage> {
       child: Center(
         child: DropdownButton(
           value: _selectedLocale,
-          style: const TextStyle(color: Colors.red),
+          style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.red)),
           underline: Container(
             height: 2,
             color: Colors.redAccent,
@@ -49,11 +50,17 @@ class _LanguagesPageState extends State<LanguagesPage> {
           items: [
             DropdownMenuItem(
               value: reversedAvailableLocaleLS[availableLocalesSL["en"]],
-              child: Text(availableLocalesSL["en"]),
+              child: Text(
+                availableLocalesSL["en"],
+                style: GoogleFonts.lato(),
+              ),
             ),
             DropdownMenuItem(
               value: reversedAvailableLocaleLS[availableLocalesSL["it"]],
-              child: Text(availableLocalesSL["it"]),
+              child: Text(
+                availableLocalesSL["it"],
+                style: GoogleFonts.lato(),
+              ),
             ),
           ],
         ),

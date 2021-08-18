@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/database/sembast/model/person_sembast.dart';
 import 'package:flutter_sandbox/database/sembast/person_dao_sembast.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:moor_flutter/moor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -96,23 +97,29 @@ class _DatabasePageState extends State<DatabasePage>
                     DataColumn(
                       label: Text(
                         localizations.dbName,
-                        style: TextStyle(fontStyle: FontStyle.italic),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(fontStyle: FontStyle.italic)),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         localizations.dbAge,
-                        style: TextStyle(fontStyle: FontStyle.italic),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(fontStyle: FontStyle.italic)),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         localizations.dbRole,
-                        style: TextStyle(fontStyle: FontStyle.italic),
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(fontStyle: FontStyle.italic)),
                       ),
                     ),
                     DataColumn(
-                      label: Text(''),
+                      label: Text(
+                        '',
+                        style: GoogleFonts.lato(),
+                      ),
                     ),
                   ],
                   rows: List<DataRow>.generate(
@@ -199,7 +206,10 @@ class _DatabasePageState extends State<DatabasePage>
       case 1:
         indexedWidget = (kIsWeb)
             ? Center(
-                child: Text('Not yet supported on this platform'),
+                child: Text(
+                  'Not yet supported on this platform',
+                  style: GoogleFonts.lato(),
+                ),
               )
             : SizedBox(
                 width: double.infinity,
@@ -215,23 +225,32 @@ class _DatabasePageState extends State<DatabasePage>
                           DataColumn(
                             label: Text(
                               localizations.dbName,
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                              style: GoogleFonts.lato(
+                                  textStyle:
+                                      TextStyle(fontStyle: FontStyle.italic)),
                             ),
                           ),
                           DataColumn(
                             label: Text(
                               localizations.dbAge,
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                              style: GoogleFonts.lato(
+                                  textStyle:
+                                      TextStyle(fontStyle: FontStyle.italic)),
                             ),
                           ),
                           DataColumn(
                             label: Text(
                               localizations.dbRole,
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                              style: GoogleFonts.lato(
+                                  textStyle:
+                                      TextStyle(fontStyle: FontStyle.italic)),
                             ),
                           ),
                           DataColumn(
-                            label: Text(''),
+                            label: Text(
+                              '',
+                              style: GoogleFonts.lato(),
+                            ),
                           ),
                         ],
                         rows: List<DataRow>.generate(
@@ -344,6 +363,7 @@ class _DatabasePageState extends State<DatabasePage>
           indicatorColor: Colors.grey.shade50,
           isScrollable: true,
           tabs: databaseTabs,
+          labelStyle: GoogleFonts.lato(),
         ),
       ),
       body: TabBarView(

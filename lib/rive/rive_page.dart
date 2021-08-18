@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
@@ -125,7 +126,10 @@ class _RivePageState extends State<RivePage> {
     Widget paddedTextForToggleButton(String text) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(text),
+        child: Text(
+          text,
+          style: GoogleFonts.lato(),
+        ),
       );
     }
 

@@ -10,6 +10,7 @@ import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +37,11 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
   /// The user selects a file, and the task is added to the list.
   Future<firebase_storage.UploadTask> uploadFile(PickedFile file) async {
     if (file == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('No file was selected'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          'No file was selected',
+          style: GoogleFonts.lato(),
+        ),
       ));
       return null;
     }
@@ -133,9 +137,10 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
     ));
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         content: Text(
           'Success!\n Copied download URL to Clipboard!',
+          style: GoogleFonts.lato(),
         ),
       ),
     );
@@ -154,6 +159,7 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
           'Success!\n Downloaded ${ref.name} \n from bucket: ${ref.bucket}\n '
           'at path: ${ref.fullPath} \n'
           'Wrote "${ref.fullPath}" to tmp-${ref.name}.txt',
+          style: GoogleFonts.lato(),
         ),
       ),
     );
@@ -207,9 +213,10 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
                       ? Colors.orange.shade200
                       : Colors.orange.shade900,
               label: 'Upload string',
-              labelStyle: TextStyle(
+              labelStyle: GoogleFonts.lato(
+                  textStyle: TextStyle(
                 fontSize: 18.0,
-              ),
+              )),
               onTap: () => handleUploadType(UploadType.string),
             ),
             SpeedDialChild(
@@ -226,7 +233,8 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
                       ? Colors.orange.shade200
                       : Colors.orange.shade900,
               label: 'Upload local file',
-              labelStyle: TextStyle(fontSize: 18.0),
+              labelStyle:
+                  GoogleFonts.lato(textStyle: TextStyle(fontSize: 18.0)),
               onTap: () => handleUploadType(UploadType.file),
             ),
             if (_uploadTasks.isNotEmpty)
@@ -244,14 +252,19 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
                         ? Colors.orange.shade200
                         : Colors.orange.shade900,
                 label: 'Clear list',
-                labelStyle: TextStyle(fontSize: 18.0),
+                labelStyle:
+                    GoogleFonts.lato(textStyle: TextStyle(fontSize: 18.0)),
                 onTap: () => handleUploadType(UploadType.clear),
               ),
           ],
         ),
       ),
       body: _uploadTasks.isEmpty
-          ? const Center(child: Text("Press the '+' button to add a new file."))
+          ? Center(
+              child: Text(
+              "Press the '+' button to add a new file.",
+              style: GoogleFonts.lato(),
+            ))
           : ListView.builder(
               itemCount: _uploadTasks.length,
               itemBuilder: (context, index) => UploadTaskListTile(
@@ -304,7 +317,10 @@ class UploadTaskListTile extends StatelessWidget {
         BuildContext context,
         AsyncSnapshot<firebase_storage.TaskSnapshot> asyncSnapshot,
       ) {
-        Widget subtitle = const Text('---');
+        Widget subtitle = Text(
+          '---',
+          style: GoogleFonts.lato(),
+        );
         firebase_storage.TaskSnapshot snapshot = asyncSnapshot.data;
         firebase_storage.TaskState state = snapshot?.state;
 
@@ -312,20 +328,24 @@ class UploadTaskListTile extends StatelessWidget {
           if (asyncSnapshot.error is firebase_core.FirebaseException &&
               (asyncSnapshot.error as firebase_core.FirebaseException).code ==
                   'canceled') {
-            subtitle = const Text('Upload canceled.');
+            subtitle = Text('Upload canceled.', style: GoogleFonts.lato());
           } else {
             // print(asyncSnapshot.error);
-            subtitle = const Text('Something went wrong.');
+            subtitle = Text('Something went wrong.', style: GoogleFonts.lato());
           }
         } else if (snapshot != null) {
-          subtitle = Text('$state: ${_bytesTransferred(snapshot)} bytes sent');
+          subtitle = Text('$state: ${_bytesTransferred(snapshot)} bytes sent',
+              style: GoogleFonts.lato());
         }
 
         return Dismissible(
           key: Key(task.hashCode.toString()),
           onDismissed: ($) => onDismissed(),
           child: ListTile(
-            title: Text('Upload Task #${task.hashCode}'),
+            title: Text(
+              'Upload Task #${task.hashCode}',
+              style: GoogleFonts.lato(),
+            ),
             subtitle: subtitle,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,

@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FirestorePage extends StatefulWidget {
@@ -99,9 +100,10 @@ class _FirestorePageState extends State<FirestorePage> {
             children: [
               Text(
                 localizations.firestoreEditingMode,
-                style: TextStyle(
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
                   fontSize: 20,
-                ),
+                )),
               ),
               Semantics(
                 checked: isInEditingMode,
@@ -127,6 +129,7 @@ class _FirestorePageState extends State<FirestorePage> {
               },
               child: Text(
                 localizations.firestoreSave,
+                style: GoogleFonts.lato(),
               ),
             ),
           ),

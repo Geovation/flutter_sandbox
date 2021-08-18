@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/google_ml_kit/barcode_scanner_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class GoogleMLKitPage extends StatefulWidget {
@@ -63,7 +64,10 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage>
 
     return (kIsWeb)
         ? Center(
-            child: Text("ML Kit not yet supported on this platform."),
+            child: Text(
+              "ML Kit not yet supported on this platform.",
+              style: GoogleFonts.lato(),
+            ),
           )
         : Scaffold(
             appBar: AppBar(
@@ -73,6 +77,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage>
                 indicatorColor: Colors.grey.shade50,
                 isScrollable: true,
                 tabs: googleMLKitTabs,
+                labelStyle: GoogleFonts.lato(),
               ),
             ),
             body: TabBarView(

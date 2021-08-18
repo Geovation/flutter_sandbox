@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FcmPage extends StatefulWidget {
@@ -74,7 +75,8 @@ class _FcmPageState extends State<FcmPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
                   _token,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: GoogleFonts.lato(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
               )),
         ),
@@ -85,7 +87,10 @@ class _FcmPageState extends State<FcmPage> {
             onPressed: () async {
               await getToken();
             },
-            child: Text('${localizations.fcmGetToken}'),
+            child: Text(
+              '${localizations.fcmGetToken}',
+              style: GoogleFonts.lato(),
+            ),
           ),
         ),
       ],

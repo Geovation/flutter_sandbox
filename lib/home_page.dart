@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/basic_effects/basic_effects_page.dart';
@@ -28,6 +29,7 @@ import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:flutter_sandbox/rest_api/rest_api_page.dart';
 import 'package:flutter_sandbox/rive/rive_page.dart';
 import 'package:flutter_sandbox/sandbox_license/sandbox_license_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'auth.dart';
@@ -64,6 +66,9 @@ class _HomePageState extends State<HomePage> {
         [LicenseParagraph(licenseMIT, 0)]);
 
     yield FlutterLicense(['loader-89'], [LicenseParagraph(licenseCCBy4, 0)]);
+
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   }
 
   void addLicenses() {
@@ -201,7 +206,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title),
+        title: Text(_title, style: GoogleFonts.lato()),
       ),
       body: PageView(
         controller: _pageController,
@@ -262,6 +267,7 @@ class BottomNavBarView extends StatelessWidget {
       ],
       currentIndex: (currentPageIndex < 4) ? currentPageIndex : 4,
       selectedItemColor: Colors.black,
+      selectedLabelStyle: GoogleFonts.lato(),
       onTap: _onBottomNavItemTapped,
     );
   }
@@ -308,11 +314,17 @@ class DrawerWindow extends StatelessWidget {
     List<Widget> listViewItems = [
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(AppLocalizations.of(context).demosTitle),
+        child: Text(
+          AppLocalizations.of(context).demosTitle,
+          style: GoogleFonts.lato(),
+        ),
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 0,
-        title: Text(AppLocalizations.of(context).firebaseCrashlyticsTitle),
+        title: Text(
+          AppLocalizations.of(context).firebaseCrashlyticsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 0) {
             _pageController.jumpToPage(
@@ -323,7 +335,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 1,
-        title: Text(AppLocalizations.of(context).mapboxMapTitle),
+        title: Text(
+          AppLocalizations.of(context).mapboxMapTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 1) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Mapbox'));
@@ -333,7 +348,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 2,
-        title: Text(AppLocalizations.of(context).cameraTitle),
+        title: Text(
+          AppLocalizations.of(context).cameraTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 2) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Camera'));
@@ -343,7 +361,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 3,
-        title: Text(AppLocalizations.of(context).basicWidgetsTitle),
+        title: Text(
+          AppLocalizations.of(context).basicWidgetsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 3) {
             _pageController
@@ -354,7 +375,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 4,
-        title: Text(AppLocalizations.of(context).gpsTitle),
+        title: Text(
+          AppLocalizations.of(context).gpsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 4) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('GPS'));
@@ -364,7 +388,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 5,
-        title: Text(AppLocalizations.of(context).firestoreTitle),
+        title: Text(
+          AppLocalizations.of(context).firestoreTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 5) {
             _pageController
@@ -375,7 +402,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 6,
-        title: Text(AppLocalizations.of(context).cloudFunctionsTitle),
+        title: Text(
+          AppLocalizations.of(context).cloudFunctionsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 6) {
             _pageController
@@ -386,7 +416,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 7,
-        title: Text(AppLocalizations.of(context).googleMapsTitle),
+        title: Text(
+          AppLocalizations.of(context).googleMapsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 7) {
             _pageController
@@ -397,7 +430,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 8,
-        title: Text(AppLocalizations.of(context).basicEffectsTitle),
+        title: Text(
+          AppLocalizations.of(context).basicEffectsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 8) {
             _pageController
@@ -408,7 +444,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 9,
-        title: Text(AppLocalizations.of(context).riveTitle),
+        title: Text(
+          AppLocalizations.of(context).riveTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 9) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Rive'));
@@ -418,7 +457,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 10,
-        title: Text(AppLocalizations.of(context).licenseTitle),
+        title: Text(
+          AppLocalizations.of(context).licenseTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 10) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('License'));
@@ -428,7 +470,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 11,
-        title: Text(AppLocalizations.of(context).languagesTitle),
+        title: Text(
+          AppLocalizations.of(context).languagesTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 11) {
             _pageController
@@ -439,7 +484,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 12,
-        title: Text(AppLocalizations.of(context).fcmTitle),
+        title: Text(
+          AppLocalizations.of(context).fcmTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 12) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('FCM'));
@@ -449,7 +497,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 13,
-        title: Text(AppLocalizations.of(context).cloudStorageTitle),
+        title: Text(
+          AppLocalizations.of(context).cloudStorageTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 13) {
             _pageController
@@ -460,7 +511,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 14,
-        title: Text(AppLocalizations.of(context).darkModeTitle),
+        title: Text(
+          AppLocalizations.of(context).darkModeTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 14) {
             _pageController
@@ -471,7 +525,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 15,
-        title: Text(AppLocalizations.of(context).draggableTitle),
+        title: Text(
+          AppLocalizations.of(context).draggableTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 15) {
             _pageController
@@ -482,7 +539,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 16,
-        title: Text(AppLocalizations.of(context).databaseTitle),
+        title: Text(
+          AppLocalizations.of(context).databaseTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 16) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Database'));
@@ -492,7 +552,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 17,
-        title: Text(AppLocalizations.of(context).chartsTitle),
+        title: Text(
+          AppLocalizations.of(context).chartsTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 17) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Charts'));
@@ -502,7 +565,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 18,
-        title: Text(AppLocalizations.of(context).dialogTitle),
+        title: Text(
+          AppLocalizations.of(context).dialogTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 18) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Dialog'));
@@ -512,7 +578,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 19,
-        title: Text(AppLocalizations.of(context).restApiTitle),
+        title: Text(
+          AppLocalizations.of(context).restApiTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 19) {
             _pageController.jumpToPage(_pageNavigator.getPageIndex('Rest API'));
@@ -522,7 +591,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       ListTile(
         selected: _pageNavigator.getCurrentPageIndex == 20,
-        title: Text(AppLocalizations.of(context).googleMLKitTitle),
+        title: Text(
+          AppLocalizations.of(context).googleMLKitTitle,
+          style: GoogleFonts.lato(),
+        ),
         onTap: () {
           if (_pageNavigator.getCurrentPageIndex != 20) {
             _pageController
@@ -536,7 +608,10 @@ class DrawerWindow extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(AppLocalizations.of(context).accountTitle),
+        child: Text(
+          AppLocalizations.of(context).accountTitle,
+          style: GoogleFonts.lato(),
+        ),
       ),
     ];
 
@@ -562,7 +637,10 @@ class DrawerWindow extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(_auth.currentUser.email),
+                child: Text(
+                  _auth.currentUser.email,
+                  style: GoogleFonts.lato(),
+                ),
               ),
             ],
           ),
@@ -571,7 +649,10 @@ class DrawerWindow extends StatelessWidget {
 
       listViewItems.add(
         ListTile(
-          title: Text(AppLocalizations.of(context).logOut),
+          title: Text(
+            AppLocalizations.of(context).logOut,
+            style: GoogleFonts.lato(),
+          ),
           onTap: () {
             _auth.signOut();
             authProvider.setUserLoginStatus = false;
@@ -600,7 +681,10 @@ class DrawerWindow extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text('Flutter Sandbox'),
+              Text(
+                'Flutter Sandbox',
+                style: GoogleFonts.lato(),
+              ),
             ],
           ),
         ),
@@ -608,7 +692,10 @@ class DrawerWindow extends StatelessWidget {
 
       listViewItems.add(
         ListTile(
-          title: Text(AppLocalizations.of(context).firebaseAuthLogIn),
+          title: Text(
+            AppLocalizations.of(context).firebaseAuthLogIn,
+            style: GoogleFonts.lato(),
+          ),
           onTap: () {
             _pageController
                 .jumpToPage(_pageNavigator.getPageIndex('FirebaseAuthLogin'));
@@ -618,7 +705,10 @@ class DrawerWindow extends StatelessWidget {
       );
       listViewItems.add(
         ListTile(
-          title: Text(AppLocalizations.of(context).firebaseAuthRegister),
+          title: Text(
+            AppLocalizations.of(context).firebaseAuthRegister,
+            style: GoogleFonts.lato(),
+          ),
           onTap: () {
             _pageController.jumpToPage(
                 _pageNavigator.getPageIndex('FirebaseAuthRegister'));

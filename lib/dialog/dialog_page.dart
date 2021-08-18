@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 enum Path { tinkerer, dreamer, builder }
@@ -121,7 +122,10 @@ class _DialogPageState extends State<DialogPage> {
                     getAlertDialog(context, localizations),
               );
             },
-            childWidget: Text('Show Alert Dialog'),
+            childWidget: Text(
+              'Show Alert Dialog',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -131,7 +135,10 @@ class _DialogPageState extends State<DialogPage> {
                     getSimpleDialog(context, localizations),
               );
             },
-            childWidget: Text('Simple Dialog'),
+            childWidget: Text(
+              'Simple Dialog',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -141,9 +148,13 @@ class _DialogPageState extends State<DialogPage> {
                 onConfirmBtnTap: () {},
                 text: localizations.dpYouWillBeSuccessful,
                 autoCloseDuration: Duration(seconds: 4),
+                confirmBtnTextStyle: GoogleFonts.lato(),
               );
             },
-            childWidget: Text('Cool Alert: Success'),
+            childWidget: Text(
+              'Cool Alert: Success',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -155,7 +166,10 @@ class _DialogPageState extends State<DialogPage> {
                 loopAnimation: false,
               );
             },
-            childWidget: Text('Cool Alert: Error'),
+            childWidget: Text(
+              'Cool Alert: Error',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -165,7 +179,10 @@ class _DialogPageState extends State<DialogPage> {
                 text: localizations.dpYouJustWentSideways,
               );
             },
-            childWidget: Text('Cool Alert: Warning'),
+            childWidget: Text(
+              'Cool Alert: Warning',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -174,7 +191,10 @@ class _DialogPageState extends State<DialogPage> {
                 type: CoolAlertType.loading,
               );
             },
-            childWidget: Text('Cool Alert: Loading'),
+            childWidget: Text(
+              'Cool Alert: Loading',
+              style: GoogleFonts.lato(),
+            ),
           ),
           _buildElevatedButton(
             onPressedCallBack: () {
@@ -215,7 +235,10 @@ class _DialogPageState extends State<DialogPage> {
                 },
               );
             },
-            childWidget: Text('Cool Alert: Custom'),
+            childWidget: Text(
+              'Cool Alert: Custom',
+              style: GoogleFonts.lato(),
+            ),
           ),
         ],
       ),

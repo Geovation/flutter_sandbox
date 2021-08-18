@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +104,10 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToThePool,
-        label: Text(localizations.googleMapsToThePool),
+        label: Text(
+          localizations.googleMapsToThePool,
+          style: GoogleFonts.lato(),
+        ),
         icon: Icon(Icons.pool),
         tooltip: localizations.semGoogleMapsPgToThePoolButton,
       ),

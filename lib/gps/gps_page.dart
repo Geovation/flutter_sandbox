@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class GPSPage extends StatefulWidget {
@@ -94,6 +95,7 @@ class _GPSPageState extends State<GPSPage> {
               value: value,
               child: Text(
                 value.toString(),
+                style: GoogleFonts.lato(),
               ),
             );
           }).toList(),
@@ -106,18 +108,19 @@ class _GPSPageState extends State<GPSPage> {
           children: [
             Text(
               '${localizations.gpsLatitude} : ',
-              style: TextStyle(
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
                 fontSize: 20,
-              ),
+              )),
             ),
             (_currentPos != null)
                 ? Text(
                     _currentPos.latitude.toString(),
-                    style: gpsTextStyle,
+                    style: GoogleFonts.lato(textStyle: gpsTextStyle),
                   )
                 : Text(
                     '0.0',
-                    style: gpsTextStyle,
+                    style: GoogleFonts.lato(textStyle: gpsTextStyle),
                   ),
           ],
         ),
@@ -126,18 +129,19 @@ class _GPSPageState extends State<GPSPage> {
           children: [
             Text(
               '${localizations.gpsLongitude} : ',
-              style: TextStyle(
+              style: GoogleFonts.lato(
+                  textStyle: TextStyle(
                 fontSize: 20,
-              ),
+              )),
             ),
             (_currentPos != null)
                 ? Text(
                     _currentPos.longitude.toString(),
-                    style: gpsTextStyle,
+                    style: GoogleFonts.lato(textStyle: gpsTextStyle),
                   )
                 : Text(
                     '0.0',
-                    style: gpsTextStyle,
+                    style: GoogleFonts.lato(textStyle: gpsTextStyle),
                   ),
           ],
         ),
@@ -151,7 +155,10 @@ class _GPSPageState extends State<GPSPage> {
               _currentPos = positionValue;
             });
           },
-          child: Text(localizations.gpsLocateMe),
+          child: Text(
+            localizations.gpsLocateMe,
+            style: GoogleFonts.lato(),
+          ),
         ),
       ],
     );

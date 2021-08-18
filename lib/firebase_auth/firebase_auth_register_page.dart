@@ -6,6 +6,7 @@ import 'package:flutter_sandbox/app_settings.dart';
 import 'package:flutter_sandbox/auth.dart';
 import 'package:flutter_sandbox/firebase_auth/Components/rounded_button.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
@@ -33,13 +34,22 @@ class _FirebaseAuthRegistrationPageState
     final Widget gotItButton = TextButton(
       onPressed: () =>
           Navigator.pop(context, AppLocalizations.of(context).gotIt),
-      child: Text(AppLocalizations.of(context).gotIt),
+      child: Text(
+        AppLocalizations.of(context).gotIt,
+        style: GoogleFonts.lato(),
+      ),
     );
 
     // set up the AlertDialog
     final alert = AlertDialog(
-      title: Text(titleText),
-      content: Text(messageText),
+      title: Text(
+        titleText,
+        style: GoogleFonts.lato(),
+      ),
+      content: Text(
+        messageText,
+        style: GoogleFonts.lato(),
+      ),
       actions: [
         gotItButton,
       ],
@@ -155,7 +165,10 @@ class _FirebaseAuthRegistrationPageState
       }
     } else {
       bodyWidget = Center(
-        child: Text(AppLocalizations.of(context).firebaseAuthInitiationError),
+        child: Text(
+          AppLocalizations.of(context).firebaseAuthInitiationError,
+          style: GoogleFonts.lato(),
+        ),
       );
     }
     return bodyWidget;

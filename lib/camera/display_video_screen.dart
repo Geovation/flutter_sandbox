@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
 class DisplayVideoView extends StatefulWidget {
@@ -42,7 +43,10 @@ class _DisplayVideoViewState extends State<DisplayVideoView> {
     MediaQueryData deviceSizeData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context).displayTheVideoTitle)),
+          title: Text(
+        AppLocalizations.of(context).displayTheVideoTitle,
+        style: GoogleFonts.lato(),
+      )),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(
