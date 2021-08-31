@@ -124,6 +124,7 @@
   "dpBuilder": "Builder",
 
   "googMLKitBarcodeScanner": "Barcode Scanner",
+  "googleMLKitFaceDetector": "Face Detector",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",

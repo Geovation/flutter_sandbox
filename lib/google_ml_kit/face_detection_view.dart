@@ -7,9 +7,11 @@ import 'camera_view.dart';
 
 class FaceDetectionView extends StatefulWidget {
   final List<CameraDescription> cameras;
+  final String title;
   const FaceDetectionView({
     Key key,
     @required this.cameras,
+    @required this.title,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,20 @@ class _FaceDetectionViewState extends State<FaceDetectionView> {
   ));
   bool isBusy = false;
   CustomPaint customPaint;
+  CameraView cameraView;
+
+  @override
+  void initState() {
+    super.initState();
+    cameraView = CameraView(
+      cameras: widget.cameras,
+      customPaint: customPaint,
+      onImage: (inputImage) {
+        processImage(inputImage);
+      },
+      initialDirection: CameraLensDirection.back,
+    );
+  }
 
   @override
   void dispose() {
@@ -33,13 +49,11 @@ class _FaceDetectionViewState extends State<FaceDetectionView> {
 
   @override
   Widget build(BuildContext context) {
-    return CameraView(
-      cameras: widget.cameras,
-      customPaint: customPaint,
-      onImage: (inputImage) {
-        processImage(inputImage);
-      },
-      initialDirection: CameraLensDirection.front,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: cameraView,
     );
   }
 

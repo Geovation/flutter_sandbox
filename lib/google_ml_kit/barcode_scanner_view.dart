@@ -7,9 +7,11 @@ import 'painters/barcode_detector_painter.dart';
 
 class BarcodeScannerView extends StatefulWidget {
   final List<CameraDescription> cameras;
+  final String title;
   const BarcodeScannerView({
     Key key,
     @required this.cameras,
+    @required this.title,
   }) : super(key: key);
 
   @override
@@ -18,9 +20,22 @@ class BarcodeScannerView extends StatefulWidget {
 
 class _BarcodeScannerViewState extends State<BarcodeScannerView> {
   BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
-
+  CameraView cameraView;
   bool isBusy = false;
   CustomPaint customPaint;
+
+  @override
+  void initState() {
+    super.initState();
+    cameraView = CameraView(
+      cameras: widget.cameras,
+      customPaint: customPaint,
+      onImage: (inputImage) {
+        processImage(inputImage);
+      },
+      initialDirection: CameraLensDirection.back,
+    );
+  }
 
   @override
   void dispose() {
@@ -30,13 +45,11 @@ class _BarcodeScannerViewState extends State<BarcodeScannerView> {
 
   @override
   Widget build(BuildContext context) {
-    return CameraView(
-      cameras: widget.cameras,
-      customPaint: customPaint,
-      onImage: (inputImage) {
-        processImage(inputImage);
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: cameraView);
   }
 
   Future<void> processImage(InputImage inputImage) async {

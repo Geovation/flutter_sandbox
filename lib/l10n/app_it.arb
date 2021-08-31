@@ -109,6 +109,7 @@
   "dbRole": "Ruolo",
 
   "googMLKitBarcodeScanner": "Barcode Scanner",
+  "googleMLKitFaceDetector": "Face Detector",
 
   "dpYouWillBeSuccessful": "Avrai successo!",
   "dpOopsie": "Oopsie",
