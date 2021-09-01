@@ -52,8 +52,6 @@ class _CameraViewState extends State<CameraView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _liveFeedBody(),
-      floatingActionButton: _floatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -109,7 +107,6 @@ class _CameraViewState extends State<CameraView> {
   Future _stopLiveFeed() async {
     await _controller.stopImageStream();
     await _controller.dispose();
-    _controller = null;
   }
 
   Future _switchLiveCamera() async {

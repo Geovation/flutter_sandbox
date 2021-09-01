@@ -20,22 +20,8 @@ class BarcodeScannerView extends StatefulWidget {
 
 class _BarcodeScannerViewState extends State<BarcodeScannerView> {
   BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
-  CameraView cameraView;
   bool isBusy = false;
   CustomPaint customPaint;
-
-  @override
-  void initState() {
-    super.initState();
-    cameraView = CameraView(
-      cameras: widget.cameras,
-      customPaint: customPaint,
-      onImage: (inputImage) {
-        processImage(inputImage);
-      },
-      initialDirection: CameraLensDirection.back,
-    );
-  }
 
   @override
   void dispose() {
@@ -46,10 +32,18 @@ class _BarcodeScannerViewState extends State<BarcodeScannerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: cameraView);
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: CameraView(
+        cameras: widget.cameras,
+        customPaint: customPaint,
+        onImage: (inputImage) {
+          processImage(inputImage);
+        },
+        initialDirection: CameraLensDirection.back,
+      ),
+    );
   }
 
   Future<void> processImage(InputImage inputImage) async {

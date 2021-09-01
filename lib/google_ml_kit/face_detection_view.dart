@@ -26,20 +26,6 @@ class _FaceDetectionViewState extends State<FaceDetectionView> {
   ));
   bool isBusy = false;
   CustomPaint customPaint;
-  CameraView cameraView;
-
-  @override
-  void initState() {
-    super.initState();
-    cameraView = CameraView(
-      cameras: widget.cameras,
-      customPaint: customPaint,
-      onImage: (inputImage) {
-        processImage(inputImage);
-      },
-      initialDirection: CameraLensDirection.back,
-    );
-  }
 
   @override
   void dispose() {
@@ -53,7 +39,14 @@ class _FaceDetectionViewState extends State<FaceDetectionView> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: cameraView,
+      body: CameraView(
+        cameras: widget.cameras,
+        customPaint: customPaint,
+        onImage: (inputImage) {
+          processImage(inputImage);
+        },
+        initialDirection: CameraLensDirection.back,
+      ),
     );
   }
 

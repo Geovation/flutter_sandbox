@@ -113,25 +113,6 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage>
               style: GoogleFonts.lato(),
             ),
           )
-        // : Scaffold(
-        //     appBar: AppBar(
-        //       toolbarHeight: 55,
-        //       bottom: TabBar(
-        //         controller: _tabController,
-        //         indicatorColor: Colors.grey.shade50,
-        //         isScrollable: true,
-        //         tabs: googleMLKitTabs,
-        //         labelStyle: GoogleFonts.lato(),
-        //       ),
-        //     ),
-        //     body: TabBarView(
-        //       controller: _tabController,
-        //       children: [
-        //         onSelectedWindow(0, localizations),
-        //         onSelectedWindow(1, localizations),
-        //       ],
-        //     ),
-        //   );
         : Scaffold(
             body: Center(
             child: Column(
