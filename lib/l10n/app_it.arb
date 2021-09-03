@@ -110,6 +110,7 @@
 
   "googMLKitBarcodeScanner": "Barcode Scanner",
   "googleMLKitFaceDetector": "Face Detector",
+  "googleMLKitTextDetector": "Text Detector",
 
   "dpYouWillBeSuccessful": "Avrai successo!",
   "dpOopsie": "Oopsie",

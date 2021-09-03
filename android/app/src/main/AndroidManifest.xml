@@ -10,7 +10,7 @@
 
        <meta-data
            android:name="com.google.mlkit.vision.DEPENDENCIES"
-           android:value="ocr" />
+           android:value="ocr,face" />
 
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyAbOGOC9O1lXpkgctocBG2fJz0ylDQA85g"/>

@@ -125,6 +125,7 @@
 
   "googMLKitBarcodeScanner": "Barcode Scanner",
   "googleMLKitFaceDetector": "Face Detector",
+  "googleMLKitTextDetector": "Text Detector",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",
