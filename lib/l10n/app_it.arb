@@ -108,9 +108,11 @@
   "dbAge": "Età",
   "dbRole": "Ruolo",
 
+  "googelMLKitUnsupported": "ML Kit not yet supported on this platform.",
   "googMLKitBarcodeScanner": "Barcode Scanner",
   "googleMLKitFaceDetector": "Face Detector",
   "googleMLKitTextDetector": "Text Detector",
+  "googleMLKitImageLabeller": "Image Labeller",
 
   "dpYouWillBeSuccessful": "Avrai successo!",
   "dpOopsie": "Oopsie",

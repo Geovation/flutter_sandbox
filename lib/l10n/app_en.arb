@@ -123,9 +123,11 @@
   "dpDreamer": "Dreamer",
   "dpBuilder": "Builder",
 
+  "googelMLKitUnsupported": "ML Kit not yet supported on this platform.",
   "googMLKitBarcodeScanner": "Barcode Scanner",
   "googleMLKitFaceDetector": "Face Detector",
   "googleMLKitTextDetector": "Text Detector",
+  "googleMLKitImageLabeller": "Image Labeller",
 
   "semCameraPgRearCameraToggleButton": "Button for rear camera view",
   "semCameraPgFrontCameraToggleButton": "Button for front camera view",
