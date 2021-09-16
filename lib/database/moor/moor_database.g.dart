@@ -184,55 +184,39 @@ class $PersonsMoorTable extends PersonsMoor
   final String _alias;
   $PersonsMoorTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedIntColumn _id;
+  GeneratedColumn<int> _id;
   @override
-  GeneratedIntColumn get id => _id ??= _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  GeneratedColumn<int> get id =>
+      _id ??= GeneratedColumn<int>('id', aliasedName, false,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedTextColumn _name;
+  GeneratedColumn<String> _name;
   @override
-  GeneratedTextColumn get name => _name ??= _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn(
-      'name',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get name =>
+      _name ??= GeneratedColumn<String>('name', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _ageMeta = const VerificationMeta('age');
-  GeneratedIntColumn _age;
+  GeneratedColumn<int> _age;
   @override
-  GeneratedIntColumn get age => _age ??= _constructAge();
-  GeneratedIntColumn _constructAge() {
-    return GeneratedIntColumn('age', $tableName, false,
-        defaultValue: Constant(0));
-  }
-
+  GeneratedColumn<int> get age =>
+      _age ??= GeneratedColumn<int>('age', aliasedName, false,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          defaultValue: Constant(0));
   final VerificationMeta _roleMeta = const VerificationMeta('role');
-  GeneratedTextColumn _role;
+  GeneratedColumn<String> _role;
   @override
-  GeneratedTextColumn get role => _role ??= _constructRole();
-  GeneratedTextColumn _constructRole() {
-    return GeneratedTextColumn(
-      'role',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get role =>
+      _role ??= GeneratedColumn<String>('role', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [id, name, age, role];
   @override
-  $PersonsMoorTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'persons_moor';
   @override
-  String get $tableName => _alias ?? 'persons_moor';
-  @override
-  final String actualTableName = 'persons_moor';
+  String get actualTableName => 'persons_moor';
   @override
   VerificationContext validateIntegrity(Insertable<PersonsMoorData> instance,
       {bool isInserting = false}) {

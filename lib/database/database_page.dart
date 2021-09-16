@@ -6,7 +6,7 @@ import 'package:flutter_sandbox/database/sembast/model/person_sembast.dart';
 import 'package:flutter_sandbox/database/sembast/person_dao_sembast.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moor_flutter/moor_flutter.dart';
+import 'package:moor/moor.dart';
 import 'package:provider/provider.dart';
 
 import 'moor/moor_database.dart';
