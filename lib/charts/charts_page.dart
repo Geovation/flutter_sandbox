@@ -108,7 +108,7 @@ class _ChartsPageState extends State<ChartsPage> {
         bottomTitles: SideTitles(
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
             color: Colors.deepPurpleAccent,
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -130,7 +130,7 @@ class _ChartsPageState extends State<ChartsPage> {
         ),
         leftTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (context, value) => const TextStyle(
             color: Colors.deepPurpleAccent,
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -474,7 +474,7 @@ class _ChartsPageState extends State<ChartsPage> {
                       show: true,
                       bottomTitles: SideTitles(
                         showTitles: true,
-                        getTextStyles: (value) => const TextStyle(
+                        getTextStyles: (context, value) => const TextStyle(
                             color: Color(0xff7589a2),
                             fontWeight: FontWeight.bold,
                             fontSize: 14),
@@ -502,7 +502,7 @@ class _ChartsPageState extends State<ChartsPage> {
                       ),
                       leftTitles: SideTitles(
                         showTitles: true,
-                        getTextStyles: (value) => const TextStyle(
+                        getTextStyles: (context, value) => const TextStyle(
                             color: Color(0xff7589a2),
                             fontWeight: FontWeight.bold,
                             fontSize: 14),

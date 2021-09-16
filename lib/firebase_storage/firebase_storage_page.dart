@@ -179,8 +179,6 @@ class _FirebaseStoragePageState extends State<FirebaseStoragePage> {
       floatingActionButton: Semantics(
         label: localizations.semFirestoreStoragePgFABButton,
         child: SpeedDial(
-          marginEnd: 18,
-          marginBottom: 20,
           icon: Icons.add,
           activeIcon: Icons.remove,
           buttonSize: 56.0,

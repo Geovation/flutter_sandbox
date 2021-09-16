@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_sandbox/google_ml_kit/face_detection_view.dart';
+import 'package:flutter_sandbox/google_ml_kit/image_labelling_view.dart';
 import 'package:flutter_sandbox/google_ml_kit/text_detection_view.dart';
 import 'package:flutter_sandbox/pageNavigatorCustom.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +74,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage> {
     return (kIsWeb)
         ? Center(
             child: Text(
-              "ML Kit not yet supported on this platform.",
+              localizations.googelMLKitUnsupported,
               style: GoogleFonts.lato(),
             ),
           )
@@ -83,7 +84,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                gradientButton("Barcode Scanner", () {
+                gradientButton(localizations.googMLKitBarcodeScanner, () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -92,7 +93,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage> {
                                 title: localizations.googMLKitBarcodeScanner,
                               )));
                 }),
-                gradientButton("Face Detector", () {
+                gradientButton(localizations.googleMLKitFaceDetector, () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -101,7 +102,7 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage> {
                                 title: localizations.googleMLKitFaceDetector,
                               )));
                 }),
-                gradientButton("Text Detector", () {
+                gradientButton(localizations.googleMLKitTextDetector, () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -109,6 +110,14 @@ class _GoogleMLKitPageState extends State<GoogleMLKitPage> {
                                 cameras: widget.cameras,
                                 title: localizations.googleMLKitTextDetector,
                               )));
+                }),
+                gradientButton(localizations.googleMLKitImageLabeller, () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageLabelView(
+                              cameras: widget.cameras,
+                              title: localizations.googleMLKitImageLabeller)));
                 }),
               ],
             ),
