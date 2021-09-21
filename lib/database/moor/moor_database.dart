@@ -1,4 +1,3 @@
-//import 'package:moor/ffi.dart';
 import 'package:moor/moor.dart';
 
 part 'moor_database.g.dart';

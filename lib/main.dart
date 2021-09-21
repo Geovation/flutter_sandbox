@@ -255,11 +255,7 @@ class _MyAppState extends State<MyApp> {
             create: (_) => AppSettings(currentThemeModeInitialRead)),
         Provider<FirebaseAnalytics>.value(value: analytics),
         ChangeNotifierProvider(create: (_) => PersonDaoSembast()),
-        Provider(
-            create: (_) =>
-                // AppMoorDatabase(kIsWeb ? constructDbWeb() : constructDbNative())
-                //     .personDaoMoor),
-                AppMoorDatabase(constructDb()).personDaoMoor),
+        Provider(create: (_) => AppMoorDatabase(constructDb()).personDaoMoor),
       ],
       builder: (context, child) {
         return MaterialApp(
