@@ -48,7 +48,9 @@ class _DatabasePageState extends State<DatabasePage>
           break;
         case 1:
           fabOnPressed = () {
-            addPersonMoorDB(_personDaoMoor);
+            if (!kIsWeb) {
+              addPersonMoorDB(_personDaoMoor);
+            }
           };
           break;
       }
@@ -357,7 +359,7 @@ class _DatabasePageState extends State<DatabasePage>
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 55,
+        toolbarHeight: 10,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.grey.shade50,

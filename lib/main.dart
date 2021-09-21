@@ -27,6 +27,8 @@ import 'basic_effects/basic_effects_page.dart';
 import 'basic_widget/basic_widget_page.dart';
 import 'camera/camera_page.dart';
 import 'dark_mode/dark_mode_screen.dart';
+import 'database/moor/db_construct/native_construct_moor.dart'
+    if (dart.library.html) 'database/moor/db_construct/web_construct_moor.dart';
 import 'draggable/draggable_page.dart';
 import 'firebase_auth/firebase_auth_login_page.dart';
 import 'firebase_auth/firebase_auth_register_page.dart';
@@ -253,7 +255,11 @@ class _MyAppState extends State<MyApp> {
             create: (_) => AppSettings(currentThemeModeInitialRead)),
         Provider<FirebaseAnalytics>.value(value: analytics),
         ChangeNotifierProvider(create: (_) => PersonDaoSembast()),
-        Provider(create: (_) => AppMoorDatabase().personDaoMoor),
+        Provider(
+            create: (_) =>
+                // AppMoorDatabase(kIsWeb ? constructDbWeb() : constructDbNative())
+                //     .personDaoMoor),
+                AppMoorDatabase(constructDb()).personDaoMoor),
       ],
       builder: (context, child) {
         return MaterialApp(
